@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchBasketData } from '../basket/getBasket'
 import { fetchProductsData } from './getProducts'
 import { addProductToBasket, setBadgeCount } from '../basket/basketSlice';
 import { Card, CardContent, Grid, Typography, Box, Button } from '@mui/material';
@@ -14,6 +15,7 @@ export function Home() {
   const badgeCount = useSelector((state) => state.basket.badgeCount);
   
   
+  
   const cardStyle = {
     display: 'flex',
     flexDirection: 'column',
@@ -21,8 +23,13 @@ export function Home() {
   };
 
   useEffect(() => {
+    const userId = 1
+    console.log(`Home`)
+    dispatch(fetchBasketData(userId));
     dispatch(fetchProductsData());
   }, [dispatch]);
+
+
 
   const handleAddToBasket = (product) => {
       const productExistsInBasket = basketList.find(
@@ -36,7 +43,6 @@ export function Home() {
       // Add popper here
     }
   };
-
 
   const allProducts = products && products.map((item) => (
     <Grid key={item.id} item xs={12} sm={6} md={4} lg={2}>
