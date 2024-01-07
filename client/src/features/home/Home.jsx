@@ -32,21 +32,25 @@ export function Home() {
   }, [dispatch]);
 
 
-  const handleAddToBasket = (product) => {
-      const userId = 1
-      const productId = product.id
-      const quantity = 1
-      const productExistsInBasket = basketList.find(
-      (item) => item.id === product.id
-    );
+  const handleAddToBasket = async (product) => {
+    const userId = 1;
+    const productId = product.id;
+    const quantity = 1;
+
+    const productExistsInBasket = basketList.find((item) => item.id === product.id);
+
     if (!productExistsInBasket) {
-      dispatch(addProductToBasket(userId, productId, quantity));
-    }
-    else {
+      // Dispatch the action to add the product to the basket
+      await dispatch(addProductToBasket(userId, productId, quantity));
+
+      // Fetch the updated basket data after adding the product
+      dispatch(fetchBasketData(userId));
+    } else {
       // Add popper here
-      console.log(`do not add product`)
+      console.log(`do not add product`);
     }
   };
+  
 
   const allProducts = products && products.map((item) => (
     <Grid key={item.id} item xs={12} sm={6} md={4} lg={2}>

@@ -1,4 +1,4 @@
-import { fetchbasketById, addProductToBasketByUserId, getBasketId } from '../../api/api';
+import { fetchbasketById, addProductToBasketByUserId, getBasketId, deleteByBasketId } from '../../api/api';
 import { setBasketList } from './basketSlice';
 
 export const fetchBasketData = (userId) => async (dispatch) => {  
@@ -23,12 +23,17 @@ export const addProductToBasket = (userId, productId, quantity) => async (dispat
 };
 
 
-export const deletProductFromBasket = (userId, productId) => async (dispatch) => {
-  console.log(`delete run`)
+export const deleteProductFromBasket = (userId, productId) => async (dispatch) => {
   try {
     const basketId = await getBasketId(userId, productId);
-    console.log(basketId)
-    } catch (error) {
-    return error
+    if (basketId) {
+      await deleteByBasketId(basketId);
+      const updatedProducts = await fetchbasketById(userId); // Fetch the updated basket data
+      dispatch(setBasketList(updatedProducts));
+    } else {
+      console.log(`No basket id found`);
+    }
+  } catch (error) {
+    console.error('Error deleting product from basket:', error);
   }
 };

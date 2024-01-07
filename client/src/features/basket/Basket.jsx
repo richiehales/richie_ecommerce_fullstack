@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { fetchBasketData, deletProductFromBasket } from './getBasket'
+import { fetchBasketData, deleteProductFromBasket } from './getBasket'
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, CardContent, Grid, Typography, Box, Button } from '@mui/material';
 import Image from 'mui-image';
@@ -19,7 +19,7 @@ export function Basket() {
   const handleRemoveProductFromBasket = (product) => {
     const userId = 1
     const productId = product.id
-    dispatch(deletProductFromBasket(userId, productId))
+    dispatch(deleteProductFromBasket(userId, productId))
   };  
 
   const cardStyle = {

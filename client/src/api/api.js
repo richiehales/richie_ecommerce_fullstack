@@ -114,3 +114,28 @@ export const getBasketId = async (userId, productId) => {
     throw error;
   }
 };
+
+
+// Delete basket item by id
+/*
+Postman - test
+DELETE    http://localhost:3000/cart/updateBasket/delete/1
+*/
+const deleteByBasketIdAPI = 'http://localhost:3000/cart/updateBasket/delete/'
+export const deleteByBasketId = async (basketId) => {
+  try {
+    const response = await fetch(`${deleteByBasketIdAPI}${basketId}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok.');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    // Handle errors, log, or throw as necessary
+    throw error;
+  }
+};
