@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBasketData } from '../basket/getBasket'
 import { fetchProductsData } from './getProducts'
-import { addProductToBasket, setBadgeCount } from '../basket/basketSlice';
+import { addProductToBasket } from '../basket/getBasket'
+import { setBadgeCount } from '../basket/basketSlice';
 import { Card, CardContent, Grid, Typography, Box, Button } from '@mui/material';
 import Image from 'mui-image';
 import shoeImg from './images/shoes1.jpg'
@@ -23,24 +24,39 @@ export function Home() {
   };
 
   useEffect(() => {
-    const userId = 1
-    console.log(`Home`)
-    dispatch(fetchBasketData(userId));
     dispatch(fetchProductsData());
   }, [dispatch]);
 
+  useEffect(() => {
+    const userId = 1
+    dispatch(fetchBasketData(userId));
+  }, [dispatch]);
 
 
+  /*
+Postman - test
+POST    http://localhost:3000/cart/addUserAndProduct
+Body:
+{
+  "userId": 1,
+  "productId": 2,
+  "quantity": 3
+}
+*/
   const handleAddToBasket = (product) => {
+      const userId = 1
+      const productId = product.id
+      const quantity = 1
       const productExistsInBasket = basketList.find(
       (item) => item.id === product.id
     );
     if (!productExistsInBasket) {
-      dispatch(addProductToBasket(product));
-      dispatch(setBadgeCount(badgeCount + 1));
+      console.log(`add product`)
+      dispatch(addProductToBasket(userId, productId, quantity));
     }
     else {
       // Add popper here
+      console.log(`do not add product`)
     }
   };
 

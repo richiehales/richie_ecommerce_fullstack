@@ -17,7 +17,7 @@ export function Basket() {
   }, [dispatch]);
 
   const handleRemoveProductFromBasket = (product) => {
-    dispatch(removeProductFromBasket(product));
+    
   };  
 
   const cardStyle = {

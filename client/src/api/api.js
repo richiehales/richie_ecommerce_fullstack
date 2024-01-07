@@ -36,3 +36,43 @@ export const fetchbasketById = async (id) => {
     throw error;
   }
 };
+
+
+  // Add user to cart_user and product/quantity to basket
+/*
+Postman - test
+POST    http://localhost:3000/cart/addUserAndProduct
+Body:
+{
+  "userId": 1,
+  "productId": 2,
+  "quantity": 3
+}
+*/
+const addProductToBasketByUserIdAPI = `http://localhost:3000/cart/addUserAndProduct`;
+
+export const addProductToBasketByUserId = async (userId, productId, quantity) => {
+  try {
+    const response = await fetch(addProductToBasketByUserIdAPI, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId,
+        productId,
+        quantity,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok.');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    // Handle errors, log, or throw as necessary
+    throw error;
+  }
+};
