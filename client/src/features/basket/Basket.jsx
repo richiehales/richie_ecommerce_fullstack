@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { fetchBasketData } from './getBasket'
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, CardContent, Grid, Typography, Box, Button } from '@mui/material';
-import { removeProductFromBasket } from './basketSlice';
 import Image from 'mui-image';
 import shoeImg from './images/shoes1.jpg'
 

@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProductSearchTerm } from '../home/homeSlice';
-import { setBadgeCount } from '../basket/basketSlice';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -17,7 +16,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import Badge from '@mui/material/Badge';
 
 
@@ -62,11 +61,11 @@ export default function Header() {
   const [searchTerm, setSearchTerm] = useState('');
   const dispatch = useDispatch();
   const productSearchTerm = useSelector((state) => state.product.productSearchTerm);
+  const basketList = useSelector((state) => state.basket.basketList);
   console.log(productSearchTerm) // ******************* Test Redux state change *******************
   const linkRef = useRef();
   const navigate = useNavigate();
-  const badgeCount = useSelector((state) => state.basket.badgeCount);
- 
+   
   const onSearchChanged = (e) => setSearchTerm(e.target.value);
 
   const onSearchClicked = () => {
@@ -89,9 +88,7 @@ export default function Header() {
     }
   };
 
-  const resetBadgeCount = () => {
-    dispatch(setBadgeCount(0))
-  }
+ 
   
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -106,7 +103,6 @@ export default function Header() {
 
   const watchlistHandleClose = () => {
     setAnchorEl(null);
-    dispatch(setBadgeCount(0))
   };
 
   return (
@@ -162,9 +158,9 @@ export default function Header() {
           </Typography>
           <Link
                 to="/WatchList">
-          <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={resetBadgeCount}>
-            <Badge badgeContent={badgeCount} color="error">
-              <OndemandVideoIcon />
+          <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+            <Badge badgeContent={basketList.length} color="error">
+              <ShoppingBasketIcon />
             </Badge>
           </IconButton>
           </Link>

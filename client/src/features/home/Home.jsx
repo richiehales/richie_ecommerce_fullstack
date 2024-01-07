@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchBasketData } from '../basket/getBasket'
 import { fetchProductsData } from './getProducts'
 import { addProductToBasket } from '../basket/getBasket'
-import { setBadgeCount } from '../basket/basketSlice';
 import { Card, CardContent, Grid, Typography, Box, Button } from '@mui/material';
 import Image from 'mui-image';
 import shoeImg from './images/shoes1.jpg'
@@ -13,7 +12,6 @@ export function Home() {
   const products = useSelector((state) => state.product.products);
   const productSearchTerm = useSelector((state) => state.product.productSearchTerm);
   const basketList = useSelector((state) => state.basket.basketList);
-  const badgeCount = useSelector((state) => state.basket.badgeCount);
   
   
   
@@ -27,22 +25,13 @@ export function Home() {
     dispatch(fetchProductsData());
   }, [dispatch]);
 
+
   useEffect(() => {
     const userId = 1
     dispatch(fetchBasketData(userId));
   }, [dispatch]);
 
 
-  /*
-Postman - test
-POST    http://localhost:3000/cart/addUserAndProduct
-Body:
-{
-  "userId": 1,
-  "productId": 2,
-  "quantity": 3
-}
-*/
   const handleAddToBasket = (product) => {
       const userId = 1
       const productId = product.id
