@@ -115,14 +115,6 @@ cartRouter.delete('/updateBasket/delete/:id', async (req, res) => {
   }
 });
 
- /*
-  SELECT basket.id AS basket_id
-  FROM basket
-  JOIN cart_user ON basket.cart_id = cart_user.id
-  WHERE cart_user.user_id = 1
-    AND basket.product_id = 7;
-  */
-
 // Get basket id with user id and item id
 /*
 Postman - test

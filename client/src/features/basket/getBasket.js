@@ -1,4 +1,4 @@
-import { fetchbasketById, addProductToBasketByUserId } from '../../api/api';
+import { fetchbasketById, addProductToBasketByUserId, getBasketId } from '../../api/api';
 import { setBasketList } from './basketSlice';
 
 export const fetchBasketData = (userId) => async (dispatch) => {  
@@ -18,6 +18,17 @@ export const addProductToBasket = (userId, productId, quantity) => async (dispat
     console.log(products)
     dispatch(setBasketList(products)); // Assuming setBasketList updates the basketList in your Redux store
   } catch (error) {
+    return error
+  }
+};
+
+
+export const deletProductFromBasket = (userId, productId) => async (dispatch) => {
+  console.log(`delete run`)
+  try {
+    const basketId = await getBasketId(userId, productId);
+    console.log(basketId)
+    } catch (error) {
     return error
   }
 };
