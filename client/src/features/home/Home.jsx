@@ -40,7 +40,6 @@ export function Home() {
       (item) => item.id === product.id
     );
     if (!productExistsInBasket) {
-      console.log(`add product`)
       dispatch(addProductToBasket(userId, productId, quantity));
     }
     else {
