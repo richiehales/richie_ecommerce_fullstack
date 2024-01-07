@@ -115,6 +115,46 @@ cartRouter.delete('/updateBasket/delete/:id', async (req, res) => {
   }
 });
 
+ /*
+  SELECT basket.id AS basket_id
+  FROM basket
+  JOIN cart_user ON basket.cart_id = cart_user.id
+  WHERE cart_user.user_id = 1
+    AND basket.product_id = 7;
+  */
+
+// Get basket id with user id and item id
+/*
+Postman - test
+POST    http://localhost:3000/cart/getBasketId
+Body:
+{
+  "userId": 1,
+  "productId": 7
+}
+*/
+cartRouter.post('/getBasketId', async (req, res) => {
+  try {
+    const { userId, productId } = req.body;
+
+    if (!userId || !productId) {
+      return res.status(400).send('Please provide userId and productId in the request body.');
+    }
+
+    const basketIdResult = await cartInstance.getBasketId(userId, productId);
+
+    if (basketIdResult && basketIdResult.rows.length > 0) {
+      const basketId = basketIdResult.rows[0].basket_id;
+      res.send(basketId.toString()); // Return the basketId as a string in the response
+    } else {
+      res.status(404).send('Basket id not found');
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+
 
 
 module.exports = cartRouter;

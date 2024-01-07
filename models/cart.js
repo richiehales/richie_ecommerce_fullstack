@@ -101,6 +101,27 @@ async function deleteCartItemById(data) {
   }
 }
 
+// Add user to cart and product to cart_product
+async function getBasketId(userId, productId) {
+  console.log(`userId = ${userId}`)
+  console.log(`productId = ${productId}`)
+  try {
+    // Insert into cart if not exists
+    const basketId = await query(`
+      SELECT basket.id AS basket_id
+      FROM basket
+      JOIN cart_user ON basket.cart_id = cart_user.id
+      WHERE cart_user.user_id = $1
+        AND basket.product_id = $2;
+    `, [userId, productId]);
+    
+    console.log('BasketId Result:', basketId);
+    return basketId
+  } catch (error) {
+    throw error.stack;
+  }
+}
+
 
 module.exports = {
   getAllBaskets,
@@ -108,5 +129,6 @@ module.exports = {
   addUserAndProduct,
   updateBasketById,
   deleteCartItemById,
-  updateBasketById
+  updateBasketById,
+  getBasketId
 };
