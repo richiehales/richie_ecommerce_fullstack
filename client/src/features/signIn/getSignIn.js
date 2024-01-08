@@ -2,12 +2,12 @@ import { setCurrentUser } from './currentUserSlice';
 import { getUserByEmail } from '../../api/api';
 import { fetchBasketData } from '../basket/getBasket'
 
-export const fetchUser = (email) => async (dispatch) => {  
+export const fetchUser = (email, password) => async (dispatch) => {  
   try {
     const users = await getUserByEmail(email);
-    
-    if (users.length > 0) {
-      const user = users[0];
+    const user = users[0];
+    if (users.length > 0 & user.password === password) {
+      
       dispatch(setCurrentUser(user));
       dispatch(fetchBasketData(user.id));   
     } else {
