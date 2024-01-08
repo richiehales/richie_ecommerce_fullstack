@@ -13,8 +13,7 @@ export function Home() {
   const productSearchTerm = useSelector((state) => state.product.productSearchTerm);
   const basketList = useSelector((state) => state.basket.basketList);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
-  console.log(`Home Rendered`)
-  
+    
   
   const cardStyle = {
     display: 'flex',

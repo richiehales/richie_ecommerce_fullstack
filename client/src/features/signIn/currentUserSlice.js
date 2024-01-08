@@ -5,8 +5,8 @@ const initialState = {
     id: 1,
     password: 'password1',
     email: 'user1@example.com',
-    firstName: 'John',
-    lastName: 'Doe',
+    first_name: 'John',
+    last_name: 'Doe',
   },
 };
 

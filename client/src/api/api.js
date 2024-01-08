@@ -139,3 +139,22 @@ export const deleteByBasketId = async (basketId) => {
     throw error;
   }
 };
+
+
+// Get user by email
+// http://localhost:3000/user/email/user2@example.com
+const getUserByEmailAPI = 'http://localhost:3000/user/email/'
+export const getUserByEmail = async (email) => {
+  const userEmail = email
+  try {
+    const response = await fetch(`${getUserByEmailAPI}${userEmail}`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok.');
+    }
+    const data = await response.json(); 
+    return data;
+  } catch (error) {
+    // Handle errors, log, or throw as necessary  
+    throw error;
+  }
+};

@@ -63,7 +63,8 @@ export default function Header() {
   const dispatch = useDispatch();
   const productSearchTerm = useSelector((state) => state.product.productSearchTerm);
   const basketList = useSelector((state) => state.basket.basketList);
-  const firstLetterOfFirstName = useSelector((state) => state.currentUser.currentUser.firstName.charAt(0));
+  const firstName = useSelector((state) => state.currentUser.currentUser.first_name);
+  const firstLetterOfFirstName = firstName ? firstName.charAt(0) : null;
   console.log(productSearchTerm) // ******************* Test Redux state change *******************
   const linkRef = useRef();
   const navigate = useNavigate();
@@ -156,7 +157,7 @@ export default function Header() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >            
-            Movie Finder          
+            Richie Running Kit        
           </Typography>
           <Link
                 to="/SignIn">

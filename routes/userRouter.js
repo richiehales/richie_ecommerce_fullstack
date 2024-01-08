@@ -36,7 +36,7 @@ userRouter.get('/:id', async (req, res) => {
 // http://localhost:3000/user/email/user2@example.com
 userRouter.get('/email/:email', async (req, res) => {
   let email = req.params.email;
-
+ 
   try {
       const user = await userInstance.getUserByEmail(email);
       if(user.length === 0) return res.status(404).send('User does not exist');
