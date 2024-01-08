@@ -5,6 +5,10 @@ import Footer from './features/footer/Footer'
 // import Home from './features/home/Home';
 import { Home } from './features/home/Home';
 import { Basket } from './features/basket/Basket';
+import SignIn from './features/signIn/SignIn';
+import SignUp from './features/signUp/SignUp';
+import Checkout from './features/checkout/Checkout';
+
 
 
 function App() {
@@ -13,7 +17,10 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={ <Home /> } />
-        <Route path="/WatchList" element={ <Basket /> } />
+        <Route path="/Basket" element={ <Basket /> } />
+        <Route path="/SignIn" element={ <SignIn /> } />
+        <Route path="/SignUp" element={ <SignUp /> }/>
+        <Route path="/Checkout" element={ <Checkout /> }/>
       </Routes> 
       <Footer />      
     </>

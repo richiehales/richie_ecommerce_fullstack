@@ -12,7 +12,8 @@ export function Home() {
   const products = useSelector((state) => state.product.products);
   const productSearchTerm = useSelector((state) => state.product.productSearchTerm);
   const basketList = useSelector((state) => state.basket.basketList);
-  
+  const currentUser = useSelector((state) => state.currentUser.currentUser);
+  console.log(`Home Rendered`)
   
   
   const cardStyle = {
@@ -27,13 +28,13 @@ export function Home() {
 
 
   useEffect(() => {
-    const userId = 1
+    const userId = currentUser.id
     dispatch(fetchBasketData(userId));
-  }, [dispatch]);
+  }, [dispatch, currentUser.id]);
 
 
   const handleAddToBasket = async (product) => {
-    const userId = 1;
+    const userId = currentUser.id;
     const productId = product.id;
     const quantity = 1;
 

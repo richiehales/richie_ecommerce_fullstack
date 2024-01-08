@@ -16,7 +16,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Badge from '@mui/material/Badge';
 
 
@@ -62,6 +63,7 @@ export default function Header() {
   const dispatch = useDispatch();
   const productSearchTerm = useSelector((state) => state.product.productSearchTerm);
   const basketList = useSelector((state) => state.basket.basketList);
+  const firstLetterOfFirstName = useSelector((state) => state.currentUser.currentUser.firstName.charAt(0));
   console.log(productSearchTerm) // ******************* Test Redux state change *******************
   const linkRef = useRef();
   const navigate = useNavigate();
@@ -141,7 +143,7 @@ export default function Header() {
                 </Button>
               </Link>
               <Link
-                to="/WatchList">
+                to="/Basket">
                 <Button> 
                   <MenuItem onClick={watchlistHandleClose}>Basket</MenuItem>
                 </Button>
@@ -157,10 +159,18 @@ export default function Header() {
             Movie Finder          
           </Typography>
           <Link
-                to="/WatchList">
+                to="/SignIn">
+          <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+            <Badge badgeContent={firstLetterOfFirstName} invisible={!firstLetterOfFirstName} color="primary">
+              <AccountCircleIcon />
+            </Badge>
+          </IconButton>
+          </Link>
+          <Link
+                to="/Basket">
           <IconButton size="large" aria-label="show 4 new mails" color="inherit">
             <Badge badgeContent={basketList.length} color="error">
-              <ShoppingBasketIcon />
+              <ShoppingCartIcon />
             </Badge>
           </IconButton>
           </Link>

@@ -9,15 +9,16 @@ import shoeImg from './images/shoes1.jpg'
 export function Basket() {
   const dispatch = useDispatch();
   const basketList = useSelector((state) => state.basket.basketList);
+  const currentUser = useSelector((state) => state.currentUser.currentUser);
   
   useEffect(() => {
-    const userId = 1
+    const userId = currentUser.id
     dispatch(fetchBasketData(userId));
-  }, [dispatch]);
+  }, [dispatch, currentUser.id]);
 
 
   const handleRemoveProductFromBasket = (product) => {
-    const userId = 1
+    const userId = currentUser.id
     const productId = product.id
     dispatch(deleteProductFromBasket(userId, productId))
   };  
