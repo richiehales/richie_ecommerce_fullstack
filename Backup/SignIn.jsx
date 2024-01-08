@@ -35,19 +35,14 @@ const defaultTheme = createTheme();
 export default function SignIn() {
   const dispatch = useDispatch();
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const email = data.get('email');
-    const password = data.get('password');
-  
-    try {
-      await dispatch(fetchUser(email, password));
-      // Redirect or perform additional actions upon successful login
-    } catch (error) {
-      // Handle errors, e.g., show error message to the user
-      console.error('Error during login:', error);
-    }
+    const email = data.get('email')
+    const password = data.get('password')
+    console.log(email)
+    console.log(password)
+    dispatch(fetchUser(email, password))
   };
 
   return (

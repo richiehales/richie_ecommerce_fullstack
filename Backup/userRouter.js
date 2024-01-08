@@ -32,36 +32,19 @@ userRouter.get('/:id', async (req, res) => {
 })
 
 
-// Get user by email and check password
-// http://localhost:3000/user/email/
-/*
-Postman - test
-POST    http://localhost:3000/user/email/
-Body: {"email":"user1@example.com","password":"password1"}
-*/
-userRouter.post('/email', async (req, res) => {
-  const { email, password } = req.body;
-
+// Get user by email
+// http://localhost:3000/user/email/user2@example.com
+userRouter.get('/email/:email', async (req, res) => {
+  let email = req.params.email;
+ 
   try {
-    const users = await userInstance.getUserByEmail(email);
-
-    if (users.length === 0) {
-      return res.status(404).send('User does not exist');
-    }
-
-    const user = users[0];
-
-    if (user.password !== password) {
-      return res.status(401).send('Incorrect password');
-    }
-
-    res.json(user);
-
-  } catch (err) {
-    res.status(400).send(err);
+      const user = await userInstance.getUserByEmail(email);
+      if(user.length === 0) return res.status(404).send('User does not exist');
+      res.json(user);
+  } catch(err) {
+      res.status(400).send(err);
   }
-});
-
+})
 
 
 // Delete user by id

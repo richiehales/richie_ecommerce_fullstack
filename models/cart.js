@@ -103,8 +103,6 @@ async function deleteCartItemById(data) {
 
 // Add user to cart and product to cart_product
 async function getBasketId(userId, productId) {
-  console.log(`userId = ${userId}`)
-  console.log(`productId = ${productId}`)
   try {
     // Insert into cart if not exists
     const basketId = await query(`
@@ -115,7 +113,6 @@ async function getBasketId(userId, productId) {
         AND basket.product_id = $2;
     `, [userId, productId]);
     
-    console.log('BasketId Result:', basketId);
     return basketId
   } catch (error) {
     throw error.stack;

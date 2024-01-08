@@ -141,20 +141,36 @@ export const deleteByBasketId = async (basketId) => {
 };
 
 
-// Get user by email
-// http://localhost:3000/user/email/user2@example.com
-const getUserByEmailAPI = 'http://localhost:3000/user/email/'
-export const getUserByEmail = async (email) => {
-  const userEmail = email
+// Get user by email and check password
+// http://localhost:3000/user/email/
+/*
+Postman - test
+POST    http://localhost:3000/user/email/
+Body: {"email":"user1@example.com","password":"password1"}
+*/
+const getUserByEmailAPI = 'http://localhost:3000/user/email/';
+export const getUserByEmail = async (email, password) => {
   try {
-    const response = await fetch(`${getUserByEmailAPI}${userEmail}`);
+    const response = await fetch(getUserByEmailAPI, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
     if (!response.ok) {
       throw new Error('Network response was not ok.');
     }
-    const data = await response.json(); 
+    
+    const data = await response.json();
+
     return data;
   } catch (error) {
-    // Handle errors, log, or throw as necessary  
+    // Handle errors, log, or throw as necessary
     throw error;
   }
 };

@@ -95,7 +95,6 @@ Postman - test
 DELETE    http://localhost:3000/cart/updateBasket/delete/2
 */
 cartRouter.delete('/updateBasket/delete/:id', async (req, res) => {
-  console.log("delete request received in cartRouter.js")
   let id = req.params.id;
 
   try {
