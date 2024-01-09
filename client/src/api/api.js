@@ -163,7 +163,7 @@ export const getUserByEmail = async (email, password) => {
     });
 
     if (!response.ok) {
-      throw new Error('Network response was not ok.');
+      throw new Error('Network response was not ok - api.js.');
     }
     
     const data = await response.json();

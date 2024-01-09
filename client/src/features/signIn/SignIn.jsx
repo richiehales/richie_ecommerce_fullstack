@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { fetchUser } from './getSignIn'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
@@ -36,6 +36,17 @@ const defaultTheme = createTheme();
 export default function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const authenticated = useSelector((state) => state.currentUser.authenticated);
+
+  useEffect(() => {
+    // This effect will run whenever 'authenticated' changes
+    if (authenticated) {
+      // If authenticated is true, navigate to '/'
+      navigate('/');
+    }
+    // You can add more conditions or actions based on 'authenticated' if needed
+  }, [authenticated, navigate]);
+  
   
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -46,7 +57,9 @@ export default function SignIn() {
     dispatch(fetchUser(email, password))
       .then(() => {
         // Redirect or perform additional actions upon successful login
-        navigate('/');
+        console.log(`SignIn.jsx`)
+        console.log(authenticated)
+        
       })
       .catch((error) => {
         // Handle errors, e.g., show error message to the user
