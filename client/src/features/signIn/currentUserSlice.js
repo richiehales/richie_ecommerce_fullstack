@@ -8,6 +8,7 @@ const initialState = {
     first_name: 'John',
     last_name: 'Doe',
   },
+  authenticated: false,
 };
 
 export const currentUserSlice = createSlice({
@@ -17,8 +18,11 @@ export const currentUserSlice = createSlice({
     setCurrentUser: (state, action) => {
       state.currentUser = action.payload;
     },
+    setAuthenticated: (state, action) => {
+      state.authenticated = action.payload;
+    },
   },
 });
 
-export const { setCurrentUser } = currentUserSlice.actions;
+export const { setCurrentUser, setAuthenticated } = currentUserSlice.actions;
 export default currentUserSlice.reducer;

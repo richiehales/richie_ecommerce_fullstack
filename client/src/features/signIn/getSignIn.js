@@ -1,5 +1,5 @@
 // getSignIn.js
-import { setCurrentUser } from './currentUserSlice';
+import { setCurrentUser, setAuthenticated } from './currentUserSlice';
 import { getUserByEmail } from '../../api/api';
 import { fetchBasketData } from '../basket/getBasket';
 
@@ -13,6 +13,7 @@ export const fetchUser = (email, password) => async (dispatch) => {
 
       if (user.password === password) {
         dispatch(setCurrentUser(user));
+        dispatch(setAuthenticated(true));
         dispatch(fetchBasketData(user.id));
       } else {
         console.error('Invalid login credentials');
