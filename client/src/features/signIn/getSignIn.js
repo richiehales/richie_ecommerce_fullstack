@@ -6,7 +6,6 @@ import { fetchBasketData } from '../basket/getBasket';
 export const fetchUser = (email, password) => async (dispatch) => {
   try {
     const users = await getUserByEmail(email, password);
-    
 
     if (users) {
       const user = users;
@@ -15,8 +14,10 @@ export const fetchUser = (email, password) => async (dispatch) => {
         dispatch(setCurrentUser(user));
         dispatch(setAuthenticated(true));
         dispatch(fetchBasketData(user.id));
+
+        // Return the user data or any other result
+        return user;
       } else {
-        
         console.error('Invalid login credentials');
       }
     } else {
@@ -24,6 +25,7 @@ export const fetchUser = (email, password) => async (dispatch) => {
       console.error('User not found');
     }
   } catch (error) {
-    console.error('Error fetching user data:', error);
+    console.error('getSignIn.js - Error fetching user data:', error);
+    throw error; // Rethrow the error to be caught in the handleSubmit function
   }
 };

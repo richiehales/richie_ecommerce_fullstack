@@ -14,6 +14,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { fetchUser } from './getSignIn';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentUser, setAuthenticated } from './currentUserSlice';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -32,22 +33,32 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const authenticated = useSelector((state) => state.currentUser.authenticated);
+  const firstName = useSelector((state) => state.currentUser.currentUser.first_name);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
     const password = data.get('password');
-
+  
     dispatch(fetchUser(email, password))
-      .then(() => {
-        // Redirect or perform additional actions upon successful login       
+      .then((result) => {
+        // Here, 'result' contains the resolved value of the fetchUser action
+        console.log('SignIn.jsx - Result of fetchUser action:', result);
+  
+        // Redirect or perform additional actions upon successful login
       })
       .catch((error) => {
         // Handle errors, e.g., show error message to the user
-        console.error('Error during login:', error);
+        console.error('SignIn.js Error during login:', error);
       });
+  };
+
+  const handleViewProducts = () => {
+    // Use navigate to redirect to the home route '/'
+    navigate('/');
   };
 
   const handleSignOut = () => {
@@ -78,8 +89,16 @@ export default function SignIn() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Welcome User
+              Welcome {firstName}
             </Typography>
+            <Button
+              onClick={handleViewProducts}
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              View Products
+            </Button>
             <Button
               onClick={handleSignOut}
               fullWidth
