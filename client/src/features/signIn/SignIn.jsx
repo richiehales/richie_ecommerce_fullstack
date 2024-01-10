@@ -14,6 +14,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { fetchUser } from './getSignIn';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentUser, setAuthenticated } from './currentUserSlice';
+import { setBasketList } from '../basket/basketSlice';
 import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
@@ -66,6 +67,7 @@ export default function SignIn() {
       first_name: '',
       last_name: '',
     }));
+    dispatch(setBasketList(``))
   };
 
   return (
