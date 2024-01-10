@@ -47,18 +47,12 @@ export default function SignUp() {
     
     dispatch(addNewUser(firstName, lastName, password, email))
       .then((result) => {
-        // Here, 'result' contains the resolved value of the fetchUser action
-        console.log('SignUp.jsx - Result of fetchUser action:', result);
-        console.log(result.success)
+                
         if (result.success === true) {
-          console.log(`SignUp.jsx - Sign Up success`)
-          navigate('/SignIn');
-        }
-          
-        // Redirect or perform additional actions upon successful login
+           navigate('/SignIn');
+        }          
       })
       .catch((error) => {
-        // Handle errors, e.g., show error message to the user
         console.error('SignIn.js Error during login:', error);
       });
   };
