@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { addNewUser } from './getSignUp';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -34,6 +35,7 @@ const defaultTheme = createTheme();
 
 export default function SignUp() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -47,6 +49,11 @@ export default function SignUp() {
       .then((result) => {
         // Here, 'result' contains the resolved value of the fetchUser action
         console.log('SignUp.jsx - Result of fetchUser action:', result);
+        console.log(result.success)
+        if (result.success === true) {
+          console.log(`SignUp.jsx - Sign Up success`)
+          navigate('/SignIn');
+        }
           
         // Redirect or perform additional actions upon successful login
       })
