@@ -45,10 +45,7 @@ export default function SignIn() {
   
     dispatch(fetchUser(email, password))
       .then((result) => {
-        // Here, 'result' contains the resolved value of the fetchUser action
-        console.log('SignIn.jsx - Result of fetchUser action:', result);
-  
-        // Redirect or perform additional actions upon successful login
+        console.log('SignIn.jsx - Result of fetchUser action:', result);        
       })
       .catch((error) => {
         // Handle errors, e.g., show error message to the user
@@ -57,7 +54,6 @@ export default function SignIn() {
   };
 
   const handleViewProducts = () => {
-    // Use navigate to redirect to the home route '/'
     navigate('/');
   };
 
