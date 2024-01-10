@@ -174,3 +174,40 @@ export const getUserByEmail = async (email, password) => {
     throw error;
   }
 };
+
+
+// Add / Register user to user_info table (Also in loginRouter - with HTML in views)
+/*
+Postman - test
+POST    http://localhost:3000/user/registerUser
+Body: { "password": "password4", "email": "user4@example.com", "first_name": "Richie", "last_name": "Hales" }
+*/
+const addUserAPI = 'http://localhost:3000/user/registerUser';
+export const addUser = async (first_name, last_name, password, email) => {
+  try {
+    const response = await fetch(addUserAPI, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        password,
+        email,
+        first_name,
+        last_name,           
+      }),
+    });
+
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok - api.js.');
+    }
+    
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    // Handle errors, log, or throw as necessary
+    throw error;
+  }
+};

@@ -12,6 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { addNewUser } from './getSignUp';
+import { useDispatch } from 'react-redux';
 
 function Copyright(props) {
   return (
@@ -31,13 +33,27 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignUp() {
+  const dispatch = useDispatch();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const firstName = data.get('firstName')
+    const lastName = data.get('lastName')
+    const email = data.get('email')
+    const password = data.get('password')
+    
+    dispatch(addNewUser(firstName, lastName, password, email))
+      .then((result) => {
+        // Here, 'result' contains the resolved value of the fetchUser action
+        console.log('SignUp.jsx - Result of fetchUser action:', result);
+          
+        // Redirect or perform additional actions upon successful login
+      })
+      .catch((error) => {
+        // Handle errors, e.g., show error message to the user
+        console.error('SignIn.js Error during login:', error);
+      });
   };
 
   return (
