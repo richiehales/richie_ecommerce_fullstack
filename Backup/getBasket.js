@@ -15,13 +15,8 @@ export const fetchBasketData = (userId) => async (dispatch) => {
 export const addProductToBasket = (userId, productId, quantity) => async (dispatch) => {
   try {
     const products = await addProductToBasketByUserId(userId, productId, quantity);
-    console.log('getBasket.js - after')
-    console.log(products)
     dispatch(setBasketList(products)); // Assuming setBasketList updates the basketList in your Redux store
-    return products
   } catch (error) {
-    console.log('getBasket.js - error')
-    console.error(error)
     return error
   }
 };

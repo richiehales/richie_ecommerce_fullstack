@@ -65,6 +65,7 @@ export const addProductToBasketByUserId = async (userId, productId, quantity) =>
       }),
     });
 
+    
     if (!response.ok) {
       throw new Error('Network response was not ok.');
     }
@@ -73,6 +74,7 @@ export const addProductToBasketByUserId = async (userId, productId, quantity) =>
     return data;
   } catch (error) {
     // Handle errors, log, or throw as necessary
+    console.error('Error in addProductToBasketByUserId:', error);
     throw error;
   }
 };

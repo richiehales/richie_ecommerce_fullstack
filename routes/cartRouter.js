@@ -47,13 +47,13 @@ cartRouter.post('/addUserAndProduct', async (req, res) => {
     const { userId, productId, quantity } = req.body;
 
     if (!userId || !productId || !quantity) {
-      return res.status(400).send('Please provide userId, productId, and quantity in the request body.');
+      return res.status(400).json({ error: 'Please provide userId, productId, and quantity in the request body.' });
     }
 
     await cartInstance.addUserAndProduct(userId, productId, quantity);
-    res.send('Successfully inserted into cart and cart_product.');
+    res.json({ success: true, message: 'Successfully inserted into cart and cart_product.' });
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).json({ error: error.message || 'Internal Server Error' });
   }
 });
 
