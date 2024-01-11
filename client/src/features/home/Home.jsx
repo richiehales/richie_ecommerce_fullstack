@@ -6,6 +6,9 @@ import { addProductToBasket } from '../basket/getBasket'
 import { Card, CardContent, Grid, Typography, Box, Button } from '@mui/material';
 import Image from 'mui-image';
 import shoeImg from './images/shoes1.jpg'
+import Stack from "@mui/material/Stack";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 export function Home() {
   const dispatch = useDispatch();
@@ -13,6 +16,7 @@ export function Home() {
   const productSearchTerm = useSelector((state) => state.product.productSearchTerm);
   const basketList = useSelector((state) => state.basket.basketList);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
+  const [open, setOpen] = React.useState(false);
     
   
   const cardStyle = {
@@ -55,7 +59,22 @@ export function Home() {
       // Add popper here
       console.log("do not add product");
     }
+    setOpen(true);
   };
+
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
   
 
   const allProducts = products && products.map((item) => (
@@ -70,13 +89,20 @@ export function Home() {
             {item.description}
           </Typography>
           <Typography color="textSecondary">
-          {`Price: ${item.price}`}
+            {`Price: ${item.price}`}
           </Typography>
-          <Button 
-            variant="contained"  
-            onClick={() => handleAddToBasket(item)}>
-              Add To Basket
-          </Button>
+          <Stack spacing={2} sx={{ width: "100%" }}>
+            <Button 
+              variant="contained"  
+              onClick={() => handleAddToBasket(item)}>
+                Add To Basket
+            </Button>
+            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="warning" sx={{ width: "100%" }}>
+                This is a success message!
+              </Alert>
+            </Snackbar>
+          </Stack>
         </CardContent>
       </Card>
     </Grid>

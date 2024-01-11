@@ -32,22 +32,28 @@ export function Home() {
   }, [dispatch, currentUser.id]);
 
 
-  const handleAddToBasket = async (product) => {
+  const handleAddToBasket = (product) => {
     const userId = currentUser.id;
     const productId = product.id;
     const quantity = 1;
-
+  
     const productExistsInBasket = basketList.find((item) => item.id === product.id);
-
+  
     if (!productExistsInBasket) {
       // Dispatch the action to add the product to the basket
-      await dispatch(addProductToBasket(userId, productId, quantity));
-
-      // Fetch the updated basket data after adding the product
-      dispatch(fetchBasketData(userId));
+      dispatch(addProductToBasket(userId, productId, quantity))
+        .then(() => {
+          console.log('Home.jsx', products);
+  
+          // Fetch the updated basket data after adding the product
+          dispatch(fetchBasketData(userId));
+        })
+        .catch((error) => {
+          console.error("Error adding product to basket:", error);
+        });
     } else {
       // Add popper here
-      console.log(`do not add product`);
+      console.log("do not add product");
     }
   };
   
