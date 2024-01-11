@@ -64,7 +64,6 @@ export default function Header() {
   const productSearchTerm = useSelector((state) => state.product.productSearchTerm);
   const basketList = useSelector((state) => state.basket.basketList);
   const firstName = useSelector((state) => state.currentUser.currentUser.first_name);
-  const authenticated = useSelector((state) => state.currentUser.authenticated);
   const firstLetterOfFirstName = firstName ? firstName.charAt(0) : null;
   console.log(productSearchTerm) // ******************* Test Redux state change *******************
   const linkRef = useRef();
