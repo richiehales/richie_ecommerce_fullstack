@@ -83,7 +83,6 @@ export function Home() {
     if (reason === "clickaway") {
       return;
     }
-
     setOpen(false);
   };
 

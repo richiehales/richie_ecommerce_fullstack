@@ -1,15 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { fetchBasketData, deleteProductFromBasket } from './getBasket'
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, CardContent, Grid, Typography, Box, Button } from '@mui/material';
 import Image from 'mui-image';
 import shoeImg from './images/shoes1.jpg'
+import Stack from "@mui/material/Stack";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 
 export function Basket() {
   const dispatch = useDispatch();
+  const [open, setOpen] = React.useState(false);
+  const [notificationType, setNotificationType] = useState('error')
+  const [notificationMessage, setNotificationMessage] = useState('')
   const basketList = useSelector((state) => state.basket.basketList);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
+  
   
   useEffect(() => {
     const userId = currentUser.id
@@ -24,11 +31,15 @@ export function Basket() {
     dispatch(deleteProductFromBasket(userId, productId))
       .then((deletedProduct) => {
         console.log('Basket.jsx', deletedProduct);
-        // Do additional logic if needed
+        setNotificationType('success')
+        setNotificationMessage('Item removed')
       })
       .catch((error) => {
         console.error('Error removing product from basket:', error);
       });
+      setTimeout(() => {
+        setOpen(true);
+      }, 250);
   };
 
   const cardStyle = {
@@ -36,6 +47,18 @@ export function Basket() {
     flexDirection: 'column',
     height: '100%', // Ensures all cards have the same height
   };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
 
   const watchList = basketList && basketList.map((item) => (
@@ -52,11 +75,18 @@ export function Basket() {
           <Typography color="textSecondary">
             {`Price: ${item.price}`}
           </Typography>
-          <Button 
-            variant="contained"  
-            onClick={() => handleRemoveProductFromBasket(item)}>
-              Remove
-          </Button>
+          <Stack spacing={2} sx={{ width: "100%" }}>
+            <Button 
+              variant="contained"  
+              onClick={() => handleRemoveProductFromBasket(item)}>
+                Remove
+            </Button>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
+              <Alert onClose={handleClose} severity={notificationType} sx={{ width: "100%" }}>
+                {notificationMessage}
+              </Alert>
+            </Snackbar>
+          </Stack>
         </CardContent>
       </Card>
     </Grid>
