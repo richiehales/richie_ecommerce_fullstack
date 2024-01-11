@@ -1,9 +1,5 @@
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Popper from '@mui/material/Popper';
-import PopupState, { bindToggle, bindPopper } from 'material-ui-popup-state';
-import Fade from '@mui/material/Fade';
-import Paper from '@mui/material/Paper';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -20,8 +16,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentUser, setAuthenticated } from './currentUserSlice';
 import { setBasketList } from '../basket/basketSlice';
 import { useNavigate } from 'react-router-dom';
-
-
+import  PopperPopupState from './Popper'
+ 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -42,7 +38,7 @@ export default function SignIn() {
   const navigate = useNavigate();
   const authenticated = useSelector((state) => state.currentUser.authenticated);
   const firstName = useSelector((state) => state.currentUser.currentUser.first_name);
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -151,30 +147,15 @@ export default function SignIn() {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <PopupState variant="popper" popupId="demo-popup-popper">
-                    {(popupState) => (
-                      <div>
-                        <Button
-                          type="submit"
-                          {...bindToggle(popupState)}
-                          fullWidth
-                          variant="contained"
-                          sx={{ mt: 3, mb: 2 }}
-                        >
-                          Sign In
-                        </Button>
-                        <Popper {...bindPopper(popupState)} transition>
-                          {({ TransitionProps }) => (
-                            <Fade {...TransitionProps} timeout={350}>
-                              <Paper>
-                                <Typography sx={{ p: 2 }}>Email or password incorrect</Typography>
-                              </Paper>
-                            </Fade>
-                          )}
-                        </Popper>                       
-                      </div>
-                    )}
-              </PopupState>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign In
+              </Button>
+              <PopperPopupState />
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
