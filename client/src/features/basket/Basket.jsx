@@ -61,7 +61,7 @@ export function Basket() {
   });
 
 
-  const watchList = basketList && basketList.map((item) => (
+  const currentBasketItems = basketList && basketList.map((item) => (
     <Grid key={item.id} item xs={12} sm={6} md={4} lg={2}>
       <Card style={cardStyle}>
         <Image src={shoeImg} alt='Film Poster' />
@@ -97,12 +97,12 @@ export function Basket() {
     <div>
       <Grid container spacing={2} justifyContent="center" alignItems="center" item xs={12} sm={6} md={12}>
         <Typography variant="h4" component="div">
-          Basket
+          {basketList.length > 0 ? 'Current Basket Items' : 'Basket Is Empty'}
         </Typography>
       </Grid>
-      <Box mb={2} />
+      <Box mb={2} /> 
       <Grid container spacing={2} item xs={12} sm={6} md={12}>
-        {watchList}
+        {currentBasketItems}
       </Grid>
     </div>
   );

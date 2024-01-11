@@ -160,29 +160,19 @@ export default function Header() {
           >            
             Richie Running Kit        
           </Typography>
-          <Typography
-            variant="h4"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >            
-            Sign in = {JSON.stringify(authenticated)}    
-          </Typography>
-          <Link
-                to="/SignIn">
-          <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={firstLetterOfFirstName} invisible={!firstLetterOfFirstName} color="primary">
-              <AccountCircleIcon />
-            </Badge>
-          </IconButton>
+          <Link to="/SignIn">                
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+              <Badge badgeContent={firstLetterOfFirstName} invisible={!firstLetterOfFirstName} color="primary">
+                <AccountCircleIcon />
+              </Badge>
+            </IconButton>
           </Link>
-          <Link
-                to="/Basket">
-          <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={basketList.length} color="error">
-              <ShoppingCartIcon />
-            </Badge>
-          </IconButton>
+          <Link to="/Basket">                
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+              <Badge badgeContent={basketList.length} color="error">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
           </Link>
           <Search onChange={onSearchChanged}>
             <IconButton size="large" aria-label="search" color="inherit" onClick={onSearchClicked}>              
