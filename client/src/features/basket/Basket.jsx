@@ -18,10 +18,18 @@ export function Basket() {
 
 
   const handleRemoveProductFromBasket = (product) => {
-    const userId = currentUser.id
-    const productId = product.id
+    const userId = currentUser.id;
+    const productId = product.id;
+  
     dispatch(deleteProductFromBasket(userId, productId))
-  };  
+      .then((deletedProduct) => {
+        console.log('Basket.jsx', deletedProduct);
+        // Do additional logic if needed
+      })
+      .catch((error) => {
+        console.error('Error removing product from basket:', error);
+      });
+  };
 
   const cardStyle = {
     display: 'flex',
