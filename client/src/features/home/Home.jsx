@@ -113,7 +113,7 @@ export function Home() {
               onClick={() => handleAddToBasket(item)}>
                 Add To Basket
             </Button>
-            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
               <Alert onClose={handleClose} severity={notificationType} sx={{ width: "100%" }}>
                 {notificationMessage}
               </Alert>
