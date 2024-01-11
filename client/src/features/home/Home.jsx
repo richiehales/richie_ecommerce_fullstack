@@ -16,7 +16,10 @@ export function Home() {
   const productSearchTerm = useSelector((state) => state.product.productSearchTerm);
   const basketList = useSelector((state) => state.basket.basketList);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
+  const authenticated = useSelector((state) => state.currentUser.authenticated);
   const [open, setOpen] = React.useState(false);
+  const [notificationType, setNotificationType] = React.useState('error')
+  const [notificationMessage, setNotificationMessage] = React.useState('')
     
   
   const cardStyle = {
@@ -42,6 +45,13 @@ export function Home() {
     const quantity = 1;
   
     const productExistsInBasket = basketList.find((item) => item.id === product.id);
+
+    if (!authenticated) {
+      setNotificationType('warning');
+      setNotificationMessage('Sign in to add items to the basket');
+      setOpen(true);
+      return;
+    }
   
     if (!productExistsInBasket) {
       // Dispatch the action to add the product to the basket
@@ -51,6 +61,8 @@ export function Home() {
   
           // Fetch the updated basket data after adding the product
           dispatch(fetchBasketData(userId));
+          setNotificationType('success')
+          setNotificationMessage('Item added to basket')
         })
         .catch((error) => {
           console.error("Error adding product to basket:", error);
@@ -58,8 +70,12 @@ export function Home() {
     } else {
       // Add popper here
       console.log("do not add product");
+      setNotificationType('error')
+      setNotificationMessage('Item already in basket')
     }
-    setOpen(true);
+    setTimeout(() => {
+      setOpen(true);
+    }, 250);
   };
 
 
@@ -98,8 +114,8 @@ export function Home() {
                 Add To Basket
             </Button>
             <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-              <Alert onClose={handleClose} severity="warning" sx={{ width: "100%" }}>
-                This is a success message!
+              <Alert onClose={handleClose} severity={notificationType} sx={{ width: "100%" }}>
+                {notificationMessage}
               </Alert>
             </Snackbar>
           </Stack>
