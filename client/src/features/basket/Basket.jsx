@@ -1,22 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { fetchBasketData, deleteProductFromBasket } from './getBasket'
+import { setNotificationType, setNotificationMessage, setNotificationDisplay, setNotificationVertical, setNotificationHorizontal } from '../notifications/notificationsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, CardContent, Grid, Typography, Box, Button } from '@mui/material';
-import  UserNotification from '../notifications/UserNotification'
 import Image from 'mui-image';
 import shoeImg from './images/shoes1.jpg'
-import Stack from "@mui/material/Stack";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 
 
 export function Basket() {
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState(false);
-  const [notificationType, setNotificationType] = useState('error')
-  const [notificationMessage, setNotificationMessage] = useState('')
   const basketList = useSelector((state) => state.basket.basketList);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
+ 
   
   
   useEffect(() => {
@@ -32,14 +27,16 @@ export function Basket() {
     dispatch(deleteProductFromBasket(userId, productId))
       .then((deletedProduct) => {
         console.log('Basket.jsx', deletedProduct);
-        setNotificationType('success')
-        setNotificationMessage('Item removed')
+        dispatch(setNotificationType('success'))
+        dispatch(setNotificationVertical('top'))
+        dispatch(setNotificationHorizontal('right')) 
+        dispatch(setNotificationMessage('Item Removed'))      
       })
       .catch((error) => {
         console.error('Error removing product from basket:', error);
       });
       setTimeout(() => {
-        setOpen(true);
+        dispatch(setNotificationDisplay(true));
       }, 250);
   };
 
@@ -49,19 +46,7 @@ export function Basket() {
     height: '100%', // Ensures all cards have the same height
   };
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
-
-
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
-
-
+  
   const currentBasketItems = basketList && basketList.map((item) => (
     <Grid key={item.id} item xs={12} sm={6} md={4} lg={2}>
       <Card style={cardStyle}>
@@ -75,20 +60,12 @@ export function Basket() {
           </Typography>
           <Typography color="textSecondary">
             {`Price: ${item.price}`}
-          </Typography>
-          <Stack spacing={2} sx={{ width: "100%" }}>
-            <Button 
-              variant="contained"  
-              onClick={() => handleRemoveProductFromBasket(item)}>
-                Remove
-            </Button>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
-              <Alert onClose={handleClose} severity={notificationType} sx={{ width: "100%" }}>
-                {notificationMessage}
-              </Alert>
-            </Snackbar>
-          </Stack>
-          < UserNotification />
+          </Typography>          
+          <Button 
+            variant="contained"  
+            onClick={() => handleRemoveProductFromBasket(item)}>
+              Remove
+          </Button>                         
         </CardContent>
       </Card>
     </Grid>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './features/header/Header';
+import  UserNotification from './features/notifications/UserNotification'
 import Footer from './features/footer/Footer'
 // import Home from './features/home/Home';
 import { Home } from './features/home/Home';
@@ -15,6 +16,7 @@ function App() {
   return (
     <>
       <Header />
+      < UserNotification />
       <Routes>
         <Route path="/" element={ <Home /> } />
         <Route path="/Basket" element={ <Basket /> } />

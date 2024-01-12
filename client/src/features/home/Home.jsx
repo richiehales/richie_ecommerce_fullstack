@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { setNotificationType, setNotificationMessage, setNotificationDisplay, setNotificationVertical, setNotificationHorizontal } from '../notifications/notificationsSlice';
 import { fetchBasketData } from '../basket/getBasket'
 import { fetchProductsData } from './getProducts'
 import { addProductToBasket } from '../basket/getBasket'
 import { Card, CardContent, Grid, Typography, Box, Button } from '@mui/material';
 import Image from 'mui-image';
 import shoeImg from './images/shoes1.jpg'
-import Stack from "@mui/material/Stack";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
+
 
 export function Home() {
   const dispatch = useDispatch();
@@ -17,9 +16,7 @@ export function Home() {
   const basketList = useSelector((state) => state.basket.basketList);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
   const authenticated = useSelector((state) => state.currentUser.authenticated);
-  const [open, setOpen] = React.useState(false);
-  const [notificationType, setNotificationType] = React.useState('error')
-  const [notificationMessage, setNotificationMessage] = React.useState('')
+
     
   
   const cardStyle = {
@@ -44,14 +41,18 @@ export function Home() {
     const productId = product.id;
     const quantity = 1;
   
-    const productExistsInBasket = basketList.find((item) => item.id === product.id);
+    
 
     if (!authenticated) {
-      setNotificationType('warning');
-      setNotificationMessage('Sign in to add items to the basket');
-      setOpen(true);
+      dispatch(setNotificationType('warning'))
+      dispatch(setNotificationVertical('top'))
+      dispatch(setNotificationHorizontal('right')) 
+      dispatch(setNotificationMessage('Please sign in'))
+      dispatch(setNotificationDisplay(true))
       return;
     }
+
+    const productExistsInBasket = basketList.find((item) => item.id === product.id);
   
     if (!productExistsInBasket) {
       // Dispatch the action to add the product to the basket
@@ -61,8 +62,10 @@ export function Home() {
   
           // Fetch the updated basket data after adding the product
           dispatch(fetchBasketData(userId));
-          setNotificationType('success')
-          setNotificationMessage('Item added to basket')
+          dispatch(setNotificationType('success'))
+          dispatch(setNotificationVertical('top'))
+          dispatch(setNotificationHorizontal('right')) 
+          dispatch(setNotificationMessage('Item Added To Basket')) 
         })
         .catch((error) => {
           console.error("Error adding product to basket:", error);
@@ -70,26 +73,18 @@ export function Home() {
     } else {
       // Add popper here
       console.log("do not add product");
-      setNotificationType('error')
-      setNotificationMessage('Item already in basket')
+      dispatch(setNotificationType('error'))
+      dispatch(setNotificationVertical('top'))
+      dispatch(setNotificationHorizontal('right'))
+      dispatch(setNotificationMessage('Item already in basket'))
     }
     setTimeout(() => {
-      setOpen(true);
+      dispatch(setNotificationDisplay(true));
     }, 250);
   };
 
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
 
-
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
   
 
   const allProducts = products && products.map((item) => (
@@ -106,18 +101,11 @@ export function Home() {
           <Typography color="textSecondary">
             {`Price: ${item.price}`}
           </Typography>
-          <Stack spacing={2} sx={{ width: "100%" }}>
-            <Button 
-              variant="contained"  
-              onClick={() => handleAddToBasket(item)}>
-                Add To Basket
-            </Button>
-            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
-              <Alert onClose={handleClose} severity={notificationType} sx={{ width: "100%" }}>
-                {notificationMessage}
-              </Alert>
-            </Snackbar>
-          </Stack>
+          <Button 
+            variant="contained"  
+            onClick={() => handleAddToBasket(item)}>
+              Add To Basket
+          </Button>            
         </CardContent>
       </Card>
     </Grid>
