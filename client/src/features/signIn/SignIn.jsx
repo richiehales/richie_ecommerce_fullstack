@@ -48,7 +48,8 @@ export default function SignIn() {
   
     dispatch(fetchUser(email, password))
       .then((result) => {
-        console.log('SignIn.jsx - Result of fetchUser action:', result);        
+        console.log('SignIn.jsx - Result of fetchUser action:', result);
+        dispatch(setNotificationDisplay(false));     
       })
       .catch((error) => {
         console.error('SignIn.js Error during login:', error);
@@ -56,11 +57,11 @@ export default function SignIn() {
         dispatch(setNotificationVertical('top'))
         dispatch(setNotificationHorizontal('center')) 
         dispatch(setNotificationMessage('Incorrect email or password'))
-      });
 
-    setTimeout(() => {
-      dispatch(setNotificationDisplay(true));
-    }, 250);
+        setTimeout(() => {
+          dispatch(setNotificationDisplay(true));
+        }, 250);
+      });    
   };
 
   const handleViewProducts = () => {

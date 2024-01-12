@@ -9,7 +9,7 @@ export const checkoutSlice = createSlice({
   name: 'checkout',
   initialState,
   reducers: {
-    addShippingAddress: (state, action) => {
+    setShippingAddress: (state, action) => {
       state.shippingAddress = action.payload;
     },    
     
@@ -17,5 +17,5 @@ export const checkoutSlice = createSlice({
 })
 
 
-export const { addShippingAddress } = checkoutSlice.actions;
+export const { setShippingAddress } = checkoutSlice.actions;
 export default checkoutSlice.reducer;

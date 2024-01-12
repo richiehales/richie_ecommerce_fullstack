@@ -1,4 +1,7 @@
+// Checkout.jsx
 import * as React from 'react';
+import { setShippingAddress } from './checkoutSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -30,28 +33,48 @@ function Copyright() {
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
-
 export default function Checkout() {
+  const dispatch = useDispatch();
+  const shippingAddress = useSelector((state) => state.checkout.shippingAddress);
   const [activeStep, setActiveStep] = React.useState(0);
+  const [formData, setFormData] = React.useState({
+    firstName: '',
+    lastName: '',
+    address1: '',
+    address2: '',
+    city: '',
+    state: '',
+    zip: '',
+    country: '',
+    saveAddress: false,
+  });
+
+  console.log(formData)
 
   const handleNext = () => {
+    if (activeStep === 0) {
+      dispatch(setShippingAddress(formData))
+      console.log('shipping address')
+      console.log(shippingAddress)
+    }
     setActiveStep(activeStep + 1);
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
+  };
+
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return <AddressForm formData={formData} setFormData={setFormData} />;
+      case 1:
+        return <PaymentForm />;
+      case 2:
+        return <Review />;
+      default:
+        throw new Error('Unknown step');
+    }
   };
 
   return (
