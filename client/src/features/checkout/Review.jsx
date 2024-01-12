@@ -26,7 +26,7 @@ const products = [
     desc: 'Best thing of all',
     price: '$14.11',
   },
-  { name: 'Shipping', desc: '', price: 'Free' },
+  { name: 'Shipping', desc: '3-5 days', price: '£5.99' },
 ];
 
 const addresses = ['1 MUI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
