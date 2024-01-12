@@ -1,6 +1,9 @@
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import { setNotificationType, setNotificationMessage, setNotificationDisplay, setNotificationVertical, setNotificationHorizontal } from '../notifications/notificationsSlice';
+import Popper from '@mui/material/Popper';
+import PopupState, { bindToggle, bindPopper } from 'material-ui-popup-state';
+import Fade from '@mui/material/Fade';
+import Paper from '@mui/material/Paper';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -51,16 +54,9 @@ export default function SignIn() {
         console.log('SignIn.jsx - Result of fetchUser action:', result);        
       })
       .catch((error) => {
+        // Handle errors, e.g., show error message to the user
         console.error('SignIn.js Error during login:', error);
-        dispatch(setNotificationType('error'))
-        dispatch(setNotificationVertical('top'))
-        dispatch(setNotificationHorizontal('center')) 
-        dispatch(setNotificationMessage('Incorrect email or password'))
       });
-
-    setTimeout(() => {
-      dispatch(setNotificationDisplay(true));
-    }, 250);
   };
 
   const handleViewProducts = () => {
@@ -154,10 +150,31 @@ export default function SignIn() {
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
-              />                   
-              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} >
-                Sign In
-              </Button>                      
+              />
+              <PopupState variant="popper" popupId="demo-popup-popper">
+                    {(popupState) => (
+                      <div>
+                        <Button
+                          type="submit"
+                          {...bindToggle(popupState)}
+                          fullWidth
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2 }}
+                        >
+                          Sign In
+                        </Button>
+                        <Popper {...bindPopper(popupState)} transition>
+                          {({ TransitionProps }) => (
+                            <Fade {...TransitionProps} timeout={350}>
+                              <Paper>
+                                <Typography sx={{ p: 2 }}>Email or password incorrect</Typography>
+                              </Paper>
+                            </Fade>
+                          )}
+                        </Popper>                       
+                      </div>
+                    )}
+              </PopupState>
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">

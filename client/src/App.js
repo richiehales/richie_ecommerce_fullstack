@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import Header from './features/header/Header';
 import  UserNotification from './features/notifications/UserNotification'
 import Footer from './features/footer/Footer'
-// import Home from './features/home/Home';
 import { Home } from './features/home/Home';
 import { Basket } from './features/basket/Basket';
 import SignIn from './features/signIn/SignIn';

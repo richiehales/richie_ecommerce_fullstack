@@ -71,8 +71,6 @@ export function Home() {
           console.error("Error adding product to basket:", error);
         });
     } else {
-      // Add popper here
-      console.log("do not add product");
       dispatch(setNotificationType('error'))
       dispatch(setNotificationVertical('top'))
       dispatch(setNotificationHorizontal('right'))
