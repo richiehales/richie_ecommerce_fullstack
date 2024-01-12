@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchBasketData, deleteProductFromBasket } from './getBasket'
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, CardContent, Grid, Typography, Box, Button } from '@mui/material';
+import  UserNotification from '../notifications/UserNotification'
 import Image from 'mui-image';
 import shoeImg from './images/shoes1.jpg'
 import Stack from "@mui/material/Stack";
@@ -87,6 +88,7 @@ export function Basket() {
               </Alert>
             </Snackbar>
           </Stack>
+          < UserNotification />
         </CardContent>
       </Card>
     </Grid>
