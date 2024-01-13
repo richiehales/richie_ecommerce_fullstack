@@ -17,6 +17,13 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 import { setShippingAddress } from './checkoutSlice';
+import { 
+  setNotificationType, 
+  setNotificationMessage, 
+  setNotificationDisplay, 
+  setNotificationVertical, 
+  setNotificationHorizontal 
+} from '../notifications/notificationsSlice';
 
 function Copyright() {
   return (
@@ -41,10 +48,26 @@ export default function Checkout() {
   const handleNext = () => {
     if (activeStep === 0) {
       dispatch(setShippingAddress(shippingAddress));
-      console.log('shipping address');
-      console.log(shippingAddress);
+      console.log(shippingAddress)
+      if (shippingAddress.zip && shippingAddress.address1 && shippingAddress.firstName) {
+        console.log('shipping address');
+        dispatch(setNotificationDisplay(false))
+        setActiveStep(activeStep + 1);
+      } else {
+          dispatch(setNotificationType('error'))
+          dispatch(setNotificationVertical('top'))
+          dispatch(setNotificationHorizontal('center')) 
+          dispatch(setNotificationMessage('Form not complete'))
+          dispatch(setNotificationDisplay(true))
+        } 
+      }
+    if (activeStep === 1) {
+      setActiveStep(activeStep + 1);
     }
-    setActiveStep(activeStep + 1);
+    if (activeStep === 2) {
+      setActiveStep(activeStep + 1);
+    }
+    
   };
 
   const handleBack = () => {

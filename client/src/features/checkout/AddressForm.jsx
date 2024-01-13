@@ -1,6 +1,6 @@
 // AddressForm.jsx
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setShippingFirstName,
   setShippingLastName,
@@ -20,6 +20,7 @@ import Checkbox from '@mui/material/Checkbox';
 
 export default function AddressForm() {
   const dispatch = useDispatch();
+  const shippingAddress = useSelector((state) => state.checkout.shippingAddress);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -71,7 +72,8 @@ export default function AddressForm() {
             required
             id="firstName"
             name="firstName"
-            label="First name"
+            label="First Name"
+            value={shippingAddress.firstName}
             fullWidth
             autoComplete="given-name"
             variant="standard"
@@ -83,7 +85,8 @@ export default function AddressForm() {
             required
             id="lastName"
             name="lastName"
-            label="Last name"
+            label="Last Name"
+            value={shippingAddress.lastName}
             fullWidth
             autoComplete="family-name"
             variant="standard"
@@ -95,7 +98,8 @@ export default function AddressForm() {
             required
             id="address1"
             name="address1"
-            label="Address line 1"
+            label={"Address line 1"}
+            value={shippingAddress.address1}
             fullWidth
             autoComplete="shipping address-line1"
             variant="standard"
@@ -107,6 +111,7 @@ export default function AddressForm() {
             id="address2"
             name="address2"
             label="Address line 2"
+            value={shippingAddress.address2}
             fullWidth
             autoComplete="shipping address-line2"
             variant="standard"
@@ -119,6 +124,7 @@ export default function AddressForm() {
             id="city"
             name="city"
             label="City"
+            value={shippingAddress.city}
             fullWidth
             autoComplete="shipping address-level2"
             variant="standard"
@@ -130,6 +136,7 @@ export default function AddressForm() {
             id="state"
             name="state"
             label="State/Province/Region"
+            value={shippingAddress.state}
             fullWidth
             variant="standard"
             onChange={handleChange}
@@ -141,6 +148,7 @@ export default function AddressForm() {
             id="zip"
             name="zip"
             label="Zip / Postal code"
+            value={shippingAddress.zip}
             fullWidth
             autoComplete="shipping postal-code"
             variant="standard"
@@ -153,6 +161,7 @@ export default function AddressForm() {
             id="country"
             name="country"
             label="Country"
+            value={shippingAddress.country}
             fullWidth
             autoComplete="shipping country"
             variant="standard"
