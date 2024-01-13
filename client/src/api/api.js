@@ -65,6 +65,8 @@ export const addProductToBasketByUserId = async (userId, productId, quantity) =>
       }),
     });
 
+    console.log('api.js')
+    console.log(response)
     
     if (!response.ok) {
       throw new Error('Network response was not ok.');
@@ -199,6 +201,64 @@ export const addUser = async (first_name, last_name, password, email) => {
         last_name,           
       }),
     });
+
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok - api.js.');
+    }
+    
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    // Handle errors, log, or throw as necessary
+    throw error;
+  }
+};
+
+
+// Route to process payment and checkout by user id
+/*
+Postman - test
+POST    http://localhost:3000/checkout/allItems
+Body:
+{
+  "paymentDetails": {
+    "cardNumber": "1234123412341234",
+    "expiryDate": "02-24",
+    "cvc": "123"
+  },
+  "userId": 1
+}
+*/
+const paymentAPI = 'http://localhost:3000/checkout/allItems';
+export const processPaymentById = async (cardNumber, cardDate, cvc, userId) => {
+  console.log(userId)
+  try {
+    const response = await fetch(paymentAPI, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        paymentDetails: {
+          cardNumber,
+          expiryDate: cardDate, // Adjusted to match the specified structure
+          cvc,
+        },
+        userId,
+      }),
+    });
+
+    console.log('api.js')
+    console.log(JSON.stringify({
+      paymentDetails: {
+        cardNumber,
+        expiryDate: cardDate,
+        cvc,
+      },
+      userId,
+    }));
 
 
     if (!response.ok) {

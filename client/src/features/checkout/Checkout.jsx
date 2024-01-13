@@ -23,6 +23,8 @@ import {
   setNotificationVertical, 
   setNotificationHorizontal 
 } from '../notifications/notificationsSlice';
+import { proceessPayment } from './getCheckout'
+
 
 function Copyright() {
   return (
@@ -43,11 +45,12 @@ export default function Checkout() {
   const dispatch = useDispatch();
   const shippingAddress = useSelector((state) => state.checkout.shippingAddress);
   const paymentDetails = useSelector((state) => state.checkout.paymentDetails);
+  const userId = useSelector((state) => state.currentUser.currentUser.id);
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
     if (activeStep === 0) {
-      
+      console.log(userId)
       if (shippingAddress.zip && shippingAddress.address1 && shippingAddress.firstName) {
         dispatch(setNotificationDisplay(false))
         setActiveStep(activeStep + 1);
@@ -59,13 +62,27 @@ export default function Checkout() {
           dispatch(setNotificationDisplay(true))
         } 
       }
-    if (activeStep === 1) {
-      console.log(paymentDetails)
-      setActiveStep(activeStep + 1);
-    }
-    if (activeStep === 2) {
-      setActiveStep(activeStep + 1);
-    }
+      if (activeStep === 1) {
+        console.log('Checkout.jsx')
+        console.log(paymentDetails);
+        dispatch(proceessPayment(paymentDetails, userId))
+          .then((payment) => {
+            console.log('Checkout.jsx')
+            console.log(payment);
+      
+            // If payment is successful, proceed to the next step
+            setActiveStep(activeStep + 1);
+          })
+          .catch((error) => {
+            // Handle payment error
+            console.error(error)
+          });
+      }
+      
+      if (activeStep === 2) {
+        setActiveStep(activeStep + 1);
+      }
+      
     
   };
 
