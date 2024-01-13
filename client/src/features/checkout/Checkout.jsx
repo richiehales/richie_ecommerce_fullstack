@@ -72,10 +72,10 @@ export default function Checkout() {
 
       if (activeStep === 1) {
         if (!paymentDetails.cardName || !paymentDetails.cardNumber || !paymentDetails.cardDate || !paymentDetails.cvv || !authenticated) {
-          dispatch(setNotificationType('error'))
+          dispatch(setNotificationType('warning'))
           dispatch(setNotificationVertical('top'))
           dispatch(setNotificationHorizontal('center')) 
-          dispatch(setNotificationMessage('Invalid payment details'))
+          dispatch(setNotificationMessage('Payment details incorrect'))
           dispatch(setNotificationDisplay(true))
         } else {setActiveStep(activeStep + 1)}       
         
@@ -93,7 +93,7 @@ export default function Checkout() {
               dispatch(setNotificationType('error'))
               dispatch(setNotificationVertical('top'))
               dispatch(setNotificationHorizontal('center')) 
-              dispatch(setNotificationMessage('Invalid payment details'))
+              dispatch(setNotificationMessage('Payment details incorrect'))
               dispatch(setNotificationDisplay(true))
               setActiveStep(activeStep - 1);
             }                   
