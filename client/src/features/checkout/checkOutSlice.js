@@ -13,6 +13,13 @@ const initialState = {
     country: '',
     saveAddress: false,
   },
+  paymentDetails: {
+    cardName: '',
+    cardNumber: '',
+    cardDate: '',
+    cvv: '',
+    saveCard: false,
+  }
 };
 
 export const checkoutSlice = createSlice({
@@ -49,6 +56,21 @@ export const checkoutSlice = createSlice({
     setShippingAddress: (state, action) => {
       state.shippingAddress = action.payload;
     },
+    setCardName: (state, action) => {
+      state.paymentDetails.cardName = action.payload;
+    },
+    setCardNumber: (state, action) => {
+      state.paymentDetails.cardNumber = action.payload;
+    },
+    setCardDate: (state, action) => {
+      state.paymentDetails.cardDate = action.payload;
+    },
+    setCardCvv: (state, action) => {
+      state.paymentDetails.cvv = action.payload;
+    },
+    setSaveCard: (state, action) => {
+      state.paymentDetails.saveCard = action.payload;
+    },
   },
 });
 
@@ -63,6 +85,12 @@ export const {
   setShippingCountry,
   setSaveShippingAddress,
   setShippingAddress,
+  setCardName,
+  setCardNumber,
+  setCardDate,
+  setCardCvv,
+  setSaveCard
 } = checkoutSlice.actions;
 
 export default checkoutSlice.reducer;
+

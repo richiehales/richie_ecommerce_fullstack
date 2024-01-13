@@ -43,14 +43,13 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 export default function Checkout() {
   const dispatch = useDispatch();
   const shippingAddress = useSelector((state) => state.checkout.shippingAddress);
+  const paymentDetails = useSelector((state) => state.checkout.paymentDetails);
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
     if (activeStep === 0) {
       dispatch(setShippingAddress(shippingAddress));
-      console.log(shippingAddress)
       if (shippingAddress.zip && shippingAddress.address1 && shippingAddress.firstName) {
-        console.log('shipping address');
         dispatch(setNotificationDisplay(false))
         setActiveStep(activeStep + 1);
       } else {
@@ -62,6 +61,7 @@ export default function Checkout() {
         } 
       }
     if (activeStep === 1) {
+      console.log(paymentDetails)
       setActiveStep(activeStep + 1);
     }
     if (activeStep === 2) {
