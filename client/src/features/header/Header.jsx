@@ -155,6 +155,12 @@ export default function Header() {
                   <MenuItem onClick={watchlistHandleClose}>Checkout</MenuItem>
                 </Button>
               </Link>
+              <Link
+                to="/Orders">
+                <Button> 
+                  <MenuItem onClick={watchlistHandleClose}>Orders</MenuItem>
+                </Button>
+              </Link>
             </ButtonGroup>
           </Menu>
           <Typography

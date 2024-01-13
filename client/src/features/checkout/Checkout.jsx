@@ -44,8 +44,7 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 export default function Checkout() {
   const dispatch = useDispatch();
   const shippingAddress = useSelector((state) => state.checkout.shippingAddress);
-  const paymentDetails = useSelector((state) => state.checkout.paymentDetails);
-  
+  const paymentDetails = useSelector((state) => state.checkout.paymentDetails);  
   const userId = useSelector((state) => state.currentUser.currentUser.id);
   const authenticated = useSelector((state) => state.currentUser.authenticated);
   const [activeStep, setActiveStep] = React.useState(0);

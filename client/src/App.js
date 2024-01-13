@@ -8,6 +8,7 @@ import { Basket } from './features/basket/Basket';
 import SignIn from './features/signIn/SignIn';
 import SignUp from './features/signUp/SignUp';
 import Checkout from './features/checkout/Checkout';
+import Orders from './features/orders/Orders';
 
 
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/SignIn" element={ <SignIn /> } />
         <Route path="/SignUp" element={ <SignUp /> }/>
         <Route path="/Checkout" element={ <Checkout /> }/>
+        <Route path="/Orders" element={ <Orders /> }/>
       </Routes> 
       <Footer />      
     </>
