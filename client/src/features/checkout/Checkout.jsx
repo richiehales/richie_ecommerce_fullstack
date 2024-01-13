@@ -54,6 +54,14 @@ export default function Checkout() {
 
   const handleNext = () => {
     if (activeStep === 0) {
+      if (!authenticated) {
+        dispatch(setNotificationType('warning'))
+        dispatch(setNotificationVertical('top'))
+        dispatch(setNotificationHorizontal('center')) 
+        dispatch(setNotificationMessage('Please Sign in'))
+        dispatch(setNotificationDisplay(true))
+        return
+      }
       if (shippingAddress.zip && shippingAddress.address1 && shippingAddress.firstName) {
         dispatch(setNotificationDisplay(false))
         setActiveStep(activeStep + 1);
@@ -86,6 +94,14 @@ export default function Checkout() {
       }
       
       if (activeStep === 2) {
+        if (!authenticated) {
+          dispatch(setNotificationType('warning'))
+          dispatch(setNotificationVertical('top'))
+          dispatch(setNotificationHorizontal('center')) 
+          dispatch(setNotificationMessage('Please Sign in'))
+          dispatch(setNotificationDisplay(true))
+          return
+        }
         dispatch(proceessPayment(paymentDetails, userId))        
           .then((payment) => {        
             if (payment.success) {
