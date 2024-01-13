@@ -56,6 +56,7 @@ export default function Checkout() {
   const updatedBasketList = [...basketList, shippingItem];
 
   const handleNext = () => {
+
     if (activeStep === 0) {
       if (shippingAddress.zip && shippingAddress.address1 && shippingAddress.firstName) {
         dispatch(setNotificationDisplay(false))
@@ -68,6 +69,7 @@ export default function Checkout() {
           dispatch(setNotificationDisplay(true))
         } 
       }
+
       if (activeStep === 1) {
         if (!paymentDetails.cardName || !paymentDetails.cardNumber || !paymentDetails.cardDate || !paymentDetails.cvv || !authenticated) {
           dispatch(setNotificationType('error'))
@@ -75,9 +77,11 @@ export default function Checkout() {
           dispatch(setNotificationHorizontal('center')) 
           dispatch(setNotificationMessage('Invalid payment details'))
           dispatch(setNotificationDisplay(true))
-          return;
-        }
+        } else {setActiveStep(activeStep + 1)}       
         
+      }
+      
+      if (activeStep === 2) {
         dispatch(proceessPayment(paymentDetails, userId))        
           .then((payment) => {        
             if (payment.success) {
@@ -91,16 +95,14 @@ export default function Checkout() {
               dispatch(setNotificationHorizontal('center')) 
               dispatch(setNotificationMessage('Invalid payment details'))
               dispatch(setNotificationDisplay(true))
+              setActiveStep(activeStep - 1);
             }                   
           })
           .catch((error) => {
             // Handle payment error
             console.error(error)
           });
-      }
-      
-      if (activeStep === 2) {
-        setActiveStep(activeStep + 1);
+        
       }
       
     

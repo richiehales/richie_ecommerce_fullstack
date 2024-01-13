@@ -1,4 +1,3 @@
-// Checkout.jsx
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,7 +15,17 @@ import Typography from '@mui/material/Typography';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
-import { setShippingAddress } from './checkoutSlice';
+import { 
+  setNotificationType, 
+  setNotificationMessage, 
+  setNotificationDisplay, 
+  setNotificationVertical, 
+  setNotificationHorizontal 
+} from '../notifications/notificationsSlice';
+import { setCurrentOrder } from './checkoutSlice';
+import { fetchBasketData } from '../basket/getBasket'
+import { proceessPayment } from './getCheckout'
+
 
 function Copyright() {
   return (
@@ -36,15 +45,66 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 export default function Checkout() {
   const dispatch = useDispatch();
   const shippingAddress = useSelector((state) => state.checkout.shippingAddress);
+  const paymentDetails = useSelector((state) => state.checkout.paymentDetails);
+  
+  const userId = useSelector((state) => state.currentUser.currentUser.id);
+  const authenticated = useSelector((state) => state.currentUser.authenticated);
+  const basketList = useSelector((state) => state.basket.basketList); 
   const [activeStep, setActiveStep] = React.useState(0);
 
+  const shippingItem = { name: 'Shipping', description: '3-5 days', price: '£5.99' };
+  const updatedBasketList = [...basketList, shippingItem];
+
   const handleNext = () => {
+
     if (activeStep === 0) {
-      dispatch(setShippingAddress(shippingAddress));
-      console.log('shipping address');
-      console.log(shippingAddress);
-    }
-    setActiveStep(activeStep + 1);
+      if (shippingAddress.zip && shippingAddress.address1 && shippingAddress.firstName) {
+        dispatch(setNotificationDisplay(false))
+        setActiveStep(activeStep + 1);
+      } else {
+          dispatch(setNotificationType('error'))
+          dispatch(setNotificationVertical('top'))
+          dispatch(setNotificationHorizontal('center')) 
+          dispatch(setNotificationMessage('Form not complete'))
+          dispatch(setNotificationDisplay(true))
+        } 
+      }
+
+      if (activeStep === 1) {
+        if (!paymentDetails.cardName || !paymentDetails.cardNumber || !paymentDetails.cardDate || !paymentDetails.cvv || !authenticated) {
+          dispatch(setNotificationType('error'))
+          dispatch(setNotificationVertical('top'))
+          dispatch(setNotificationHorizontal('center')) 
+          dispatch(setNotificationMessage('Invalid payment details'))
+          dispatch(setNotificationDisplay(true))
+          return;
+        }        
+        dispatch(proceessPayment(paymentDetails, userId))        
+          .then((payment) => {        
+            if (payment.success) {
+              dispatch(setNotificationDisplay(false))
+              dispatch(fetchBasketData(userId));
+              dispatch(setCurrentOrder(updatedBasketList))
+              setActiveStep(activeStep + 1);
+            } else {
+              dispatch(setNotificationType('error'))
+              dispatch(setNotificationVertical('top'))
+              dispatch(setNotificationHorizontal('center')) 
+              dispatch(setNotificationMessage('Invalid payment details'))
+              dispatch(setNotificationDisplay(true))
+            }                   
+          })
+          .catch((error) => {
+            // Handle payment error
+            console.error(error)
+          });
+      }
+      
+      if (activeStep === 2) {
+        setActiveStep(activeStep + 1);
+      }
+      
+    
   };
 
   const handleBack = () => {
