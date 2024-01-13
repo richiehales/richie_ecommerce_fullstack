@@ -233,7 +233,6 @@ Body:
 */
 const paymentAPI = 'http://localhost:3000/checkout/allItems';
 export const processPaymentById = async (cardNumber, cardDate, cvc, userId) => {
-  console.log(userId)
   try {
     const response = await fetch(paymentAPI, {
       method: 'POST',

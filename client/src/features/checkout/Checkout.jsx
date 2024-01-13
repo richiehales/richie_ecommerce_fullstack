@@ -1,4 +1,3 @@
-// Checkout.jsx
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -79,8 +78,8 @@ export default function Checkout() {
           return;
         }
         
-        dispatch(proceessPayment(paymentDetails, userId))
-          .then((payment) => {          
+        dispatch(proceessPayment(paymentDetails, userId))        
+          .then((payment) => {        
             if (payment.success) {
               dispatch(setNotificationDisplay(false))
               dispatch(fetchBasketData(userId));
