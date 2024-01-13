@@ -6,31 +6,6 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 
-/*
-const products = [
-  {
-    name: 'Product 1',
-    desc: 'A nice thing',
-    price: '$9.99',
-  },
-  {
-    name: 'Product 2',
-    desc: 'Another thing',
-    price: '$3.45',
-  },
-  {
-    name: 'Product 3',
-    desc: 'Something else',
-    price: '$6.51',
-  },
-  {
-    name: 'Product 4',
-    desc: 'Best thing of all',
-    price: '$14.11',
-  },
-  { name: 'Shipping', desc: '3-5 days', price: '£5.99' },
-];
-*/
 
 const addresses = ['1 MUI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
 const payments = [
@@ -42,23 +17,27 @@ const payments = [
 
 export default function Review() {
   const currentOrder = useSelector((state) => state.checkout.currentOrder);
-  console.log(currentOrder)
+  let total = 0;
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
       <List disablePadding>
-        {currentOrder.map((product) => (
-          <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
-          </ListItem>
-        ))}
+        {currentOrder.map((product) => {
+          total += parseFloat(product.price.replace('£', ''));
+            return (
+              <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
+                <ListItemText primary={product.name} secondary={product.description} />
+                <Typography variant="body2">{product.price}</Typography>
+              </ListItem>
+            );
+        })}
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            $34.06
+            {`£${total}`}
           </Typography>
         </ListItem>
       </List>

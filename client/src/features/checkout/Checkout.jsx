@@ -53,6 +53,9 @@ export default function Checkout() {
   const basketList = useSelector((state) => state.basket.basketList); 
   const [activeStep, setActiveStep] = React.useState(0);
 
+  const shippingItem = { name: 'Shipping', description: '3-5 days', price: '£5.99' };
+  const updatedBasketList = [...basketList, shippingItem];
+
   const handleNext = () => {
     if (activeStep === 0) {
       if (shippingAddress.zip && shippingAddress.address1 && shippingAddress.firstName) {
@@ -81,7 +84,7 @@ export default function Checkout() {
             if (payment.success) {
               dispatch(setNotificationDisplay(false))
               dispatch(fetchBasketData(userId));
-              dispatch(setCurrentOrder(basketList))
+              dispatch(setCurrentOrder(updatedBasketList))
               setActiveStep(activeStep + 1);
             } else {
               dispatch(setNotificationType('error'))
