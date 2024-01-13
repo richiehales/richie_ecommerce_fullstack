@@ -23,6 +23,7 @@ import {
   setNotificationVertical, 
   setNotificationHorizontal 
 } from '../notifications/notificationsSlice';
+import { fetchBasketData } from '../basket/getBasket'
 import { proceessPayment } from './getCheckout'
 
 
@@ -46,6 +47,7 @@ export default function Checkout() {
   const shippingAddress = useSelector((state) => state.checkout.shippingAddress);
   const paymentDetails = useSelector((state) => state.checkout.paymentDetails);
   const userId = useSelector((state) => state.currentUser.currentUser.id);
+  const authenticated = useSelector((state) => state.currentUser.authenticated);
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -63,15 +65,32 @@ export default function Checkout() {
         } 
       }
       if (activeStep === 1) {
-        console.log('Checkout.jsx')
-        console.log(paymentDetails);
+        if (!paymentDetails.cardName || !paymentDetails.cardNumber || !paymentDetails.cardDate || !paymentDetails.cvv || !authenticated) {
+          dispatch(setNotificationType('error'))
+          dispatch(setNotificationVertical('top'))
+          dispatch(setNotificationHorizontal('center')) 
+          dispatch(setNotificationMessage('Invalid payment details'))
+          dispatch(setNotificationDisplay(true))
+          return;
+        }
+        
         dispatch(proceessPayment(paymentDetails, userId))
           .then((payment) => {
             console.log('Checkout.jsx')
-            console.log(payment);
-      
-            // If payment is successful, proceed to the next step
-            setActiveStep(activeStep + 1);
+            console.log(paymentDetails)
+            console.log(payment.success)
+            
+            if (payment.success) {
+              dispatch(setNotificationDisplay(false))
+              dispatch(fetchBasketData(userId));
+              setActiveStep(activeStep + 1);
+            } else {
+              dispatch(setNotificationType('error'))
+              dispatch(setNotificationVertical('top'))
+              dispatch(setNotificationHorizontal('center')) 
+              dispatch(setNotificationMessage('Invalid payment details'))
+              dispatch(setNotificationDisplay(true))
+            }                   
           })
           .catch((error) => {
             // Handle payment error

@@ -32,7 +32,7 @@ export default function UserNotifications() {
     <Stack spacing={2} sx={{ width: '100%' }}>      
       <Snackbar 
         open={notificationDisplay} 
-        autoHideDuration={10000} 
+        autoHideDuration={6000} 
         onClose={handleClose} 
         anchorOrigin= 
           {{vertical: notificationVertical, 

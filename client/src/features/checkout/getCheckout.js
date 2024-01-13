@@ -21,8 +21,6 @@ Body:
 
 
 export const proceessPayment = (paymentDetails, userId) => async (dispatch) => {
-  console.log('getChekout.js')
-  console.log(paymentDetails)
   try {
     const payment = await processPaymentById(
       paymentDetails.cardNumber,
@@ -30,9 +28,6 @@ export const proceessPayment = (paymentDetails, userId) => async (dispatch) => {
       paymentDetails.cvv,
       userId
     );
-
-    console.log('getCheckout.js');
-    console.log(payment);
 
     dispatch({ type: 'PAYMENT_SUCCESS', payload: payment });
     return payment;
