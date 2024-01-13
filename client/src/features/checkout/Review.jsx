@@ -7,16 +7,19 @@ import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 
 
-const addresses = ['1 MUI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
-const payments = [
-  { name: 'Card type', detail: 'Visa' },
-  { name: 'Card holder', detail: 'Mr John Smith' },
-  { name: 'Card number', detail: 'xxxx-xxxx-xxxx-1234' },
-  { name: 'Expiry date', detail: '04/2024' },
-];
-
 export default function Review() {
   const currentOrder = useSelector((state) => state.checkout.currentOrder);
+  const shippingAddress = useSelector((state) => state.checkout.shippingAddress);
+  const paymentDetails = useSelector((state) => state.checkout.paymentDetails);
+  const addresses = [shippingAddress.address1, shippingAddress.address2, shippingAddress.city, shippingAddress.zip];
+
+  const payments = [
+    { name: 'Card type', detail: 'Visa' },
+    { name: 'Card holder', detail: paymentDetails.cardName },
+    { name: 'Card number', detail: paymentDetails.cardNumber },
+    { name: 'Expiry date', detail: paymentDetails.cardDate },
+  ];
+  
   let total = 0;
 
   return (
