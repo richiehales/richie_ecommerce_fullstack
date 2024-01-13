@@ -23,6 +23,7 @@ import {
   setNotificationVertical, 
   setNotificationHorizontal 
 } from '../notifications/notificationsSlice';
+import { setCurrentOrder } from './checkoutSlice';
 import { fetchBasketData } from '../basket/getBasket'
 import { proceessPayment } from './getCheckout'
 
@@ -46,13 +47,14 @@ export default function Checkout() {
   const dispatch = useDispatch();
   const shippingAddress = useSelector((state) => state.checkout.shippingAddress);
   const paymentDetails = useSelector((state) => state.checkout.paymentDetails);
+  
   const userId = useSelector((state) => state.currentUser.currentUser.id);
   const authenticated = useSelector((state) => state.currentUser.authenticated);
+  const basketList = useSelector((state) => state.basket.basketList); 
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
     if (activeStep === 0) {
-      console.log(userId)
       if (shippingAddress.zip && shippingAddress.address1 && shippingAddress.firstName) {
         dispatch(setNotificationDisplay(false))
         setActiveStep(activeStep + 1);
@@ -75,14 +77,11 @@ export default function Checkout() {
         }
         
         dispatch(proceessPayment(paymentDetails, userId))
-          .then((payment) => {
-            console.log('Checkout.jsx')
-            console.log(paymentDetails)
-            console.log(payment.success)
-            
+          .then((payment) => {          
             if (payment.success) {
               dispatch(setNotificationDisplay(false))
               dispatch(fetchBasketData(userId));
+              dispatch(setCurrentOrder(basketList))
               setActiveStep(activeStep + 1);
             } else {
               dispatch(setNotificationType('error'))

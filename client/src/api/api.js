@@ -250,17 +250,6 @@ export const processPaymentById = async (cardNumber, cardDate, cvc, userId) => {
       }),
     });
 
-    console.log('api.js')
-    console.log(JSON.stringify({
-      paymentDetails: {
-        cardNumber,
-        expiryDate: cardDate,
-        cvc,
-      },
-      userId,
-    }));
-
-
     if (!response.ok) {
       throw new Error('Network response was not ok - api.js.');
     }

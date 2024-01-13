@@ -18,7 +18,8 @@ const initialState = {
     cardDate: '',
     cvv: '',
     saveCard: false,
-  }
+  },
+  currentOrder:[]
 };
 
 export const checkoutSlice = createSlice({
@@ -67,6 +68,9 @@ export const checkoutSlice = createSlice({
     setSaveCard: (state, action) => {
       state.paymentDetails.saveCard = action.payload;
     },
+    setCurrentOrder: (state, action) => {
+      state.currentOrder = action.payload;
+    },
   },
 });
 
@@ -84,7 +88,8 @@ export const {
   setCardNumber,
   setCardDate,
   setCardCvv,
-  setSaveCard
+  setSaveCard,
+  setCurrentOrder
 } = checkoutSlice.actions;
 
 export default checkoutSlice.reducer;
