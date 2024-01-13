@@ -71,37 +71,46 @@ export default function Checkout() {
       }
 
       if (activeStep === 1) {
-        if (!paymentDetails.cardName || !paymentDetails.cardNumber || !paymentDetails.cardDate || !paymentDetails.cvv || !authenticated) {
-          dispatch(setNotificationType('error'))
+        if (!authenticated) {
+          dispatch(setNotificationType('warning'))
           dispatch(setNotificationVertical('top'))
           dispatch(setNotificationHorizontal('center')) 
-          dispatch(setNotificationMessage('Invalid payment details'))
+          dispatch(setNotificationMessage('Please Sign in'))
           dispatch(setNotificationDisplay(true))
-          return;
-        }        
+          return
+        }
+        if (!paymentDetails.cardName || !paymentDetails.cardNumber || !paymentDetails.cardDate || !paymentDetails.cvv) {
+          dispatch(setNotificationType('warning'))
+          dispatch(setNotificationVertical('top'))
+          dispatch(setNotificationHorizontal('center')) 
+          dispatch(setNotificationMessage('Payment details incorrect'))
+          dispatch(setNotificationDisplay(true))
+          return
+        } else {setActiveStep(activeStep + 1)}    
+        
+      }
+      
+      if (activeStep === 2) {
         dispatch(proceessPayment(paymentDetails, userId))        
           .then((payment) => {        
             if (payment.success) {
               dispatch(setNotificationDisplay(false))
               dispatch(fetchBasketData(userId));
-              dispatch(setCurrentOrder(updatedBasketList))
               setActiveStep(activeStep + 1);
             } else {
               dispatch(setNotificationType('error'))
               dispatch(setNotificationVertical('top'))
               dispatch(setNotificationHorizontal('center')) 
-              dispatch(setNotificationMessage('Invalid payment details'))
+              dispatch(setNotificationMessage('Payment details incorrect'))
               dispatch(setNotificationDisplay(true))
+              setActiveStep(activeStep - 1);
             }                   
           })
           .catch((error) => {
             // Handle payment error
             console.error(error)
           });
-      }
-      
-      if (activeStep === 2) {
-        setActiveStep(activeStep + 1);
+        
       }
       
     

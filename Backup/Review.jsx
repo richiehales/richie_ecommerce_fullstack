@@ -8,13 +8,10 @@ import Grid from '@mui/material/Grid';
 
 
 export default function Review() {
-  const basketList = useSelector((state) => state.basket.basketList);
+  const currentOrder = useSelector((state) => state.checkout.currentOrder);
   const shippingAddress = useSelector((state) => state.checkout.shippingAddress);
   const paymentDetails = useSelector((state) => state.checkout.paymentDetails);
-  const addresses = [shippingAddress.address1, shippingAddress.city, shippingAddress.zip];
-
-  const shippingItem = { name: 'Shipping', description: '3-5 days', price: '£5.99' };
-  const updatedBasketList = [...basketList, shippingItem];
+  const addresses = [shippingAddress.address1, shippingAddress.address2, shippingAddress.city, shippingAddress.zip];
 
   const payments = [
     { name: 'Card type', detail: 'Visa' },
@@ -22,9 +19,6 @@ export default function Review() {
     { name: 'Card number', detail: paymentDetails.cardNumber },
     { name: 'Expiry date', detail: paymentDetails.cardDate },
   ];
-
-  const shippingFirstName = shippingAddress.firstName
-  const shippingLastName = shippingAddress.lastName
   
   let total = 0;
 
@@ -34,7 +28,7 @@ export default function Review() {
         Order summary
       </Typography>
       <List disablePadding>
-        {updatedBasketList.map((product) => {
+        {currentOrder.map((product) => {
           total += parseFloat(product.price.replace('£', ''));
             return (
               <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
@@ -55,7 +49,7 @@ export default function Review() {
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Shipping
           </Typography>
-          <Typography gutterBottom>{`${shippingFirstName} ${shippingLastName}`}</Typography>
+          <Typography gutterBottom>John Smith</Typography>
           <Typography gutterBottom>{addresses.join(', ')}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>

@@ -120,6 +120,3 @@ export default function PaymentForm() {
     </React.Fragment>
   );
 }
-
-
-

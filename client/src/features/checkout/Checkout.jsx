@@ -22,7 +22,6 @@ import {
   setNotificationVertical, 
   setNotificationHorizontal 
 } from '../notifications/notificationsSlice';
-import { setCurrentOrder } from './checkoutSlice';
 import { fetchBasketData } from '../basket/getBasket'
 import { proceessPayment } from './getCheckout'
 
@@ -49,14 +48,11 @@ export default function Checkout() {
   
   const userId = useSelector((state) => state.currentUser.currentUser.id);
   const authenticated = useSelector((state) => state.currentUser.authenticated);
-  const basketList = useSelector((state) => state.basket.basketList); 
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const shippingItem = { name: 'Shipping', description: '3-5 days', price: '£5.99' };
-  const updatedBasketList = [...basketList, shippingItem];
+  
 
   const handleNext = () => {
-
     if (activeStep === 0) {
       if (shippingAddress.zip && shippingAddress.address1 && shippingAddress.firstName) {
         dispatch(setNotificationDisplay(false))
@@ -71,14 +67,22 @@ export default function Checkout() {
       }
 
       if (activeStep === 1) {
-        if (!paymentDetails.cardName || !paymentDetails.cardNumber || !paymentDetails.cardDate || !paymentDetails.cvv || !authenticated) {
+        if (!authenticated) {
+          dispatch(setNotificationType('warning'))
+          dispatch(setNotificationVertical('top'))
+          dispatch(setNotificationHorizontal('center')) 
+          dispatch(setNotificationMessage('Please Sign in'))
+          dispatch(setNotificationDisplay(true))
+          return
+        }
+        if (!paymentDetails.cardName || !paymentDetails.cardNumber || !paymentDetails.cardDate || !paymentDetails.cvv) {
           dispatch(setNotificationType('warning'))
           dispatch(setNotificationVertical('top'))
           dispatch(setNotificationHorizontal('center')) 
           dispatch(setNotificationMessage('Payment details incorrect'))
           dispatch(setNotificationDisplay(true))
-        } else {setActiveStep(activeStep + 1)}       
-        
+          return
+        } else {setActiveStep(activeStep + 1)}  
       }
       
       if (activeStep === 2) {
@@ -87,7 +91,6 @@ export default function Checkout() {
             if (payment.success) {
               dispatch(setNotificationDisplay(false))
               dispatch(fetchBasketData(userId));
-              dispatch(setCurrentOrder(updatedBasketList))
               setActiveStep(activeStep + 1);
             } else {
               dispatch(setNotificationType('error'))
@@ -102,10 +105,7 @@ export default function Checkout() {
             // Handle payment error
             console.error(error)
           });
-        
       }
-      
-    
   };
 
   const handleBack = () => {
@@ -192,4 +192,5 @@ export default function Checkout() {
     </React.Fragment>
   );
 }
+
 
