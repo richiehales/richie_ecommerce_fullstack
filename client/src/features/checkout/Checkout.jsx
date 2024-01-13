@@ -16,7 +16,6 @@ import Typography from '@mui/material/Typography';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
-import { setShippingAddress } from './checkoutSlice';
 import { 
   setNotificationType, 
   setNotificationMessage, 
@@ -48,7 +47,7 @@ export default function Checkout() {
 
   const handleNext = () => {
     if (activeStep === 0) {
-      dispatch(setShippingAddress(shippingAddress));
+      
       if (shippingAddress.zip && shippingAddress.address1 && shippingAddress.firstName) {
         dispatch(setNotificationDisplay(false))
         setActiveStep(activeStep + 1);

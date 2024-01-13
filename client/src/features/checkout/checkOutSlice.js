@@ -1,4 +1,3 @@
-// checkoutSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -53,9 +52,6 @@ export const checkoutSlice = createSlice({
     setSaveShippingAddress: (state, action) => {
       state.shippingAddress.saveAddress = action.payload;
     },
-    setShippingAddress: (state, action) => {
-      state.shippingAddress = action.payload;
-    },
     setCardName: (state, action) => {
       state.paymentDetails.cardName = action.payload;
     },
@@ -84,7 +80,6 @@ export const {
   setShippingZip,
   setShippingCountry,
   setSaveShippingAddress,
-  setShippingAddress,
   setCardName,
   setCardNumber,
   setCardDate,
