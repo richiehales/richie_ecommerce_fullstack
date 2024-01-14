@@ -17,7 +17,7 @@ export default function Review() {
 
   useEffect(() => {
     dispatch(fetchOrders(currentUser.id));
-  }, [dispatch]);
+  }, [dispatch, currentUser.id]);
   
 
   return (

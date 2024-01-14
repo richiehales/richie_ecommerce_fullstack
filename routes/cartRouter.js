@@ -146,6 +146,36 @@ cartRouter.post('/getBasketId', async (req, res) => {
 });
 
 
+// Get basket id with user id
+/*
+GET    http://localhost:3000/cart/getBasketId/1
+*/
+cartRouter.post('/getBasketId/:id', async (req, res) => {
+  console.log(`cartRouter.js run`, req.params.id)
+  try {
+    const userId = req.params.id;
 
+    if (!userId) {
+      return res.status(400).send('Please provide userId as a route parameter.');
+    }
+
+    const basketIdResult = await cartInstance.getBasketIdFromUser(userId);
+
+    if (basketIdResult) {
+      const basketId = basketIdResult.rows[0]?.basket_id;
+      
+      if (basketId) {
+        res.send(basketId.toString()); // Return the basketId as a string in the response
+      } else {
+        res.status(404).send('Basket id not found for the provided user id.');
+      }
+    } else {
+      res.status(500).send('Internal Server Error');
+    }
+  } catch (error) {
+    console.error('Error:', error); // Log the error to the console
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 module.exports = cartRouter;

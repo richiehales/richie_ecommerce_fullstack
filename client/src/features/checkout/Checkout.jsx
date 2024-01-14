@@ -44,10 +44,12 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 export default function Checkout() {
   const dispatch = useDispatch();
   const shippingAddress = useSelector((state) => state.checkout.shippingAddress);
-  const paymentDetails = useSelector((state) => state.checkout.paymentDetails);  
+  const paymentDetails = useSelector((state) => state.checkout.paymentDetails);
+  const basketList = useSelector((state) => state.basket.basketList);  
   const userId = useSelector((state) => state.currentUser.currentUser.id);
   const authenticated = useSelector((state) => state.currentUser.authenticated);
   const [activeStep, setActiveStep] = React.useState(0);
+  console.log(`Checkout.jsx`, basketList[0].id)
 
   
 
@@ -101,7 +103,7 @@ export default function Checkout() {
           dispatch(setNotificationDisplay(true))
           return
         }
-        dispatch(proceessPayment(paymentDetails, userId))        
+        dispatch(proceessPayment(paymentDetails, basketList[0].id))        
           .then((payment) => {        
             if (payment.success) {
               dispatch(setNotificationDisplay(false))

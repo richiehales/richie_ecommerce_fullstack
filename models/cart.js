@@ -16,7 +16,7 @@ async function getAllBaskets() {
 async function getBasketByUserId(userId) {
   try {
     const text = `
-      SELECT basket.quantity, product.*
+    SELECT basket.id, basket.quantity, product.*
       FROM basket
       JOIN cart_user ON basket.cart_id = cart_user.id
       JOIN product ON basket.product_id = product.id
@@ -24,6 +24,7 @@ async function getBasketByUserId(userId) {
     `;
     const inputs = [userId];
     const result = await query(text, inputs);
+
     return result.rows;
   } catch (err) {
     throw err.stack;
@@ -119,6 +120,24 @@ async function getBasketId(userId, productId) {
   }
 }
 
+async function getBasketIdFromUser(userId) {
+  try {
+    const text = `
+      SELECT basket.id AS basket_id
+      FROM basket
+      JOIN cart_user ON basket.cart_id = cart_user.id
+      WHERE cart_user.user_id = $1;
+    `;
+    const values = [userId];
+    const result = await query(text, values);
+    
+    return result;
+  } catch (error) {
+    throw error.stack;
+  }
+}
+
+
 
 module.exports = {
   getAllBaskets,
@@ -127,5 +146,6 @@ module.exports = {
   updateBasketById,
   deleteCartItemById,
   updateBasketById,
-  getBasketId
+  getBasketId,
+  getBasketIdFromUser
 };

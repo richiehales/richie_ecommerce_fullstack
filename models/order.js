@@ -33,6 +33,7 @@ async function getOrderByUserId(userId) {
 
 // Add user to order_user and product/quantity to orders with basket Id
 async function copyBasketToOrders(basketId) {
+  console.log(`copy Basket to orders - order,js`)
   try {
     // Get information from the basket
     const basketInfo = await query('SELECT * FROM basket WHERE id = $1', [basketId]);

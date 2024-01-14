@@ -1,13 +1,13 @@
 import { processPaymentById } from '../../api/api';
 
 
-export const proceessPayment = (paymentDetails, userId) => async (dispatch) => {
+export const proceessPayment = (paymentDetails, basketId) => async (dispatch) => {
   try {
     const payment = await processPaymentById(
       paymentDetails.cardNumber,
       paymentDetails.cardDate,
       paymentDetails.cvv,
-      userId
+      basketId
     );
 
     dispatch({ type: 'PAYMENT_SUCCESS', payload: payment });
