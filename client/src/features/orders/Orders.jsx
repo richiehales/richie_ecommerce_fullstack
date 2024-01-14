@@ -10,8 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function Review() {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.currentUser.currentUser);
-  
+  const currentUser = useSelector((state) => state.currentUser.currentUser);   
   const orders = useSelector((state) => state.orders.orders);
   console.log(`Orders.jsx`, orders)
 
