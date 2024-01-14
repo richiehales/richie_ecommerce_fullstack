@@ -58,7 +58,6 @@ export function Home() {
       // Dispatch the action to add the product to the basket
       dispatch(addProductToBasket(userId, productId, quantity))
         .then(() => {
-          console.log('Home.jsx', products);
   
           // Fetch the updated basket data after adding the product
           dispatch(fetchBasketData(userId));

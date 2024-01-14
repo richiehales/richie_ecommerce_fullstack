@@ -19,8 +19,7 @@ export function Basket() {
     dispatch(fetchBasketData(userId));
   }, [dispatch, currentUser.id]);
 
-  console.log(`Baske.jsx`, basketList)
-
+  
   const handleRemoveProductFromBasket = (product) => {
     const userId = currentUser.id;
     const productId = product.id;

@@ -2,7 +2,6 @@ import { setOrders } from './ordersSlice';
 import { fetchOrdersById } from '../../api/api';
 
 export const fetchOrders = (userId) => async (dispatch) => {
-  console.log(userId)
   try {
     const orders = await fetchOrdersById(userId);
     dispatch(setOrders(orders));    

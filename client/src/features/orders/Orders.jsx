@@ -12,13 +12,11 @@ export default function Review() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser.currentUser);   
   const orders = useSelector((state) => state.orders.orders);
-  console.log(`Orders.jsx`, orders)
 
 
   useEffect(() => {
     dispatch(fetchOrders(currentUser.id));
-  }, [dispatch, currentUser.id]);
-  
+  }, [dispatch, currentUser.id]);  
 
 
   return (
