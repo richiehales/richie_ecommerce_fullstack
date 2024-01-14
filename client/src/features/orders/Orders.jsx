@@ -1,16 +1,23 @@
 import * as React from 'react';
+import { useEffect } from 'react';
+import { fetchOrders } from './getOrders'
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 export default function Review() {
-  const basketList = useSelector((state) => state.basket.basketList);
+  const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser.currentUser);
   const orders = useSelector((state) => state.orders.orders);
-  console.log(orders)
+  console.log(`Orders.jsx`, orders)
+
+
+  useEffect(() => {
+    dispatch(fetchOrders(currentUser.id));
+  }, [dispatch]);
   
 
   return (
@@ -21,7 +28,7 @@ export default function Review() {
       <List disablePadding>
         {orders.map((product) => (
           <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
-            <ListItemText primary={product.name} secondary={product.desc} />
+            <ListItemText primary={product.name} secondary={product.description} />
             <Typography variant="body2">{product.price}</Typography>
           </ListItem>
         ))}
