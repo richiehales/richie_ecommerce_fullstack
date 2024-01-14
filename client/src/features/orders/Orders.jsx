@@ -9,6 +9,9 @@ import { useSelector } from 'react-redux';
 export default function Review() {
   const basketList = useSelector((state) => state.basket.basketList);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
+  const orders = useSelector((state) => state.orders.orders);
+  console.log(orders)
+  
 
   return (
     <div style={{ margin: '0 auto', maxWidth: '600px' }}>
@@ -16,7 +19,7 @@ export default function Review() {
         {`Order History for ${currentUser.first_name} ${currentUser.last_name}`}
       </Typography>
       <List disablePadding>
-        {basketList.map((product) => (
+        {orders.map((product) => (
           <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
             <ListItemText primary={product.name} secondary={product.desc} />
             <Typography variant="body2">{product.price}</Typography>
