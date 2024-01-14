@@ -49,7 +49,7 @@ export default function Checkout() {
   const userId = useSelector((state) => state.currentUser.currentUser.id);
   const authenticated = useSelector((state) => state.currentUser.authenticated);
   const [activeStep, setActiveStep] = React.useState(0);
-  console.log(`Checkout.jsx`, basketList[0].id)
+  
 
   
 
@@ -103,7 +103,7 @@ export default function Checkout() {
           dispatch(setNotificationDisplay(true))
           return
         }
-        dispatch(proceessPayment(paymentDetails, basketList[0].id))        
+        dispatch(proceessPayment(paymentDetails, userId))        
           .then((payment) => {        
             if (payment.success) {
               dispatch(setNotificationDisplay(false))

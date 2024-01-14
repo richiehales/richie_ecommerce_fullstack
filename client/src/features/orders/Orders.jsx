@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function Review() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser.currentUser);
-<<<<<<< HEAD
+  
   const orders = useSelector((state) => state.orders.orders);
   console.log(`Orders.jsx`, orders)
 
@@ -20,8 +20,7 @@ export default function Review() {
     dispatch(fetchOrders(currentUser.id));
   }, [dispatch, currentUser.id]);
   
-=======
->>>>>>> parent of 540bc67 (Basic api and orders Redux slice added)
+
 
   return (
     <div style={{ margin: '0 auto', maxWidth: '600px' }}>
@@ -29,7 +28,7 @@ export default function Review() {
         {`Order History for ${currentUser.first_name} ${currentUser.last_name}`}
       </Typography>
       <List disablePadding>
-        {basketList.map((product) => (
+        {orders.map((product) => (
           <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
             <ListItemText primary={product.name} secondary={product.description} />
             <Typography variant="body2">{product.price}</Typography>
