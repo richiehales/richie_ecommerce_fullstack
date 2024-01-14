@@ -4,7 +4,6 @@ import basketReducer from '../features/basket/basketSlice'
 import currentUserReducer from '../features/signIn/currentUserSlice'
 import notificationsReducer from '../features/notifications/notificationsSlice'
 import checkoutReducer from '../features/checkout/checkoutSlice'
-import ordersReducer from '../features/orders/ordersSlice'
 
 export const store = configureStore({
   reducer: {
@@ -12,7 +11,6 @@ export const store = configureStore({
     basket: basketReducer,
     currentUser: currentUserReducer,
     notifications: notificationsReducer,
-    checkout: checkoutReducer,
-    orders: ordersReducer
+    checkout: checkoutReducer
   },
 });

@@ -259,21 +259,3 @@ export const processPaymentById = async (cardNumber, cardDate, cvc, basketId) =>
     throw error;
   }
 };
-
-
-// Get order by user_id
-// http://localhost:3000/order/1
-const fetchOrdersByIdAPI = 'http://localhost:3000/order/'
-export const fetchOrdersById = async (userId) => {
-  try {
-    const response = await fetch(`${fetchOrdersByIdAPI}${userId}`);
-    if (!response.ok) {
-      throw new Error('Network response was not ok.');
-    }
-    const orders = await response.json(); 
-    return orders;
-  } catch (error) {
-    // Handle errors, log, or throw as necessary  
-    throw error;
-  }
-};
