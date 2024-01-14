@@ -91,14 +91,19 @@ async function copyBasketToOrdersUserId(userId) {
       WHERE cu.user_id = $1;
     `, [userId]);
 
-    // Insert into orders
+    // Insert into orders with a check for existing order_id
     await query(`
       INSERT INTO orders (order_id, product_id, quantity)
       SELECT ou.id AS order_id, b.product_id, b.quantity
       FROM order_user ou
       JOIN cart_user cu ON ou.user_id = cu.user_id
       JOIN basket b ON cu.id = b.cart_id
-      WHERE cu.user_id = $1;
+      WHERE cu.user_id = $1
+      AND NOT EXISTS (
+        SELECT 1
+        FROM orders o
+        WHERE o.order_id = ou.id
+      );
     `, [userId]);
 
     // Delete entries from the basket table
