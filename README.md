@@ -20,4 +20,5 @@ npm start - after cd client
 
 ## Todo
 
-1. User Orders
+1. Implement JSON Web Tokens (JWTs)
+Net Ninja - <https://www.youtube.com/watch?v=SnoAwLP1a-0&t=2s>
