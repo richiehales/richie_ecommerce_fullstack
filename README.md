@@ -24,8 +24,8 @@ npm start - after cd client
 Net Ninja
 <https://www.youtube.com/watch?v=SnoAwLP1a-0&t=2s>
 
-CodeCademy JWT
-<https://www.codecademy.com/journeys/full-stack-engineer/paths/fscj-22-back-end-development/tracks/fscj-22-user-authentication-authorization/modules/wdcp-22-session-authentication-in-express-6df92e38-c255-4e01-83bd-5d348bff33ed/articles/json-web-tokens-jwts>
+Web Dev Simplified
+<https://www.youtube.com/watch?v=7Q17ubqLfaM>
+<https://www.youtube.com/watch?v=mbsmsi7l3r4>
 
-JWT Auth using Node, Express & Postgres
-<https://www.youtube.com/watch?v=foL7tbTrS9E&t=586s>
+
