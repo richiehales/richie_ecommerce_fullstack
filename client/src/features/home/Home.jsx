@@ -1,6 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setNotificationType, setNotificationMessage, setNotificationDisplay, setNotificationVertical, setNotificationHorizontal } from '../notifications/notificationsSlice';
+import { 
+  setNotificationType, 
+  setNotificationMessage, 
+  setNotificationDisplay, 
+  setNotificationVertical, 
+  setNotificationHorizontal 
+  } from '../notifications/notificationsSlice';
 import { fetchBasketData } from '../basket/getBasket'
 import { fetchProductsData } from './getProducts'
 import { addProductToBasket } from '../basket/getBasket'

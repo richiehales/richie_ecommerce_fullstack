@@ -1,6 +1,12 @@
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import { setNotificationType, setNotificationMessage, setNotificationDisplay, setNotificationVertical, setNotificationHorizontal } from '../notifications/notificationsSlice';
+import { 
+  setNotificationType, 
+  setNotificationMessage, 
+  setNotificationDisplay, 
+  setNotificationVertical, 
+  setNotificationHorizontal 
+  } from '../notifications/notificationsSlice';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
