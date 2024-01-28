@@ -10,7 +10,7 @@ export const fetchUser = (email, password) => async (dispatch) => {
     if (users) {
       const user = users.user;
       const accessToken = users.accessToken
-      console.log(accessToken)
+      console.log('getSign.js', accessToken)
 
       if (user) {
         dispatch(setCurrentUser(user));
