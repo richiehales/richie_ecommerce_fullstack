@@ -31,8 +31,8 @@ export default function Review() {
             {`Order History for ${currentUser.first_name} ${currentUser.last_name}`}
           </Typography>
           <List disablePadding>
-            {orders.map((product) => (
-              <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
+            {orders.map((product, index) => (
+              <ListItem key={index} sx={{ py: 1, px: 0 }}>
                 <ListItemText primary={product.name} secondary={product.description} />
                 <Typography variant="body2">{product.price}</Typography>
               </ListItem>

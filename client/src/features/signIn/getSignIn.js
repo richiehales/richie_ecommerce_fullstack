@@ -10,7 +10,7 @@ export const fetchUser = (email, password) => async (dispatch) => {
     if (users) {
       const user = users;
 
-      if (user.password === password) {
+      if (user) {
         dispatch(setCurrentUser(user));
         dispatch(setAuthenticated(true));
         dispatch(fetchBasketData(user.id));
