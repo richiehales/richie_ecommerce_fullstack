@@ -78,8 +78,6 @@ export default function SignIn() {
     dispatch(setAuthenticated(false));
     dispatch(setCurrentUser({
       id: null,
-      password: '',
-      email: '',
       first_name: '',
       last_name: '',
     }));

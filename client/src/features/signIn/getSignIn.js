@@ -8,7 +8,9 @@ export const fetchUser = (email, password) => async (dispatch) => {
     const users = await getUserByEmail(email, password);
 
     if (users) {
-      const user = users;
+      const user = users.user;
+      const accessToken = users.accessToken
+      console.log(accessToken)
 
       if (user) {
         dispatch(setCurrentUser(user));

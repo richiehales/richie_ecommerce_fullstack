@@ -33,3 +33,4 @@ Install above example, store token in local storage then pass as header when use
 ## Password Hashing
 
 1. Add passowrd hashing.
+2. JWT added to userRouter.js - console.log(accessToken) in getSignin.js

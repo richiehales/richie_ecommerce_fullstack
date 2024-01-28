@@ -1,7 +1,12 @@
 const express = require('express');
+const app = express();
 const userRouter = require('express').Router();
 const userInstance = require('../models/user.js');
+const jwt = require('jsonwebtoken')
 
+app.use(express.json());
+
+const secretKey = 'your-secret-key';
 
 // Get all users
 // http://localhost:3000/user
@@ -52,6 +57,7 @@ userRouter.post('/email', async (req, res) => {
     const user = users[0];
 
     if (user.password !== password) {
+      
       return res.status(401).send('Incorrect password');
     }
     
@@ -61,8 +67,13 @@ userRouter.post('/email', async (req, res) => {
       last_name: user.last_name
     };
 
-    res.json(userResponse);
+    const accessToken = jwt.sign(userResponse, secretKey)
+    console.log({accessToken: accessToken})  
 
+    res.json({
+      user: userResponse,
+      accessToken: accessToken
+    });
 
   } catch (err) {
     res.status(400).send(err);
