@@ -54,7 +54,6 @@ export default function SignIn() {
   
     dispatch(fetchUser(email, password))
       .then((result) => {
-        console.log('SignIn.jsx - Result of fetchUser action:', result);
         dispatch(setNotificationDisplay(false));     
       })
       .catch((error) => {

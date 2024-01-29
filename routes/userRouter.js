@@ -67,10 +67,7 @@ userRouter.post('/email', async (req, res) => {
       last_name: user.last_name
     };
 
-    const userId = userResponse.id
-
     const accessToken = jwt.sign(userResponse, secretKey)
-    console.log('userRouter.js', {accessToken: accessToken})  
 
     res.json({
       user: userResponse,

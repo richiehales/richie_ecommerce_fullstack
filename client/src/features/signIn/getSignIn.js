@@ -1,5 +1,5 @@
 // getSignIn.js
-import { setCurrentUser, setAuthenticated } from './currentUserSlice';
+import { setCurrentUser, setAuthenticated, setWebToken } from './currentUserSlice';
 import { getUserByEmail } from '../../api/api';
 import { fetchBasketData } from '../basket/getBasket';
 
@@ -10,10 +10,10 @@ export const fetchUser = (email, password) => async (dispatch) => {
     if (users) {
       const user = users.user;
       const accessToken = users.accessToken
-      console.log('getSign.js', accessToken)
 
       if (user) {
         dispatch(setCurrentUser(user));
+        dispatch(setWebToken(accessToken))
         dispatch(setAuthenticated(true));
         dispatch(fetchBasketData(user.id));
 

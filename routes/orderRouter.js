@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const secretKey = 'your-secret-key';
 
 
+/*
 // Get all orders
 // http://localhost:3000/order
 orderRouter.get('/', async (req, res) => {
@@ -16,13 +17,14 @@ orderRouter.get('/', async (req, res) => {
       res.status(400).send(err);
   }
 })
+*/
 
 
 // Get order by user_id
-// http://localhost:3000/order/1
-orderRouter.get('/:id', async (req, res) => {
+// http://localhost:3000/order/ 
+orderRouter.get('/', authenticateToken, async (req, res) => {
 
-  let id = req.params.id;
+  let id = req.userResponse.id;
 
   try {
       const order = await orderInstance.getOrderByUserId(id);
@@ -32,14 +34,6 @@ orderRouter.get('/:id', async (req, res) => {
       res.status(400).send(err);
   }
 })
-
-
-// Test jwt
-// http://localhost:3000/order/orderTest/webtoken
-orderRouter.get('/orderTest/webtoken', authenticateToken, async (req, res) => {
-  console.log('Test jwt', req.userResponse.id)  
-})
-
 
 
 function authenticateToken(req, res, next) {

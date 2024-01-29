@@ -50,7 +50,6 @@ app.use('/product', productRouter);
 app.use('/cart', cartRouter);
 app.use('/user', userRouter);
 app.use('/order', orderRouter);
-app.use('/orderTest', orderRouter);
 app.use('/checkout', checkoutRouter);
 
 app.use(express.json());

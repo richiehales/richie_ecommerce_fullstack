@@ -13,13 +13,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export default function Review() {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.currentUser.currentUser);   
+  const currentUser = useSelector((state) => state.currentUser.currentUser);
+  const webToken = useSelector((state) => state.currentUser.webToken);  
   const orders = useSelector((state) => state.orders.orders);
 
-
   useEffect(() => {
-    dispatch(fetchOrders(currentUser.id));
-  }, [dispatch, currentUser.id]);  
+    dispatch(fetchOrders(webToken));
+  }, [dispatch, webToken]);  
 
 
   return (

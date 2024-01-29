@@ -5,6 +5,7 @@ const initialState = {
     
   },
   authenticated: false,
+  webToken: '',
 };
 
 export const currentUserSlice = createSlice({
@@ -17,8 +18,11 @@ export const currentUserSlice = createSlice({
     setAuthenticated: (state, action) => {
       state.authenticated = action.payload;
     },
+    setWebToken: (state, action) => {
+      state.webToken = action.payload;
+    },
   },
 });
 
-export const { setCurrentUser, setAuthenticated } = currentUserSlice.actions;
+export const { setCurrentUser, setAuthenticated, setWebToken } = currentUserSlice.actions;
 export default currentUserSlice.reducer;
