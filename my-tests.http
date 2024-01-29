@@ -1,5 +1,4 @@
-get http://localhost:3000/order/orderTest/webtoken
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3RfbmFtZSI6IkpvaG4iLCJsYXN0X25hbWUiOiJEb2UiLCJpYXQiOjE3MDY1MzIwODV9.hXTYdA_Dz7isSdFtWRUg-BFrw58FsZvUQRcgRgnRBtc
+get http://localhost:3000/user
 
 ###
-get http://localhost:3000/user
+DELETE http://localhost:3000/user/delete/1
