@@ -1,5 +1,8 @@
 const orderRouter = require('express').Router();
 const orderInstance = require('../models/order.js');
+const jwt = require('jsonwebtoken');
+
+const secretKey = 'your-secret-key';
 
 
 // Get all orders
@@ -29,6 +32,28 @@ orderRouter.get('/:id', async (req, res) => {
       res.status(400).send(err);
   }
 })
+
+
+// Test jwt
+// http://localhost:3000/order/orderTest/webtoken
+orderRouter.get('/orderTest/webtoken', authenticateToken, async (req, res) => {
+  console.log('Test jwt', req.userResponse.id)  
+})
+
+
+
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+  if (token == null) return res.sendStatus(401)
+
+  jwt.verify(token, secretKey, (err, userResponse) => {
+    if (err) return res.sendStatus(403)
+    req.userResponse = userResponse
+    next()
+  })
+}
+
 
 
 // Copy basket item to order_user and orders when basket id
