@@ -57,8 +57,9 @@ userRouter.post('/email', async (req, res) => {
 
     const user = users[0];
 
-    if (user.password !== password) {
-      
+    const match = await bcrypt.compare(password, user.password)
+
+    if (!match) {      
       return res.status(401).send('Incorrect password');
     }
     
@@ -122,7 +123,10 @@ userRouter.post('/registerUser', async (req, res) => {
       return res.status(400).send('Please provide password, email, first_name and last_name in the request body.');
     }
 
-    const registrationResult = await userInstance.registerUser(password, email, first_name, last_name);
+    const salt = await bcrypt.genSalt(10)
+    const hashPassword = await bcrypt.hash(password, salt)
+
+    const registrationResult = await userInstance.registerUser(hashPassword, email, first_name, last_name);
 
     if (registrationResult.success) {
       // Successfully registered
