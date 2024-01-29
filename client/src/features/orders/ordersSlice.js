@@ -1,23 +1,7 @@
 import {  createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  orders: [
-    {
-      id: 1,
-      name: 'Running Shoes 1',
-      price: 79.99,
-      description: 'High-performance running shoes',
-      category: 'running shoes',
-    },
-    {
-      id: 2,
-      name: 'Running Shoes 2',
-      price: 89.99,
-      description: 'Lightweight and breathable running shoes',
-      category: 'running shoes',
-    },
-    // Add more products as needed
-  ],
+  orders: []
 }
 
 export const ordersSlice = createSlice({

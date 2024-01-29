@@ -6,7 +6,9 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = 3000;
+const { getUserByEmail, getUserById } = require('./models/user');
 const passport = require('passport');
+const initializePassport = require('./routes/passport-config');
 const productRouter = require('./routes/productRouter');
 const cartRouter = require('./routes/cartRouter');
 const userRouter = require('./routes/userRouter');
@@ -14,10 +16,13 @@ const orderRouter = require('./routes/orderRouter');
 const checkoutRouter = require('./routes/checkoutRouter');
 const flash = require('express-flash');
 const session = require('express-session');
+const methodOverride = require('method-override')
 
+
+initializePassport(passport, getUserByEmail, getUserById);
 
 app.use(express.urlencoded({ extended: false }));
-
+app.set('view-engine', 'ejs');
 app.use(cors());
 
 app.use(flash());
@@ -48,6 +53,21 @@ app.use('/order', orderRouter);
 app.use('/checkout', checkoutRouter);
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+const loginRouter = require('./routes/loginRouter');
+app.use('/login', loginRouter);
+
+app.use(methodOverride('_method'))
+
+app.delete('/auth/logout', (req, res) => {
+  req.logout(err => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/login/auth/login');
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}`);
