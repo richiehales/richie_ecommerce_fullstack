@@ -1,7 +1,11 @@
 -- ******************* Create user table
+-- Enable the uuid-ossp extension
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- Create the user_info table with a UUID column as the primary key
 CREATE TABLE user_info
 (
-  id          SERIAL PRIMARY KEY,
+  id          UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
   password    varchar(100) NOT NULL,
   email       varchar(50) NOT NULL,
   first_name  varchar(50) NOT NULL,
@@ -22,7 +26,7 @@ CREATE TABLE product
 CREATE TABLE cart_user -- was cart
 (
   id        SERIAL PRIMARY KEY,
-  user_id   integer REFERENCES user_info(id) ON DELETE SET NULL
+  user_id   UUID REFERENCES user_info(id) ON DELETE SET NULL
 );
 
 -- ****************** Create basket table
@@ -38,7 +42,7 @@ CREATE TABLE basket -- was cart_product
 CREATE TABLE order_user
 (
   id        SERIAL PRIMARY KEY,
-  user_id   integer REFERENCES user_info(id) ON DELETE SET NULL,
+  user_id   UUID REFERENCES user_info(id) ON DELETE SET NULL,
   order_date timestamp DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -50,4 +54,5 @@ CREATE TABLE orders
   product_id  integer REFERENCES product(id),
   quantity    integer NOT NULL
 );
+
 
