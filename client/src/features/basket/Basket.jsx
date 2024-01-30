@@ -7,9 +7,15 @@ import { setNotificationType,
   setNotificationHorizontal 
   } from '../notifications/notificationsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { Card, CardContent, Grid, Typography, Box, Button } from '@mui/material';
-import Image from 'mui-image';
-import shoeImg from './images/shoes1.jpg'
+import CssBaseline from '@mui/material/CssBaseline';
+import Paper from '@mui/material/Paper';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import { Grid, Box, Button } from '@mui/material';
+
 
 
 export function Basket() {
@@ -45,13 +51,51 @@ export function Basket() {
       }, 250);
   };
 
-  const cardStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%', // Ensures all cards have the same height
+
+  const calculateTotalCost = () => {
+    let total = 0;
+  
+    // Include the logic for updatedBasketList
+    basketList.forEach((product) => {
+      total += parseFloat(product.price.replace('£', ''));
+    });
+  
+    // Return the total sum of updatedBasketList
+    return total.toFixed(2);
   };
 
-  
+
+  const currentBasketItems = (
+    <React.Fragment>
+      <CssBaseline />
+      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+        <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>          
+          <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>
+            {`Current Basket for ${currentUser.first_name} ${currentUser.last_name}`}
+          </Typography>
+          <List disablePadding>
+            {basketList.map((product, index) => (
+              <ListItem key={index} sx={{ py: 1, px: 0 }}>
+                <ListItemText primary={product.name} secondary={product.description} />
+                <Typography variant="body2" sx={{ marginRight: 1 }}>{product.price}</Typography>
+                <Button 
+                  variant="contained"  
+                  onClick={() => handleRemoveProductFromBasket(product)}>
+                  Remove
+                </Button>
+              </ListItem>
+            ))}
+          </List>
+          <Typography>Total Cost: £{calculateTotalCost()}</Typography>          
+        </Paper>
+      </Container>
+    </React.Fragment>
+  );
+
+
+
+
+  /*
   const currentBasketItems = basketList && basketList.map((item) => (
     <Grid key={item.id} item xs={12} sm={6} md={4} lg={2}>
       <Card style={cardStyle}>
@@ -75,6 +119,7 @@ export function Basket() {
       </Card>
     </Grid>
   ));
+  */
 
 
   return (
