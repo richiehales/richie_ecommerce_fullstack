@@ -15,6 +15,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { Grid, Box, Button } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 
@@ -79,48 +80,24 @@ export function Basket() {
                 <ListItemText primary={product.name} secondary={product.description} />
                 <Typography variant="body2" sx={{ marginRight: 1 }}>{product.price}</Typography>
                 <Button 
-                  variant="contained"  
+                  variant="contained"
+                  startIcon={<DeleteIcon />}
+                  sx={{ paddingRight: 0 }}                   
                   onClick={() => handleRemoveProductFromBasket(product)}>
-                  Remove
                 </Button>
               </ListItem>
             ))}
-          </List>
-          <Typography>Total Cost: £{calculateTotalCost()}</Typography>          
+            <ListItem sx={{ py: 1, px: 0 }}>
+              <ListItemText primary="Total Cost" />
+              <Typography variant="body2" sx={{ marginRight: 1 }}>
+                £{calculateTotalCost()}
+              </Typography>
+            </ListItem>
+          </List>                 
         </Paper>
       </Container>
     </React.Fragment>
   );
-
-
-
-
-  /*
-  const currentBasketItems = basketList && basketList.map((item) => (
-    <Grid key={item.id} item xs={12} sm={6} md={4} lg={2}>
-      <Card style={cardStyle}>
-        <Image src={shoeImg} alt='Film Poster' />
-        <CardContent style={{ flex: 1 }}>
-        <Typography variant="h6" component="div">
-            {item.name}
-          </Typography>
-          <Typography color="textSecondary">
-            {item.description}
-          </Typography>
-          <Typography color="textSecondary">
-            {`Price: ${item.price}`}
-          </Typography>          
-          <Button 
-            variant="contained"  
-            onClick={() => handleRemoveProductFromBasket(item)}>
-              Remove
-          </Button>                         
-        </CardContent>
-      </Card>
-    </Grid>
-  ));
-  */
-
 
   return (
     <div>
