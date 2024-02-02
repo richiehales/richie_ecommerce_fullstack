@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { fetchBasketData, deleteProductFromBasket } from './getBasket'
 import { setNotificationType, 
   setNotificationMessage, 
@@ -16,6 +17,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Grid, Box, Button } from '@mui/material';
 
 
 export function Basket() {
@@ -83,7 +85,7 @@ export function Basket() {
                   edge="end"
                   aria-label="delete"
                   onClick={() => handleRemoveProductFromBasket(product)}
-                  style={{ color: 'blue' }}
+                  color="primary"
                 >
                   <DeleteIcon />
                 </IconButton>
@@ -91,13 +93,26 @@ export function Basket() {
             ))}
           </List>
           <ListItem sx={{ py: 1, px: 0 }}>
-              <ListItemText primary="Total Cost" />
-              <Typography variant="body2" sx={{ marginRight: 1 }}>
-                £{calculateTotalCost()}
-              </Typography>
-            </ListItem>          
-        </Paper>
-      </Container>
+            <ListItemText primary="Total Cost" />
+            <Typography variant="body2" sx={{ marginRight: 1 }}>
+              £{calculateTotalCost()}
+            </Typography>
+          </ListItem>
+          <React.Fragment>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Link
+                to="/Checkout">
+              <Button
+                variant="contained"
+                sx={{ mt: 3, ml: 1 }}
+              >
+                Checkout
+              </Button>
+              </Link>
+            </Box>
+          </React.Fragment>
+        </Paper>        
+      </Container>  
     </React.Fragment>
   );
 }
