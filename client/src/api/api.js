@@ -218,39 +218,43 @@ export const addUser = async (first_name, last_name, password, email) => {
 // Route to process payment and checkout by basket id
 /*
 Postman - test
-POST    http://localhost:3000/checkout
+POST    http://localhost:3000/checkout/allItems
+Headers:
+  Content-Type: application/json
+  Authorization: Bearer {{webToken}}
 Body:
 {
   "paymentDetails": {
     "cardNumber": "1234123412341234",
     "expiryDate": "02-24",
     "cvc": "123"
-  },
-  "basketId": 1
+  }
 }
 */
 const paymentAPI = 'http://localhost:3000/checkout/allItems';
-export const processPaymentById = async (cardNumber, cardDate, cvc, userId) => {
+
+export const processPaymentById = async (cardNumber, cardDate, cvc, webToken) => {
+  console.log('api.js webToken', webToken)
   try {
     const response = await fetch(paymentAPI, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${webToken}`, // Include the webToken in the headers for authentication
       },
       body: JSON.stringify({
         paymentDetails: {
           cardNumber,
-          expiryDate: cardDate, // Adjusted to match the specified structure
+          expiryDate: cardDate,
           cvc,
         },
-        userId,
       }),
     });
 
     if (!response.ok) {
       throw new Error('Network response was not ok - api.js.');
     }
-    
+
     const data = await response.json();
 
     return data;
@@ -259,6 +263,7 @@ export const processPaymentById = async (cardNumber, cardDate, cvc, userId) => {
     throw error;
   }
 };
+
 
 
 // Get order by user_id - jwt

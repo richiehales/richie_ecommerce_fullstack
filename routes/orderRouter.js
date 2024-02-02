@@ -37,7 +37,7 @@ orderRouter.get('/', authenticateToken, async (req, res) => {
 })
 
 
-// Copy basket item to order_user and orders when basket id
+// Copy basket item to order_user and orders when basket id - NOT USED
 /*
 Postman - test
 POST    http://localhost:3000/order/copyBasketToOrders

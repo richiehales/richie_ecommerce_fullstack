@@ -47,6 +47,7 @@ export default function Checkout() {
   const paymentDetails = useSelector((state) => state.checkout.paymentDetails);
   const userId = useSelector((state) => state.currentUser.currentUser.id);
   const authenticated = useSelector((state) => state.currentUser.authenticated);
+  const webToken = useSelector((state) => state.currentUser.webToken);  
   const [activeStep, setActiveStep] = React.useState(0);
   
 
@@ -100,7 +101,7 @@ export default function Checkout() {
           dispatch(setNotificationDisplay(true))
           return
         }
-        dispatch(proceessPayment(paymentDetails, userId))        
+        dispatch(proceessPayment(paymentDetails, webToken))        
           .then((payment) => {        
             if (payment.success) {
               dispatch(setNotificationDisplay(false))

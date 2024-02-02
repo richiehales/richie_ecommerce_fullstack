@@ -2,3 +2,14 @@ get http://localhost:3000/user
 
 ###
 DELETE http://localhost:3000/user/delete/1
+
+###
+POST http://localhost:3000/checkout/allItems
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0ZGE5ZDMxLWI0NDQtNDFiZS1hODViLTBjMTNlMWMyNDkxOSIsImZpcnN0X25hbWUiOiJTaW1vbiIsImxhc3RfbmFtZSI6IkpvbmVzIiwiaWF0IjoxNzA2ODgzMDkyfQ.1mzknRSZM-6o4pxc6aq4Hk5Uc_i_tMlaz4ewTlRzr0o
+
+{
+  "cardNumber": "1234123412341234",
+  "expiryDate": "02-24",
+  "cvc": "123"
+}
