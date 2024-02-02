@@ -93,8 +93,14 @@ export function Basket() {
             ))}
           </List>
           <ListItem sx={{ py: 1, px: 0 }}>
-            <ListItemText primary="Total Cost" />
-            <Typography variant="body2" sx={{ marginRight: 1 }}>
+            <ListItemText
+              primary={
+                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                  Total Cost
+                </Typography>
+              }
+            />
+            <Typography variant="h7" sx={{ marginRight: 2, fontWeight: 'bold' }}>
               £{calculateTotalCost()}
             </Typography>
           </ListItem>
