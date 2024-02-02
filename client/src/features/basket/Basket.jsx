@@ -17,10 +17,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Grid, Box, Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
 
-export function Basket() {
+export function Basket() { 
   const dispatch = useDispatch();
   const basketList = useSelector((state) => state.basket.basketList);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
