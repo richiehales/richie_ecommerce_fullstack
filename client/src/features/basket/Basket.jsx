@@ -14,9 +14,8 @@ import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import { Grid, Box, Button } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-
 
 
 export function Basket() {
@@ -66,50 +65,39 @@ export function Basket() {
   };
 
 
-  const currentBasketItems = (
+  
+  return (
     <React.Fragment>
       <CssBaseline />
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>          
           <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>
-            {`Current Basket for ${currentUser.first_name} ${currentUser.last_name}`}
+            {`Basket for ${currentUser.first_name} ${currentUser.last_name}`}
           </Typography>
           <List disablePadding>
             {basketList.map((product, index) => (
               <ListItem key={index} sx={{ py: 1, px: 0 }}>
                 <ListItemText primary={product.name} secondary={product.description} />
-                <Typography variant="body2" sx={{ marginRight: 1 }}>{product.price}</Typography>
-                <Button 
-                  variant="contained"
-                  startIcon={<DeleteIcon />}
-                  sx={{ paddingRight: 0 }}                   
-                  onClick={() => handleRemoveProductFromBasket(product)}>
-                </Button>
+                <Typography variant="body2">{product.price}</Typography>
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => handleRemoveProductFromBasket(product)}
+                  style={{ color: 'blue' }}
+                >
+                  <DeleteIcon />
+                </IconButton>
               </ListItem>
             ))}
-            <ListItem sx={{ py: 1, px: 0 }}>
+          </List>
+          <ListItem sx={{ py: 1, px: 0 }}>
               <ListItemText primary="Total Cost" />
               <Typography variant="body2" sx={{ marginRight: 1 }}>
                 £{calculateTotalCost()}
               </Typography>
-            </ListItem>
-          </List>                 
+            </ListItem>          
         </Paper>
       </Container>
     </React.Fragment>
-  );
-
-  return (
-    <div>
-      <Grid container spacing={2} justifyContent="center" alignItems="center" item xs={12} sm={6} md={12}>
-        <Typography variant="h4" component="div">
-          {basketList.length > 0 ? 'Current Basket Items' : 'Basket Is Empty'}
-        </Typography>
-      </Grid>
-      <Box mb={2} /> 
-      <Grid container spacing={2} item xs={12} sm={6} md={12}>
-        {currentBasketItems}
-      </Grid>
-    </div>
   );
 }
