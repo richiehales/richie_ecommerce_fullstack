@@ -20,7 +20,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { fetchUser } from './getSignIn';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUser, setAuthenticated } from './currentUserSlice';
+import { setCurrentUser, setAuthenticated, setWebToken } from './currentUserSlice';
 import { setBasketList } from '../basket/basketSlice';
 import { useNavigate } from 'react-router-dom';
 
@@ -80,6 +80,7 @@ export default function SignIn() {
       first_name: '',
       last_name: '',
     }));
+    dispatch(setWebToken(''))
     dispatch(setBasketList(``))
   };
 
