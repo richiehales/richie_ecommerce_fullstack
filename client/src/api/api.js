@@ -241,7 +241,6 @@ Body:
 const paymentAPI = 'http://localhost:3000/checkout/allItems';
 
 export const processPaymentById = async (cardNumber, cardDate, cvc, webToken) => {
-  console.log('api.js webToken', webToken)
   try {
     const response = await fetch(paymentAPI, {
       method: 'POST',
@@ -259,15 +258,21 @@ export const processPaymentById = async (cardNumber, cardDate, cvc, webToken) =>
     });
 
     if (!response.ok) {
-      throw new Error('Network response was not ok - api.js.');
+      const contentType = response.headers.get('content-type');
+
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+        return { error: data.error || 'Unknown server error' };
+      } else {
+        const text = await response.text();
+        return { error: `Non-JSON response: ${text}` };
+      }
     }
 
     const data = await response.json();
-
     return data;
   } catch (error) {
-    // Handle errors, log, or throw as necessary
-    throw error;
+    return { error: error.message || 'Unknown error' };
   }
 };
 

@@ -21,7 +21,7 @@ checkoutRouter.post('/allItems', authenticateToken, async (req, res) => {
       res.status(400).json({ error: error.message });
     } else {
       // Handle other errors as needed
-      res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).json({ error: error.message || 'Internal Server Error' });
     }
   }
 });
