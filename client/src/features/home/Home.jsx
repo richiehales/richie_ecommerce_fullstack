@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
   setNotificationType, 
@@ -7,10 +8,12 @@ import {
   setNotificationVertical, 
   setNotificationHorizontal 
   } from '../notifications/notificationsSlice';
+import { setCurrentUser, setAuthenticated, setWebToken } from '../signIn/currentUserSlice';
 import { fetchBasketData } from '../basket/getBasket'
 import { fetchProductsData } from './getProducts'
 import { addProductToBasket } from '../basket/getBasket'
 import { Card, CardContent, Grid, Typography, Box, Button } from '@mui/material';
+import { setBasketList } from '../basket/basketSlice';
 import Image from 'mui-image';
 import shoeImg from './images/shoes1.jpg'
 
@@ -24,7 +27,7 @@ export function Home() {
   const authenticated = useSelector((state) => state.currentUser.authenticated);
   const webToken = useSelector((state) => state.currentUser.webToken);
 
-    
+  const navigate = useNavigate();
   
   const cardStyle = {
     display: 'flex',
@@ -78,6 +81,15 @@ export function Home() {
           dispatch(setNotificationHorizontal('right'));
           dispatch(setNotificationMessage(error.message)); // Display the specific error message
           dispatch(setNotificationDisplay(true));
+          dispatch(setAuthenticated(false));
+          dispatch(setCurrentUser({
+            id: null,
+            first_name: '',
+            last_name: '',
+          }));
+          dispatch(setWebToken(''))
+          dispatch(setBasketList(``))
+          navigate("/SignIn");
         });
     } else {
       dispatch(setNotificationType('error'))

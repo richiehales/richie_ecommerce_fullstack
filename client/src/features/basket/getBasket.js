@@ -28,7 +28,6 @@ export const deleteProductFromBasket = (userId, productId) => async (dispatch) =
     const basketId = await getBasketId(userId, productId);
     if (basketId) {
       const data = await deleteByBasketId(basketId);
-      console.log('getBasket.js', data); // Log the data
       const fetchBasketId = await fetchbasketById(userId); // Fetch the updated basket data
       
       dispatch(setBasketList(fetchBasketId));

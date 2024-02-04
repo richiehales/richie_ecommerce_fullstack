@@ -24,6 +24,7 @@ export function Basket() {
   const dispatch = useDispatch();
   const basketList = useSelector((state) => state.basket.basketList);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
+  //const webToken = useSelector((state) => state.currentUser.webToken);  
  
   
   
@@ -77,7 +78,7 @@ export function Basket() {
             {`Basket for ${currentUser.first_name} ${currentUser.last_name}`}
           </Typography>
           <List disablePadding>
-            {basketList.map((product, index) => (
+            {basketList && basketList.map((product, index) => (
               <ListItem key={index} sx={{ py: 1, px: 0 }}>
                 <ListItemText primary={product.name} secondary={product.description} />
                 <Typography variant="body2">{product.price}</Typography>

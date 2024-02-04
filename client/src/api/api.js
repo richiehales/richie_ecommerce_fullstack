@@ -57,7 +57,7 @@ export const addProductToBasketByUserId = async (userId, productId, quantity, we
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${webToken}`,
+        Authorization: `Bearer 123`,
       },
       body: JSON.stringify({
         userId,
