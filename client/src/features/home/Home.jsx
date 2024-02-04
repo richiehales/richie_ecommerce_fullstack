@@ -22,6 +22,7 @@ export function Home() {
   const basketList = useSelector((state) => state.basket.basketList);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
   const authenticated = useSelector((state) => state.currentUser.authenticated);
+  const webToken = useSelector((state) => state.currentUser.webToken);
 
     
   
@@ -45,8 +46,7 @@ export function Home() {
   const handleAddToBasket = (product) => {
     const userId = currentUser.id;
     const productId = product.id;
-    const quantity = 1;
-  
+    const quantity = 1; 
     
 
     if (!authenticated) {
@@ -62,7 +62,7 @@ export function Home() {
   
     if (!productExistsInBasket) {
       // Dispatch the action to add the product to the basket
-      dispatch(addProductToBasket(userId, productId, quantity))
+      dispatch(addProductToBasket(userId, productId, quantity, webToken))
         .then(() => {
   
           // Fetch the updated basket data after adding the product
@@ -73,7 +73,11 @@ export function Home() {
           dispatch(setNotificationMessage('Item Added To Basket')) 
         })
         .catch((error) => {
-          console.error("Error adding product to basket:", error);
+          dispatch(setNotificationType('error'));
+          dispatch(setNotificationVertical('top'));
+          dispatch(setNotificationHorizontal('right'));
+          dispatch(setNotificationMessage(error.message)); // Display the specific error message
+          dispatch(setNotificationDisplay(true));
         });
     } else {
       dispatch(setNotificationType('error'))

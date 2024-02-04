@@ -51,12 +51,13 @@ Body:
 */
 const addProductToBasketByUserIdAPI = `http://localhost:3000/cart/addUserAndProduct`;
 
-export const addProductToBasketByUserId = async (userId, productId, quantity) => {
+export const addProductToBasketByUserId = async (userId, productId, quantity, webToken) => {
   try {
     const response = await fetch(addProductToBasketByUserIdAPI, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${webToken}`,
       },
       body: JSON.stringify({
         userId,
@@ -65,19 +66,25 @@ export const addProductToBasketByUserId = async (userId, productId, quantity) =>
       }),
     });
 
-   
     if (!response.ok) {
-      throw new Error('Network response was not ok.');
+      const contentType = response.headers.get('content-type');
+
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+        throw new Error(data.error || 'Unknown server error');
+      } else {
+        const text = await response.text();
+        throw new Error(`Non-JSON response: ${text}`);
+      }
     }
 
     const data = await response.json();
     return data;
   } catch (error) {
-    // Handle errors, log, or throw as necessary
-    console.error('Error in addProductToBasketByUserId:', error);
     throw error;
   }
 };
+
 
 
 // Get basket id with user id and item id

@@ -1,5 +1,6 @@
 const cartRouter = require('express').Router();
 const cartInstance = require('../models/cart.js');
+const authenticateToken = require('./authenticate.js');
 
 
 // Get all baskets
@@ -42,7 +43,7 @@ Body:
   "quantity": 3
 }
 */
-cartRouter.post('/addUserAndProduct', async (req, res) => {
+cartRouter.post('/addUserAndProduct', authenticateToken, async (req, res) => {
   try {
     const { userId, productId, quantity } = req.body;
 
