@@ -285,7 +285,7 @@ export const fetchOrdersById = async (webToken) => {
   try {
     const response = await fetch(`${fetchOrdersByIdAPI}`, {
       headers: {
-        Authorization: `Bearer 123`,
+        Authorization: `Bearer ${webToken}`,
       },
     });
 
