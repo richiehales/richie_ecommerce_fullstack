@@ -19,8 +19,8 @@ export default function Review() {
 
   useEffect(() => {
     dispatch(fetchOrders(webToken));
-  }, [dispatch, webToken]);  
-
+  }, [dispatch, webToken]);
+  
 
   return (
     <React.Fragment>
@@ -30,14 +30,20 @@ export default function Review() {
           <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>
             {`Order History for ${currentUser.first_name} ${currentUser.last_name}`}
           </Typography>
-          <List disablePadding>
-            {orders.map((product, index) => (
-              <ListItem key={index} sx={{ py: 1, px: 0 }}>
-                <ListItemText primary={product.name} secondary={product.description} />
-                <Typography variant="body2">{product.price}</Typography>
-              </ListItem>
-            ))}
-          </List>          
+          {orders.length === 0 ? (
+            <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>
+              Please sign in
+            </Typography>
+            ) : (
+            <List disablePadding>
+              {orders.map((product, index) => (
+                <ListItem key={index} sx={{ py: 1, px: 0 }}>
+                  <ListItemText primary={product.name} secondary={product.description} />
+                  <Typography variant="body2">{product.price}</Typography>
+                </ListItem>
+              ))}
+            </List>
+          )}          
         </Paper>
       </Container>
     </React.Fragment>

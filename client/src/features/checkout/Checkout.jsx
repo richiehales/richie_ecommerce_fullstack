@@ -25,6 +25,7 @@ import {
 } from '../notifications/notificationsSlice';
 import { setCurrentUser, setAuthenticated, setWebToken } from '../signIn/currentUserSlice';
 import { setBasketList } from '../basket/basketSlice';
+import { setOrders } from '../orders/ordersSlice';
 import { fetchBasketData } from '../basket/getBasket'
 import { proceessPayment } from './getCheckout'
 
@@ -118,10 +119,11 @@ export default function Checkout() {
               dispatch(setCurrentUser({
                 id: null,
                 first_name: '',
-                last_name: '',
+                last_name: 'Guest',
               }));
               dispatch(setWebToken(''))
               dispatch(setBasketList(``))
+              dispatch(setOrders(''))
               navigate("/SignIn");
               return
             }

@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+import { setOrders } from '../orders/ordersSlice';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import { 
@@ -22,7 +24,8 @@ import { fetchUser } from './getSignIn';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentUser, setAuthenticated, setWebToken } from './currentUserSlice';
 import { setBasketList } from '../basket/basketSlice';
-import { useNavigate } from 'react-router-dom';
+
+
 
 
 function Copyright(props) {
@@ -73,15 +76,20 @@ export default function SignIn() {
     navigate('/');
   };
 
+  const handleViewOrders = () => {
+    navigate('/Orders');
+  };
+
   const handleSignOut = () => {
     dispatch(setAuthenticated(false));
     dispatch(setCurrentUser({
       id: null,
       first_name: '',
-      last_name: '',
+      last_name: 'Guest',
     }));
     dispatch(setWebToken(''))
     dispatch(setBasketList(``))
+    dispatch(setOrders(''))
   };
 
   return (
@@ -110,6 +118,14 @@ export default function SignIn() {
               sx={{ mt: 3, mb: 2 }}
             >
               View Products
+            </Button>
+            <Button
+              onClick={handleViewOrders}
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Order History
             </Button>
             <Button
               onClick={handleSignOut}

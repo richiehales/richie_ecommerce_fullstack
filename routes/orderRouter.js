@@ -29,10 +29,13 @@ orderRouter.get('/', authenticateToken, async (req, res) => {
 
   try {
       const order = await orderInstance.getOrderByUserId(id);
-      if(!order) return res.status(404).send('Invalid order number');
+      
+      if (!order) 
+        return res.status(404).send('Invalid order number');
+
       res.json(order);
   } catch(err) {
-      res.status(400).send(err);
+      res.status(400).send(err.message);
   }
 })
 
