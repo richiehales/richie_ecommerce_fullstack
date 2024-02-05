@@ -33,8 +33,8 @@ orderRouter.get('/', authenticateToken, async (req, res) => {
         return res.status(404).send('Invalid order number');
       
       res.json(order);
-  } catch(err) {
-      res.status(400).send(err.message);
+  } catch(error) {
+    res.status(500).json({ error: error.message || 'Internal Server Error' });
   }
 })
 

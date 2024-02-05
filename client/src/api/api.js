@@ -81,6 +81,7 @@ export const addProductToBasketByUserId = async (userId, productId, quantity, we
     const data = await response.json();
     return data;
   } catch (error) {
+    console.log('api.js error =', error)
     throw error;
   }
 };
@@ -291,26 +292,20 @@ export const fetchOrdersById = async (webToken) => {
 
     if (!response.ok) {
       const contentType = response.headers.get('content-type');
+
       if (contentType && contentType.includes('application/json')) {
         const data = await response.json();
-
-        return { error: data.error || 'Unknown server error' };
+        throw new Error(data.error || 'Unknown server error');
       } else {
         const text = await response.text();
-        return { error: `Non-JSON response: ${text}` };
+        throw new Error(`Non-JSON response: ${text}`);
       }
     }
 
-    const orders = await response.json();
-    
-    if (orders && orders.error === 'Invalid authentication token') {
-      return { error: 'Invalid authentication token' };
-    }
-    
-    
-    return orders;
-
+    const data = await response.json();
+    return data;
   } catch (error) {
-    return { error: error.message || 'Unknown error' };
+    console.log('api.js fetchbasketById =', error)
+    throw error;
   }
 };
