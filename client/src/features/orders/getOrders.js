@@ -14,16 +14,10 @@ import { setBasketList } from '../basket/basketSlice';
 export const fetchOrders = (webToken) => async (dispatch) => {
   try {
     const orders = await fetchOrdersById(webToken);
-    if (orders.error !== 'Authentication token not provided' && orders.error !== 'Invalid authentication token') {
+
+    if (orders.error !== 'Authentication token not provided' && orders.error !== 'Invalid authentication token' && orders.error !== 'Authentication token has expired') {
       dispatch(setOrders(orders));
-    } else {
-      dispatch(setAuthenticated(false));
-      dispatch(setCurrentUser({
-        id: null,
-        first_name: '',
-        last_name: 'Guest',
-      }));
-      dispatch(setWebToken(''))
+    } else {          
       dispatch(setBasketList(``))
       dispatch(setOrders(''))
       dispatch(setNotificationType('error'));
@@ -31,6 +25,15 @@ export const fetchOrders = (webToken) => async (dispatch) => {
       dispatch(setNotificationHorizontal('right'));
       dispatch(setNotificationMessage(orders.error)); // Display the specific error message
       dispatch(setNotificationDisplay(true));
+      dispatch(setAuthenticated(false));
+      dispatch(setCurrentUser({
+        id: null,
+        first_name: '',
+        last_name: 'Guest',
+      }));
+      if (orders.error !== 'Authentication token has expired') {
+        dispatch(setWebToken(''));
+      }
     }     
   } catch (error) {
     // Handle errors, log, or dispatch an error action if needed

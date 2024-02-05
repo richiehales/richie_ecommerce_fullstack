@@ -285,7 +285,7 @@ export const fetchOrdersById = async (webToken) => {
   try {
     const response = await fetch(`${fetchOrdersByIdAPI}`, {
       headers: {
-        Authorization: `Bearer ${webToken}`,
+        Authorization: `Bearer 123`,
       },
     });
 
@@ -293,6 +293,7 @@ export const fetchOrdersById = async (webToken) => {
       const contentType = response.headers.get('content-type');
       if (contentType && contentType.includes('application/json')) {
         const data = await response.json();
+
         return { error: data.error || 'Unknown server error' };
       } else {
         const text = await response.text();
@@ -306,10 +307,10 @@ export const fetchOrdersById = async (webToken) => {
       return { error: 'Invalid authentication token' };
     }
     
+    
     return orders;
 
   } catch (error) {
-    console.log('api.js orders (do not send)=', error)
     return { error: error.message || 'Unknown error' };
   }
 };

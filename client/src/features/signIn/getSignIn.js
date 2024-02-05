@@ -1,4 +1,3 @@
-// getSignIn.js
 import { setCurrentUser, setAuthenticated, setWebToken } from './currentUserSlice';
 import { getUserByEmail } from '../../api/api';
 import { fetchBasketData } from '../basket/getBasket';

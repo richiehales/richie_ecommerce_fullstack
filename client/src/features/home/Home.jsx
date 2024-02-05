@@ -9,6 +9,7 @@ import {
   setNotificationHorizontal 
   } from '../notifications/notificationsSlice';
 import { setCurrentUser, setAuthenticated, setWebToken } from '../signIn/currentUserSlice';
+import { setOrders } from '../orders/ordersSlice';
 import { fetchBasketData } from '../basket/getBasket'
 import { fetchProductsData } from './getProducts'
 import { addProductToBasket } from '../basket/getBasket'
@@ -89,6 +90,7 @@ export function Home() {
           }));
           dispatch(setWebToken(''))
           dispatch(setBasketList(``))
+          dispatch(setOrders(''))
           navigate("/SignIn");
         });
     } else {
