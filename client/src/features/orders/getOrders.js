@@ -34,9 +34,12 @@ export const fetchOrders = (webToken) => async (dispatch) => {
       first_name: '',
       last_name: 'Guest',
     }));
-    dispatch(setWebToken(''))
+    
     dispatch(setBasketList(``))
     dispatch(setOrders(''))
+    if (error.message !== 'Authentication token has expired') {
+      dispatch(setWebToken(''))
+    }
     console.error('Error fetching products data:', error);
   }
 };

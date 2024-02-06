@@ -69,7 +69,7 @@ userRouter.post('/email', async (req, res) => {
       last_name: user.last_name
     };
 
-    const accessToken = jwt.sign(userResponse, secretKey, { expiresIn: '5min' })
+    const accessToken = jwt.sign(userResponse, secretKey, { expiresIn: '5s' })
 
     res.json({
       user: userResponse,
