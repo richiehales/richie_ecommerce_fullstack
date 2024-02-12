@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
@@ -23,9 +22,6 @@ import {
   setNotificationVertical, 
   setNotificationHorizontal 
 } from '../notifications/notificationsSlice';
-import { setCurrentUser, setAuthenticated, setWebToken } from '../signIn/currentUserSlice';
-import { setBasketList } from '../basket/basketSlice';
-import { setOrders } from '../orders/ordersSlice';
 import { fetchBasketData } from '../basket/getBasket'
 import { proceessPayment } from './getCheckout'
 
@@ -54,8 +50,7 @@ export default function Checkout() {
   const webToken = useSelector((state) => state.currentUser.webToken);  
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const navigate = useNavigate();
-  
+ 
 
   const handleNext = () => {
     if (activeStep === 0) {
@@ -115,16 +110,8 @@ export default function Checkout() {
               dispatch(setNotificationHorizontal('center')) 
               dispatch(setNotificationMessage(payment.error))
               dispatch(setNotificationDisplay(true))
-              dispatch(setAuthenticated(false));
-              dispatch(setCurrentUser({
-                id: null,
-                first_name: '',
-                last_name: 'Guest',
-              }));
-              dispatch(setWebToken(''))
-              dispatch(setBasketList(``))
-              dispatch(setOrders(''))
-              navigate("/SignIn");
+              console.log('payment error - Checkout.jsx')
+              setActiveStep(activeStep - 1);
               return
             }
                    

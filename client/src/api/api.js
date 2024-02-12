@@ -1,13 +1,14 @@
 // const SEARCH = 'https://www.omdbapi.com/?s='
 // const apiKey = '6910fcce'
+const baseUrl = 'http://localhost:3000/'
 
 
 // Get all products
 // http://localhost:3000/product
-const allProducts = 'http://localhost:3000/product'
+const allProducts = 'product'
 export const fetchProducts = async () => {
   try {
-    const response = await fetch(allProducts);
+    const response = await fetch(`${baseUrl}${allProducts}`);
     if (!response.ok) {
       throw new Error('Network response was not ok.');
     }
@@ -21,11 +22,11 @@ export const fetchProducts = async () => {
 
 // Get basket by user_id
 // http://localhost:3000/cart/1
-const basketByIdAPI = 'http://localhost:3000/cart/'
+const basketByIdAPI = 'cart/'
 export const fetchbasketById = async (id) => {
   const userId = id
   try {
-    const response = await fetch(`${basketByIdAPI}${userId}`);
+    const response = await fetch(`${baseUrl}${basketByIdAPI}${userId}`);
     if (!response.ok) {
       throw new Error('Network response was not ok.');
     }
@@ -49,11 +50,11 @@ Body:
   "quantity": 3
 }
 */
-const addProductToBasketByUserIdAPI = `http://localhost:3000/cart/addUserAndProduct`;
+const addProductToBasketByUserIdAPI = `cart/addUserAndProduct`;
 
 export const addProductToBasketByUserId = async (userId, productId, quantity, webToken) => {
   try {
-    const response = await fetch(addProductToBasketByUserIdAPI, {
+    const response = await fetch(`${baseUrl}${addProductToBasketByUserIdAPI}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -98,11 +99,11 @@ Body:
   "productId": 7
 }
 */
-const getBasketIdAPI = `http://localhost:3000/cart/getBasketId`;
+const getBasketIdAPI = `cart/getBasketId`;
 
 export const getBasketId = async (userId, productId) => {
   try {
-    const basketId = await fetch(getBasketIdAPI, {
+    const basketId = await fetch(`${baseUrl}${getBasketIdAPI}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -131,10 +132,10 @@ export const getBasketId = async (userId, productId) => {
 Postman - test
 DELETE    http://localhost:3000/cart/updateBasket/delete/1
 */
-const deleteByBasketIdAPI = 'http://localhost:3000/cart/updateBasket/delete/'
+const deleteByBasketIdAPI = 'cart/updateBasket/delete/'
 export const deleteByBasketId = async (basketId) => {
   try {
-    const response = await fetch(`${deleteByBasketIdAPI}${basketId}`, {
+    const response = await fetch(`${baseUrl}${deleteByBasketIdAPI}${basketId}`, {
       method: 'DELETE',
     });
 
@@ -158,10 +159,10 @@ Postman - test
 POST    http://localhost:3000/user/email/
 Body: {"email":"user1@example.com","password":"password1"}
 */
-const getUserByEmailAPI = 'http://localhost:3000/user/email/';
+const getUserByEmailAPI = 'user/email/';
 export const getUserByEmail = async (email, password) => {
   try {
-    const response = await fetch(getUserByEmailAPI, {
+    const response = await fetch(`${baseUrl}${getUserByEmailAPI}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -192,10 +193,10 @@ Postman - test
 POST    http://localhost:3000/user/registerUser
 Body: { "password": "password4", "email": "user4@example.com", "first_name": "Richie", "last_name": "Hales" }
 */
-const addUserAPI = 'http://localhost:3000/user/registerUser';
+const addUserAPI = 'user/registerUser';
 export const addUser = async (first_name, last_name, password, email) => {
   try {
-    const response = await fetch(addUserAPI, {
+    const response = await fetch(`${baseUrl}${addUserAPI}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -239,11 +240,11 @@ Body:
   }
 }
 */
-const paymentAPI = 'http://localhost:3000/checkout/allItems';
+const paymentAPI = 'checkout/allItems';
 
 export const processPaymentById = async (cardNumber, cardDate, cvc, webToken) => {
   try {
-    const response = await fetch(paymentAPI, {
+    const response = await fetch(`${baseUrl}${paymentAPI}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -280,11 +281,11 @@ export const processPaymentById = async (cardNumber, cardDate, cvc, webToken) =>
 
 
 // Get order by user_id - jwt
-const fetchOrdersByIdAPI = 'http://localhost:3000/order/';
+const fetchOrdersByIdAPI = 'order/';
 
 export const fetchOrdersById = async (webToken) => {
   try {
-    const response = await fetch(`${fetchOrdersByIdAPI}`, {
+    const response = await fetch(`${baseUrl}${fetchOrdersByIdAPI}`, {
       headers: {
         Authorization: `Bearer ${webToken}`,
       },
