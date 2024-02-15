@@ -27,8 +27,6 @@ export function Basket() {
   const saleItem = useSelector((state) => state.sale.saleItems);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
   const theme = useTheme();
-  //console.log(`Basket.jsx basketList = ${basketList[1].id}`)
-  console.log(`Basket.jsx saleItem = ${saleItem[0].id}`)
  
   
   
