@@ -32,8 +32,6 @@ export function Home() {
   const authenticated = useSelector((state) => state.currentUser.authenticated);
   const webToken = useSelector((state) => state.currentUser.webToken);
   const theme = useTheme();
-  console.log(`Home.jsx products price = ${products[0].price}`)
-
   const navigate = useNavigate();
   
   const cardStyle = {

@@ -34,7 +34,6 @@ export default function Sale() {
   const currentUser = useSelector((state) => state.currentUser.currentUser);
   const authenticated = useSelector((state) => state.currentUser.authenticated);
   const webToken = useSelector((state) => state.currentUser.webToken);
-  console.log(`Sale.jsx = ${saleItem[0]}`)
 
 
   const handleAddToBasket = (product) => {
