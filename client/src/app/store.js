@@ -5,6 +5,7 @@ import currentUserReducer from '../features/signIn/currentUserSlice'
 import notificationsReducer from '../features/notifications/notificationsSlice'
 import checkoutReducer from '../features/checkout/checkoutSlice'
 import ordersReducer from '../features/orders/ordersSlice'
+import saleReducer from '../features/sale/saleSlice'
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     currentUser: currentUserReducer,
     notifications: notificationsReducer,
     checkout: checkoutReducer,
-    orders: ordersReducer
+    orders: ordersReducer,
+    sale: saleReducer
   },
 });

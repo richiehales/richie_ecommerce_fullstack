@@ -18,7 +18,6 @@ export default function Review() {
   const orders = useSelector((state) => state.orders.orders);
 
   useEffect(() => {
-    console.log('Orders.jsx orders error =', orders)
     dispatch(fetchOrders(webToken));
   }, [dispatch, webToken, orders]);
   
