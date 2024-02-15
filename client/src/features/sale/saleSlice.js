@@ -17,7 +17,7 @@ export const saleSlice = createSlice({
   initialState,
   reducers: {
     setSale: (state, action) => {
-      state.sale = action.payload;
+      state.saleItems = action.payload;
     }
   }  
 })

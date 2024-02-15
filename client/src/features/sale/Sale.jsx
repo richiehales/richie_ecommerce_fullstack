@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addProductToBasket } from '../basket/getBasket'
 import { 
@@ -22,7 +21,6 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { useDispatch, useSelector } from 'react-redux';
-import Image from 'mui-image';
 import shoeImg from '../home/images/shoes1.jpg'
 import { useTheme } from '@mui/material/styles';
 
@@ -36,6 +34,7 @@ export default function Sale() {
   const currentUser = useSelector((state) => state.currentUser.currentUser);
   const authenticated = useSelector((state) => state.currentUser.authenticated);
   const webToken = useSelector((state) => state.currentUser.webToken);
+  console.log(`Sale.jsx = ${saleItem[0]}`)
 
 
   const handleAddToBasket = (product) => {

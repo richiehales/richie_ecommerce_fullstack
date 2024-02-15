@@ -9,6 +9,7 @@ import {
   setNotificationHorizontal 
   } from '../notifications/notificationsSlice';
 import { setCurrentUser, setAuthenticated, setWebToken } from '../signIn/currentUserSlice';
+import { setSale } from '../sale/saleSlice';
 import { setOrders } from '../orders/ordersSlice';
 import { fetchBasketData } from '../basket/getBasket'
 import { fetchProductsData } from './getProducts'
@@ -31,6 +32,7 @@ export function Home() {
   const authenticated = useSelector((state) => state.currentUser.authenticated);
   const webToken = useSelector((state) => state.currentUser.webToken);
   const theme = useTheme();
+  console.log(`Home.jsx products price = ${products[0].price}`)
 
   const navigate = useNavigate();
   
@@ -108,11 +110,29 @@ export function Home() {
     }, 250);
   };
 
+  const randomSaleItem = Math.floor(Math.random() * 20);
 
-
+  useEffect(() => {
+    // Dispatch the setSale action only if there is a product and it matches the randomSaleItem index
+    const product = products[randomSaleItem];
+  
+    if (product) {
+      const numericPrice = parseFloat(product.price.replace('£', ''));
+      
+      dispatch(
+        setSale([{
+          id: product.id,
+          name: product.name,
+          price: numericPrice,
+          description: product.description,
+          category: product.category,
+        }])
+      );
+    }
+  }, [dispatch, products, randomSaleItem]);
   
 
-  const allProducts = products && products.map((item) => (
+  const allProducts = products && products.map((item, index) => (
     <Grid key={item.id} item xs={12} sm={6} md={4} lg={2}>
       <Card style={cardStyle}>
       <Image src={shoeImg} alt='Product Image' />
@@ -129,7 +149,7 @@ export function Home() {
           <Button 
             variant="contained"  
             onClick={() => handleAddToBasket(item)}>
-              Add To Basket
+              Buy
           </Button>            
         </CardContent>
       </Card>
