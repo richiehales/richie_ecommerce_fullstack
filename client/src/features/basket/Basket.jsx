@@ -24,8 +24,11 @@ import { useTheme } from '@mui/material/styles';
 export function Basket() { 
   const dispatch = useDispatch();
   const basketList = useSelector((state) => state.basket.basketList);
+  const saleItem = useSelector((state) => state.sale.saleItems);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
   const theme = useTheme();
+  //console.log(`Basket.jsx basketList = ${basketList[1].id}`)
+  console.log(`Basket.jsx saleItem = ${saleItem[0].id}`)
  
   
   
@@ -41,7 +44,6 @@ export function Basket() {
   
     dispatch(deleteProductFromBasket(userId, productId))
       .then((deletedProduct) => {
-        console.log('Basket.jsx', deletedProduct);
         dispatch(setNotificationType('success'))
         dispatch(setNotificationVertical('top'))
         dispatch(setNotificationHorizontal('right')) 
@@ -59,12 +61,17 @@ export function Basket() {
   const calculateTotalCost = () => {
     let total = 0;
   
-    // Include the logic for updatedBasketList
+    // Include the logic for basketList
     basketList.forEach((product) => {
-      total += parseFloat(product.price.replace('£', ''));
+      // Check if saleItem exists and has the same id as the current product
+      if (saleItem.length > 0 && saleItem[0] && product.id === saleItem[0].id) {
+        total += parseFloat((saleItem[0].price / 2).toFixed(2));
+      } else {
+        total += parseFloat(product.price.replace('£', ''));
+      }
     });
   
-    // Return the total sum of updatedBasketList
+    // Return the total sum
     return total.toFixed(2);
   };
 
@@ -79,10 +86,12 @@ export function Basket() {
             {`Basket for ${currentUser.first_name} ${currentUser.last_name}`}
           </Typography>
           <List disablePadding>
-            {basketList && basketList.map((product, index) => (
+            {basketList && basketList.map((product, index) => (              
               <ListItem key={index} sx={{ py: 1, px: 0 }}>
-                <ListItemText primary={product.name} secondary={product.description} />
-                <Typography variant="body2">{product.price}</Typography>
+                <ListItemText primary={product.name} secondary={product.description} />               
+                <Typography variant="body2">
+                  {saleItem[0].id === product.id ? `£${(saleItem[0].price/2).toFixed(2)}` : `${product.price}`}
+                </Typography>
                 <IconButton
                   edge="end"
                   aria-label="delete"

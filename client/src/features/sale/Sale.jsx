@@ -1,5 +1,18 @@
 import * as React from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { addProductToBasket } from '../basket/getBasket'
+import { 
+  setNotificationType, 
+  setNotificationMessage, 
+  setNotificationDisplay, 
+  setNotificationVertical, 
+  setNotificationHorizontal 
+  } from '../notifications/notificationsSlice';
+import { fetchBasketData } from '../basket/getBasket'
+import { setBasketList } from '../basket/basketSlice';
+import { setOrders } from '../orders/ordersSlice';
+import { setCurrentUser, setAuthenticated, setWebToken } from '../signIn/currentUserSlice';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Button } from '@mui/material';
 import Paper from '@mui/material/Paper';
@@ -15,11 +28,72 @@ import { useTheme } from '@mui/material/styles';
 
 
 export default function Sale() {
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const theme = useTheme();
+  const navigate = useNavigate();
   const saleItem = useSelector((state) => state.sale.saleItems);
-  console.log(`Sale.jsx sale item = ${saleItem.name}`)
+  const basketList = useSelector((state) => state.basket.basketList);
+  const currentUser = useSelector((state) => state.currentUser.currentUser);
+  const authenticated = useSelector((state) => state.currentUser.authenticated);
+  const webToken = useSelector((state) => state.currentUser.webToken);
 
+
+  const handleAddToBasket = (product) => {
+    const userId = currentUser.id;
+    const productId = product.id;
+    const quantity = 1; 
+    
+
+    if (!authenticated) {
+      dispatch(setNotificationType('warning'))
+      dispatch(setNotificationVertical('top'))
+      dispatch(setNotificationHorizontal('right')) 
+      dispatch(setNotificationMessage('Please sign in'))
+      dispatch(setNotificationDisplay(true))
+      return;
+    }
+
+    const productExistsInBasket = basketList.find((item) => item.id === product.id);
+  
+    if (!productExistsInBasket) {
+      // Dispatch the action to add the product to the basket
+      dispatch(addProductToBasket(userId, productId, quantity, webToken))
+        .then(() => {
+  
+          // Fetch the updated basket data after adding the product
+          dispatch(fetchBasketData(userId));
+          dispatch(setNotificationType('success'))
+          dispatch(setNotificationVertical('top'))
+          dispatch(setNotificationHorizontal('right')) 
+          dispatch(setNotificationMessage('Item Added To Basket')) 
+        })
+        .catch((error) => {
+          dispatch(setNotificationType('error'));
+          dispatch(setNotificationVertical('top'));
+          dispatch(setNotificationHorizontal('right'));
+          dispatch(setNotificationMessage(error.message)); // Display the specific error message
+          dispatch(setNotificationDisplay(true));
+          dispatch(setAuthenticated(false));
+          dispatch(setCurrentUser({
+            id: null,
+            first_name: '',
+            last_name: '',
+          }));
+          dispatch(setWebToken(''))
+          dispatch(setBasketList(``))
+          dispatch(setOrders(''))
+          navigate("/SignIn");
+        });
+    } else {
+      dispatch(setNotificationType('error'))
+      dispatch(setNotificationVertical('top'))
+      dispatch(setNotificationHorizontal('right'))
+      dispatch(setNotificationMessage('Item already in basket'))
+    }
+    setTimeout(() => {
+      dispatch(setNotificationDisplay(true));
+    }, 250);
+  };
   
 
   return (
@@ -44,11 +118,11 @@ export default function Sale() {
                   secondary={<span style={{ textDecoration: 'line-through', color: 'red' }}>{`£${saleItem.price}`}</span>} 
                 />
                 <Button 
-            variant="contained"  
-            //onClick={() => handleAddToBasket(item)}
-            >
-              Buy
-          </Button>
+                  variant="contained"  
+                  onClick={() => handleAddToBasket(saleItem)}
+                >
+                  Buy
+              </Button>
               </ListItem>
             ))}
           </List>
