@@ -18,13 +18,14 @@ import ListItemText from '@mui/material/ListItemText';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Box, Button } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 
 export function Basket() { 
   const dispatch = useDispatch();
   const basketList = useSelector((state) => state.basket.basketList);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
-  //const webToken = useSelector((state) => state.currentUser.webToken);  
+  const theme = useTheme();
  
   
   
@@ -74,7 +75,7 @@ export function Basket() {
       <CssBaseline />
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>          
-          <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>
+        <Typography variant="h5" gutterBottom sx={{ textAlign: 'center', color: 'white', backgroundColor: theme.palette.primary.main }}>
             {`Basket for ${currentUser.first_name} ${currentUser.last_name}`}
           </Typography>
           <List disablePadding>

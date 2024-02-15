@@ -14,9 +14,12 @@ import { fetchBasketData } from '../basket/getBasket'
 import { fetchProductsData } from './getProducts'
 import { addProductToBasket } from '../basket/getBasket'
 import { Card, CardContent, Grid, Typography, Box, Button } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import Container from '@mui/material/Container';
 import { setBasketList } from '../basket/basketSlice';
 import Image from 'mui-image';
 import shoeImg from './images/shoes1.jpg'
+import { useTheme } from '@mui/material/styles';
 
 
 export function Home() {
@@ -27,6 +30,7 @@ export function Home() {
   const currentUser = useSelector((state) => state.currentUser.currentUser);
   const authenticated = useSelector((state) => state.currentUser.authenticated);
   const webToken = useSelector((state) => state.currentUser.webToken);
+  const theme = useTheme();
 
   const navigate = useNavigate();
   
@@ -134,22 +138,23 @@ export function Home() {
 
 
   return (
-    <div>
-      <Grid container spacing={2} justifyContent="center" alignItems="center" item xs={12} sm={6} md={12}>
-        <Typography variant="h4" component="div">
-          All Products
-        </Typography>
-      </Grid>
-      <Box mb={2} />
-      <Grid container spacing={2} justifyContent="center" alignItems="center" item xs={12} sm={6} md={12}>
-        <Typography variant="h5" component="div">
-          {productSearchTerm}
-        </Typography>
-      </Grid>
-      <Box mb={2} />
-      <Grid container spacing={2} item xs={12} sm={6} md={12}>
-        {allProducts}
-      </Grid>
-    </div>
+    <Container component="main" maxWidth="100%" sx={{ mb: 4, width: '100%' }}>
+        <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>          
+          <Typography variant="h5" gutterBottom sx={{ textAlign: 'center', color: 'white', backgroundColor: theme.palette.primary.main }}>
+            All Products
+          </Typography>      
+          <Box mb={2} />
+          <Grid container spacing={2} justifyContent="center" alignItems="center" item xs={12} sm={6} md={12}>
+            <Typography variant="h5" component="div">
+              {productSearchTerm}
+            </Typography>
+          </Grid>
+          <Box mb={2} />
+          <Grid container spacing={2} item xs={12} sm={6} md={12}>
+            {allProducts}
+          </Grid>
+        </Paper>
+      </Container>
+    
   );
 }

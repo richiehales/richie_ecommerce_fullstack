@@ -9,6 +9,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTheme } from '@mui/material/styles';
 
 
 export default function Review() {
@@ -16,6 +17,7 @@ export default function Review() {
   const currentUser = useSelector((state) => state.currentUser.currentUser);
   const webToken = useSelector((state) => state.currentUser.webToken);  
   const orders = useSelector((state) => state.orders.orders);
+  const theme = useTheme();
 
   useEffect(() => {
     dispatch(fetchOrders(webToken));
@@ -27,7 +29,7 @@ export default function Review() {
       <CssBaseline />
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>          
-          <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>
+        <Typography variant="h5" gutterBottom sx={{ textAlign: 'center', color: 'white', backgroundColor: theme.palette.primary.main }}>
             {`Order History for ${currentUser.first_name} ${currentUser.last_name}`}
           </Typography>
           {orders.length === 0 ? (

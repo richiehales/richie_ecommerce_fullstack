@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
+import { Button } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -42,6 +43,12 @@ export default function Sale() {
                   primary={`£${(saleItem.price/2).toFixed(2)}`} 
                   secondary={<span style={{ textDecoration: 'line-through', color: 'red' }}>{`£${saleItem.price}`}</span>} 
                 />
+                <Button 
+            variant="contained"  
+            //onClick={() => handleAddToBasket(item)}
+            >
+              Buy
+          </Button>
               </ListItem>
             ))}
           </List>
