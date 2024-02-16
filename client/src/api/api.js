@@ -310,3 +310,32 @@ export const fetchOrdersById = async (webToken) => {
     throw error;
   }
 };
+
+
+// Search products
+// http://localhost:3000/product/search?query=socks
+const searchProductsAPI = 'product/search';
+
+export const searchProducts = async (queryTerm) => {
+  try {
+    const response = await fetch(`${baseUrl}${searchProductsAPI}?query=${queryTerm}`);
+    
+    if (!response.ok) {
+      const contentType = response.headers.get('content-type');
+
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+        throw new Error(data.error || 'Unknown server error');
+      } else {
+        const text = await response.text();
+        throw new Error(`Non-JSON response: ${text}`);
+      }
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log('api.js searchProducts error =', error);
+    throw error;
+  }
+};

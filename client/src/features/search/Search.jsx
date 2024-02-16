@@ -24,7 +24,6 @@ import { useTheme } from '@mui/material/styles';
 export function Search() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.search.searchResults);
-  console.log(products)
   const productSearchTerm = useSelector((state) => state.search.searchTerm);
   const basketList = useSelector((state) => state.basket.basketList);
   const currentUser = useSelector((state) => state.currentUser.currentUser);

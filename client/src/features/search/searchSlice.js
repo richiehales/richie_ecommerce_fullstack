@@ -26,7 +26,7 @@ export const searchResultsSlice = createSlice({
   initialState,
   reducers: {
     setSearchResults: (state, action) => {
-      state.products = action.payload;
+      state.searchResults = action.payload;
     },
     setSearchTerm: (state, action) => {
       state.searchTerm = action.payload;
