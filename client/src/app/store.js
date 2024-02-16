@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import searchResultsReducer from '../features/home/homeSlice'
+import productsReducer from '../features/home/homeSlice'
+import searchReducer from '../features/search/searchSlice'
 import basketReducer from '../features/basket/basketSlice'
 import currentUserReducer from '../features/signIn/currentUserSlice'
 import notificationsReducer from '../features/notifications/notificationsSlice'
@@ -9,12 +10,13 @@ import saleReducer from '../features/sale/saleSlice'
 
 export const store = configureStore({
   reducer: {
-    product: searchResultsReducer,
+    product: productsReducer,
     basket: basketReducer,
     currentUser: currentUserReducer,
     notifications: notificationsReducer,
     checkout: checkoutReducer,
     orders: ordersReducer,
-    sale: saleReducer
+    sale: saleReducer,
+    search: searchReducer
   },
 });

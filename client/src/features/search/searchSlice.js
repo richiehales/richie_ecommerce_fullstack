@@ -1,7 +1,7 @@
 import {  createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  products: [
+  searchResults: [
     {
       id: 1,
       name: 'Running Shoes 1',
@@ -18,22 +18,22 @@ const initialState = {
     },
     // Add more products as needed
   ],
-  productSearchTerm: 'Search term in homeSlice - productSearchTerm'
+  searchTerm: 'Search term in searchSlice - productSearchTerm'
 }
 
-export const productsSlice = createSlice({
-  name: 'products',
+export const searchResultsSlice = createSlice({
+  name: 'searchResults',
   initialState,
   reducers: {
-    setProducts: (state, action) => {
+    setSearchResults: (state, action) => {
       state.products = action.payload;
     },
-    setProductSearchTerm: (state, action) => {
-      state.productSearchTerm = action.payload;
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload;
     }
   }  
 })
 
 
-export const { setProducts, setProductSearchTerm } = productsSlice.actions;
-export default productsSlice.reducer;
+export const { setSearchResults, setSearchTerm } = searchResultsSlice.actions;
+export default searchResultsSlice.reducer;

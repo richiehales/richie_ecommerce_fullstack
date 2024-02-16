@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
@@ -9,23 +9,23 @@ import {
   setNotificationHorizontal 
   } from '../notifications/notificationsSlice';
 import { setCurrentUser, setAuthenticated, setWebToken } from '../signIn/currentUserSlice';
-import { setSale } from '../sale/saleSlice';
 import { setOrders } from '../orders/ordersSlice';
 import { fetchBasketData } from '../basket/getBasket'
-import { fetchProductsData } from './getProducts'
 import { addProductToBasket } from '../basket/getBasket'
 import { Card, CardContent, Grid, Typography, Box, Button } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
 import { setBasketList } from '../basket/basketSlice';
 import Image from 'mui-image';
-import shoeImg from './images/shoes1.jpg'
+import shoeImg from '../home/images/shoes1.jpg'
 import { useTheme } from '@mui/material/styles';
 
 
-export function Home() {
+export function Search() {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.product.products);
+  const products = useSelector((state) => state.search.searchResults);
+  console.log(products)
+  const productSearchTerm = useSelector((state) => state.search.searchTerm);
   const basketList = useSelector((state) => state.basket.basketList);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
   const authenticated = useSelector((state) => state.currentUser.authenticated);
@@ -39,15 +39,6 @@ export function Home() {
     height: '100%', // Ensures all cards have the same height
   };
 
-  useEffect(() => {
-    dispatch(fetchProductsData());
-  }, [dispatch]);
-
-
-  useEffect(() => {
-    const userId = currentUser.id
-    dispatch(fetchBasketData(userId));
-  }, [dispatch, currentUser.id]);
 
 
   const handleAddToBasket = (product) => {
@@ -107,26 +98,7 @@ export function Home() {
     }, 250);
   };
 
-  const randomSaleItem = Math.floor(Math.random() * 20);
-
-  useEffect(() => {
-    const product = products[randomSaleItem];
-  
-    if (product) {
-      const numericPrice = parseFloat(product.price.replace('£', ''));
-      
-      dispatch(
-        setSale([{
-          id: product.id,
-          name: product.name,
-          price: numericPrice,
-          description: product.description,
-          category: product.category,
-        }])
-      );
-    }
-  }, [dispatch, products, randomSaleItem]);
-  
+   
 
   const allProducts = products && products.map((item, index) => (
     <Grid key={item.id} item xs={12} sm={6} md={4} lg={2}>
@@ -157,9 +129,9 @@ export function Home() {
     <Container component="main" maxWidth="100%" sx={{ mb: 4, width: '100%' }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>          
           <Typography variant="h5" gutterBottom sx={{ textAlign: 'center', color: 'white', backgroundColor: theme.palette.primary.main }}>
-            All Products
+            {productSearchTerm}
           </Typography>      
-          <Box mb={2} />
+          <Box mb={2} />          
           <Box mb={2} />
           <Grid container spacing={2} item xs={12} sm={6} md={12}>
             {allProducts}

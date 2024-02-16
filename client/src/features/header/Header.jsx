@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setProductSearchTerm } from '../home/homeSlice';
+import { setSearchTerm } from '../search/searchSlice';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -59,9 +59,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 export default function Header() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [search, setSearch] = useState('');
   const dispatch = useDispatch();
-  const productSearchTerm = useSelector((state) => state.product.productSearchTerm);
+  const productSearchTerm = useSelector((state) => state.search.searchTerm);
   const basketList = useSelector((state) => state.basket.basketList);
   const firstName = useSelector((state) => state.currentUser.currentUser.first_name);
   const firstLetterOfFirstName = firstName ? firstName.charAt(0) : null;
@@ -69,14 +69,14 @@ export default function Header() {
   const linkRef = useRef();
   const navigate = useNavigate();
    
-  const onSearchChanged = (e) => setSearchTerm(e.target.value);
+  const onSearchChanged = (e) => setSearch(e.target.value);
 
   const onSearchClicked = () => {
-    if (searchTerm !== '') {
-      dispatch(setProductSearchTerm(searchTerm));
-      setSearchTerm('');
+    if (search !== '') {
+      dispatch(setSearchTerm(search));
+      setSearch('');
       setTimeout(() => {
-        navigate('/');
+        navigate('/Search');
       }, 750);
     }
   }
@@ -192,7 +192,7 @@ export default function Header() {
             <StyledInputBase
               placeholder="Search"
               inputProps={{ 'aria-label': 'search' }}
-              value={searchTerm}
+              value={search}
               onKeyDown={handleEnterKeyPress}
             />
           </Search>

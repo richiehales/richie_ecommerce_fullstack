@@ -6,6 +6,7 @@ import  UserNotification from './features/notifications/UserNotification'
 import Footer from './features/footer/Footer'
 import { Home } from './features/home/Home';
 import { Basket } from './features/basket/Basket';
+import { Search } from './features/search/Search';
 import SignIn from './features/signIn/SignIn';
 import SignUp from './features/signUp/SignUp';
 import Checkout from './features/checkout/Checkout';
@@ -21,6 +22,7 @@ function App() {
       < Sale />
       <Routes>
         <Route path="/" element={ <Home /> } />
+        <Route path="/Search" element={ <Search /> } />
         <Route path="/Basket" element={ <Basket /> } />
         <Route path="/SignIn" element={ <SignIn /> } />
         <Route path="/SignUp" element={ <SignUp /> }/>
