@@ -111,7 +111,6 @@ export function Home() {
   const randomSaleItem = Math.floor(Math.random() * 20);
 
   useEffect(() => {
-    // Dispatch the setSale action only if there is a product and it matches the randomSaleItem index
     const product = products[randomSaleItem];
   
     if (product) {

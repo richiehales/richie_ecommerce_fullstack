@@ -13,3 +13,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0ZGE5ZDMxL
   "expiryDate": "02-24",
   "cvc": "123"
 }
+
+###
+GET http://localhost:3000/product/search?query=socks
+

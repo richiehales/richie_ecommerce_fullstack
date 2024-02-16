@@ -13,6 +13,30 @@ productRouter.get('/', async (req, res) => {
   }
 })
 
+
+productRouter.get('/search', async (req, res) => {
+  
+  const queryTerm = req.query.query;
+
+  try {
+    if (!queryTerm) {
+      return res.status(400).send('Please provide a search query.');
+    }
+
+    const searchResults = await productInstance.searchProducts(queryTerm);
+    
+    if (searchResults.length === 0) {
+      return res.status(404).send('No matching products found.');
+    }
+
+    res.json(searchResults);
+  } catch (err) {
+    console.error('Error:', err); // Log the error to the console
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
 // Get product by id
 // http://localhost:3000/product/3
 productRouter.get('/:id', async (req, res) => {

@@ -14,6 +14,7 @@ async function getAllProducts() {
 
 // Get product by id
 async function getProductById(data) {
+  console.log(`Get Product By ID run`)
   try{
       const text = 'SELECT * FROM product WHERE id = $1';
       const inputs = [data];
@@ -100,13 +101,36 @@ async function updateProductById(id, name, price, description, category) {
   }
 }
 
+
+// Search Products
+async function searchProducts(queryTerm) {
+  
+  try {
+ 
+    const text = `
+      SELECT * FROM product
+      WHERE LOWER(name) LIKE LOWER($1) OR LOWER(description) LIKE LOWER($1);
+    `;
+
+    const inputs = [`%${queryTerm}%`];
+    const result = await query(text, inputs);
+
+    return result.rows;
+  } catch (error) {
+    throw error.stack;
+  }
+}
+
+
+
 module.exports = {
   getAllProducts,
   getProductById,
   getProductsByCategory,
   deleteProductById,
   addProduct,
-  updateProductById
+  updateProductById,
+  searchProducts
 };
 
 
