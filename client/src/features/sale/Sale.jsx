@@ -17,12 +17,11 @@ import { Button } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import { useDispatch, useSelector } from 'react-redux';
 import imagePaths from '../images/imagePaths';
 import { useTheme } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
+import { Box } from '@mui/material';
 
 
 export default function Sale() {
@@ -97,36 +96,46 @@ export default function Sale() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
-        <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>          
-        <Typography variant="h5" gutterBottom sx={{ textAlign: 'center', color: 'white', backgroundColor: theme.palette.primary.main }}>
-          {`Todays Special Offer`}
-        </Typography>
-        <List disablePadding>
+      <Container component="main" maxWidth="md" sx={{ mb: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
+          <Typography variant="h5" gutterBottom sx={{ textAlign: 'center', color: 'white', backgroundColor: theme.palette.primary.main }}>
+            {`Todays Special Offer`}
+          </Typography>
+          <Grid container spacing={2}>
             {saleItem && saleItem.map((saleItem, index) => (
-              <ListItem key={index} sx={{ py: 1, px: 0 }}>
-                <img
-                  src={imagePaths[`img${saleItem.id}`]}
-                  alt='Sale Item'
-                  style={{ width: '8rem', height: 'auto', marginRight: '1rem' }}
-                />
-                <ListItemText primary={saleItem.name} secondary={saleItem.description} />
-                <ListItemText 
-                  primary={`£${(saleItem.price/2).toFixed(2)}`} 
-                  secondary={<span style={{ textDecoration: 'line-through', color: 'red' }}>{`£${saleItem.price}`}</span>} 
-                />
-                <Button 
-                  variant="contained"  
-                  onClick={() => handleAddToBasket(saleItem)}
-                >
-                  Buy
-              </Button>
-              </ListItem>
+              <Grid item xs={12} key={index}>
+                <Paper variant="outlined" sx={{ p: 2 }}>
+                  <img
+                    src={imagePaths[`img${saleItem.id}`]}
+                    alt='Sale Item'
+                    style={{ width: '16rem', height: 'auto', marginBottom: '1rem' }}
+                  />
+                  <Typography variant="h6" gutterBottom>
+                    {saleItem.name}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    {saleItem.description}
+                  </Typography>
+                  <Box mb={2} />
+                  <Typography variant="h6" gutterBottom>
+                    {`£${(saleItem.price / 2).toFixed(2)}`}
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" component="p" style={{ textDecoration: 'line-through', color: 'red' }}>
+                    {`£${saleItem.price}`}
+                  </Typography>
+                  <Box mb={2} />
+                  <Button
+                    variant="contained"
+                    onClick={() => handleAddToBasket(saleItem)}
+                  >
+                    Buy
+                  </Button>
+                </Paper>
+              </Grid>
             ))}
-          </List>
-                   
+          </Grid>
         </Paper>
       </Container>
     </React.Fragment>
   );
-}
+};
