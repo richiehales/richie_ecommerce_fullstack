@@ -17,3 +17,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU0ZGE5ZDMxL
 ###
 GET http://localhost:3000/product/search?query=socks
 
+###
+GET http://localhost:3000/product

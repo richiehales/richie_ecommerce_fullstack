@@ -17,7 +17,7 @@ import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
 import { setBasketList } from '../basket/basketSlice';
 import Image from 'mui-image';
-import shoeImg from '../home/images/shoes1.jpg'
+import imagePaths from '../images/imagePaths';
 import { useTheme } from '@mui/material/styles';
 
 
@@ -97,12 +97,19 @@ export function Search() {
     }, 250);
   };
 
-   
+  const imageSize = {
+    width: '18rem', // Adjust the width as needed
+    height: '18rem', // Adjust the height as needed
+  };
 
   const allProducts = products && products.map((item, index) => (
+
     <Grid key={item.id} item xs={12} sm={6} md={4} lg={2}>
       <Card style={cardStyle}>
-      <Image src={shoeImg} alt='Product Image' />
+      <Image 
+        src={imagePaths[`img${item.id}`]} 
+        alt='Product Image'
+        style={imageSize} />
         <CardContent style={{ flex: 1 }}>
           <Typography variant="h6" component="div">
             {item.name}
@@ -128,7 +135,7 @@ export function Search() {
     <Container component="main" maxWidth="100%" sx={{ mb: 4, width: '100%' }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>          
           <Typography variant="h5" gutterBottom sx={{ textAlign: 'center', color: 'white', backgroundColor: theme.palette.primary.main }}>
-            {productSearchTerm}
+            Search results: {productSearchTerm}
           </Typography>      
           <Box mb={2} />          
           <Box mb={2} />

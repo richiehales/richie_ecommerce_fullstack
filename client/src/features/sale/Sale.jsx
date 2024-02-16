@@ -21,7 +21,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { useDispatch, useSelector } from 'react-redux';
-import shoeImg from '../home/images/shoes1.jpg'
+import imagePaths from '../images/imagePaths';
 import { useTheme } from '@mui/material/styles';
 
 
@@ -106,7 +106,7 @@ export default function Sale() {
             {saleItem && saleItem.map((saleItem, index) => (
               <ListItem key={index} sx={{ py: 1, px: 0 }}>
                 <img
-                  src={shoeImg}
+                  src={imagePaths[`img${saleItem.id}`]}
                   alt='Sale Item'
                   style={{ width: '8rem', height: 'auto', marginRight: '1rem' }}
                 />
