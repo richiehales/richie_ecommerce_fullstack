@@ -17,8 +17,7 @@ const initialState = {
       category: 'running shoes',
     },
     // Add more products as needed
-  ],
-  productSearchTerm: 'Search term in homeSlice - productSearchTerm'
+  ]
 }
 
 export const productsSlice = createSlice({
@@ -27,9 +26,6 @@ export const productsSlice = createSlice({
   reducers: {
     setProducts: (state, action) => {
       state.products = action.payload;
-    },
-    setProductSearchTerm: (state, action) => {
-      state.productSearchTerm = action.payload;
     }
   }  
 })

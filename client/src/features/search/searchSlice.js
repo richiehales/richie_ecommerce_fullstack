@@ -18,7 +18,7 @@ const initialState = {
     },
     // Add more products as needed
   ],
-  searchTerm: 'Search term in searchSlice - productSearchTerm'
+  searchTerm: 'null'
 }
 
 export const searchResultsSlice = createSlice({

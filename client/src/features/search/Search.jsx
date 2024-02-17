@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
@@ -38,7 +38,10 @@ export function Search() {
     height: '100%', // Ensures all cards have the same height
   };
 
-
+  useEffect(() => {
+    if(productSearchTerm === 'null') {
+    navigate("/")};
+  }, [navigate, productSearchTerm]);
 
   const handleAddToBasket = (product) => {
     const userId = currentUser.id;
