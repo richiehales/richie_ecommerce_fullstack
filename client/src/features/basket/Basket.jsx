@@ -81,7 +81,7 @@ export function Basket() {
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>          
         <Typography variant="h5" gutterBottom sx={{ textAlign: 'center', color: 'white', backgroundColor: theme.palette.primary.main }}>
-            {`Basket for ${currentUser.first_name} ${currentUser.last_name}`}
+            {`BASKET FOR: ${currentUser.first_name} ${currentUser.last_name}`}
           </Typography>
           <List disablePadding>
             {basketList && basketList.map((product, index) => (              

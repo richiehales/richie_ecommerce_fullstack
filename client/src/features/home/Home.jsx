@@ -166,7 +166,7 @@ export function Home() {
     <Container component="main" maxWidth="100%" sx={{ mb: 4, width: '100%' }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>          
           <Typography variant="h5" gutterBottom sx={{ textAlign: 'center', color: 'white', backgroundColor: theme.palette.primary.main }}>
-            All Products
+            ALL PRODUCTS
           </Typography>      
           <Box mb={2} />
           <Box mb={2} />

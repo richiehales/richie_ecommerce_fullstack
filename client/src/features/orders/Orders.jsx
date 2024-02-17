@@ -30,7 +30,7 @@ export default function Review() {
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>          
         <Typography variant="h5" gutterBottom sx={{ textAlign: 'center', color: 'white', backgroundColor: theme.palette.primary.main }}>
-            {`Order History for ${currentUser.first_name} ${currentUser.last_name}`}
+            {`ORDER HISTORY FOR: ${currentUser.first_name} ${currentUser.last_name}`}
           </Typography>
           {orders.length === 0 ? (
             <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>

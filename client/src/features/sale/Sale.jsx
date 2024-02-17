@@ -104,7 +104,7 @@ export default function Sale() {
               variant="h5" 
               gutterBottom 
               sx={{ textAlign: 'center', color: 'white' }}>
-                Todays Special Offer
+                SPECIAL OFFER
             </Typography>
           </div>
           <Grid container spacing={2}>
