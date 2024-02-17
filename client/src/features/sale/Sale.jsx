@@ -108,7 +108,7 @@ export default function Sale() {
                   <img
                     src={imagePaths[`img${saleItem.id}`]}
                     alt='Sale Item'
-                    style={{ width: '16rem', height: 'auto', marginBottom: '1rem' }}
+                    style={{ width: '8rem', height: 'auto', marginBottom: '1rem' }}
                   />
                   <Typography variant="h6" gutterBottom>
                     {saleItem.name}
@@ -117,7 +117,7 @@ export default function Sale() {
                     {saleItem.description}
                   </Typography>
                   <Box mb={2} />
-                  <Typography variant="h6" gutterBottom>
+                  <Typography variant="h7" gutterBottom>
                     {`£${(saleItem.price / 2).toFixed(2)}`}
                   </Typography>
                   <Typography variant="body2" color="textSecondary" component="p" style={{ textDecoration: 'line-through', color: 'red' }}>
