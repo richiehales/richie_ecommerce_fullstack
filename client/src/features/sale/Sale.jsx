@@ -18,6 +18,7 @@ import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector } from 'react-redux';
+import Image from 'mui-image';
 import imagePaths from '../images/imagePaths';
 import { useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
@@ -96,16 +97,21 @@ export default function Sale() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container component="main" maxWidth="md" sx={{ mb: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Container component="main" maxWidth="md" sx={{ mb: -5, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-          <Typography variant="h5" gutterBottom sx={{ textAlign: 'center', color: 'white', backgroundColor: theme.palette.primary.main }}>
-            {`Todays Special Offer`}
-          </Typography>
+        <div style={{ paddingInline: '1rem', backgroundColor: theme.palette.primary.main }}>
+            <Typography 
+              variant="h5" 
+              gutterBottom 
+              sx={{ textAlign: 'center', color: 'white' }}>
+                Todays Special Offer
+            </Typography>
+          </div>
           <Grid container spacing={2}>
             {saleItem && saleItem.map((saleItem, index) => (
               <Grid item xs={12} key={index}>
                 <Paper variant="outlined" sx={{ p: 2 }}>
-                  <img
+                  <Image
                     src={imagePaths[`img${saleItem.id}`]}
                     alt='Sale Item'
                     style={{ width: '8rem', height: 'auto', marginBottom: '1rem' }}

@@ -109,7 +109,7 @@ export default function Header() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }} mb={4}>
+    <Box sx={{ flexGrow: 1 }} mb={-4}>
       <AppBar position="fixed">
         <Toolbar>
           <IconButton
@@ -169,7 +169,7 @@ export default function Header() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >            
-            Richie Running Kit        
+            RRK Sports        
           </Typography>
           <Link to="/SignIn">                
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
