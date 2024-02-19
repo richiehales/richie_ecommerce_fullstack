@@ -10,7 +10,7 @@ import {
   setShippingZip,
   setShippingCountry,
   setSaveShippingAddress,
-} from './checkoutSlice';
+} from './checkOutSlice';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';

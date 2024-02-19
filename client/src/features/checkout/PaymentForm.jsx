@@ -6,7 +6,7 @@ import {
   setCardDate,
   setCardCvv,
   setSaveCard,
-} from './checkoutSlice';
+} from './checkOutSlice';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
