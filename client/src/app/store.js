@@ -4,7 +4,7 @@ import searchReducer from '../features/search/searchSlice'
 import basketReducer from '../features/basket/basketSlice'
 import currentUserReducer from '../features/signIn/currentUserSlice'
 import notificationsReducer from '../features/notifications/notificationsSlice'
-import checkoutReducer from '../features/checkout/checkoutSlice'
+import checkoutReducer from '../features/checkout/checkOutSlice'
 import ordersReducer from '../features/orders/ordersSlice'
 import saleReducer from '../features/sale/saleSlice'
 
