@@ -2,7 +2,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-console.log('app.js process.env', process.env.NODE_ENV)
+console.log('app.js process.env', process.env.DB_HOST)
 
 const express = require('express');
 const cors = require('cors');
