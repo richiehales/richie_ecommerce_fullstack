@@ -106,13 +106,13 @@ export function Home() {
     const product = products[randomSaleItem];
   
     if (product) {
-      const numericPrice = parseFloat(product.price.replace('£', ''));
+      //const numericPrice = parseFloat(product.price.replace('£', ''));
       
       dispatch(
         setSale([{
           id: product.id,
           name: product.name,
-          price: numericPrice,
+          price: 89.99,
           description: product.description,
           category: product.category,
         }])
