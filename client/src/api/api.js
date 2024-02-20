@@ -1,6 +1,7 @@
 // const SEARCH = 'https://www.omdbapi.com/?s='
 // const apiKey = '6910fcce'
 const baseUrl = process.env.DATABASE_URL || 'http://localhost:3000/';
+console.log(`Datbase URL =`, baseUrl)
 
 
 // Get all products
