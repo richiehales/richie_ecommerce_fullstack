@@ -20,4 +20,4 @@ npm start - after cd client
 
 ## Todo
 
-1. Create unique user id in user_info table
+1. Fix error - going from orders to basket
