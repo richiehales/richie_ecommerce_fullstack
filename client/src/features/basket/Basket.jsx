@@ -61,6 +61,7 @@ export function Basket() {
   
     // Include the logic for basketList
     basketList.forEach((product) => {
+      console.log(`Type of price for product ${product.id}: ${typeof product.price}`);
       // Check if saleItem exists and has the same id as the current product
       if (saleItem.length > 0 && saleItem[0] && product.id === saleItem[0].id) {
         total += parseFloat((saleItem[0].price / 2).toFixed(2));
