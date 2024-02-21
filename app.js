@@ -2,7 +2,6 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-console.log('app.js process.env', process.env.DB_HOST)
 
 const express = require('express');
 const cors = require('cors');
@@ -31,11 +30,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-// Test server - http://localhost:3000/testing
-app.get('/testing', (req, res) => {
-  res.send('Testing Basic Route - Success');
-});
 
 // Home - http://localhost:3000
 app.get('/', (req, res) => {
