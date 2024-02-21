@@ -17,7 +17,7 @@ CREATE TABLE product
 (
   id            SERIAL PRIMARY KEY,
   name          varchar(50) NOT NULL,
-  price         money NOT NULL,
+  price         NUMERIC(4,2) NOT NULL,
   description   varchar(100) NOT NULL,
   category      varchar(50) NOT NULL
 );

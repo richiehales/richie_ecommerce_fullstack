@@ -21,6 +21,7 @@ import Container from '@mui/material/Container';
 import Image from 'mui-image';
 import imagePaths from '../images/imagePaths';
 import { useTheme } from '@mui/material/styles';
+import Sale from '../sale/Sale';
 
 export function Home() {
   const dispatch = useDispatch();
@@ -146,7 +147,7 @@ export function Home() {
               {item.description}
             </Typography>
             <Typography color="textSecondary">
-              {`Price: ${item.price}`}
+              {`Price: £${item.price}`}
             </Typography>
             <Button 
               variant="contained"  
@@ -173,6 +174,7 @@ export function Home() {
   return (
     <Container component="main" maxWidth="100%" sx={{ mb: 4, width: '100%' }}>
       <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
+        <Sale />
         {categoryProducts}
       </Paper>
     </Container>

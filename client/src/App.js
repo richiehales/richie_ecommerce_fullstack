@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from './features/header/Header';
-import Sale from './features/sale/Sale';
 import  UserNotification from './features/notifications/UserNotification'
 import Footer from './features/footer/Footer'
 import { Home } from './features/home/Home';
@@ -19,7 +18,6 @@ function App() {
     <>
       <Header />
       < UserNotification />
-      < Sale />
       <Routes>
         <Route path="/" element={ <Home /> } />
         <Route path="/Search" element={ <Search /> } />
