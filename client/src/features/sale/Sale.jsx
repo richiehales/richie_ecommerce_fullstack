@@ -97,7 +97,7 @@ export default function Sale() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container component="main" maxWidth="md" sx={{ mb: -5, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Container component="main" maxWidth="md" sx={{ mb: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
         <div style={{ paddingInline: '1rem', backgroundColor: theme.palette.primary.main }}>
             <Typography 
