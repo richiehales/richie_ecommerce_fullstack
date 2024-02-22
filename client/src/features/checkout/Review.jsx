@@ -53,7 +53,7 @@ export default function Review() {
           <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
             <ListItemText primary={product.name} secondary={product.description} />
             <Typography variant="body2">
-            {saleItem[0].id === product.id ? `£${(saleItem[0].price/2).toFixed(2)}` : `${product.price}`}
+            {saleItem[0].id === product.id ? `£${(saleItem[0].price/2).toFixed(2)}` : `£${product.price}`}
             </Typography>
           </ListItem>
         ))}
