@@ -10,7 +10,6 @@ import {
   setNotificationHorizontal 
   } from '../notifications/notificationsSlice';
 import { setCurrentUser, setAuthenticated, setWebToken } from '../signIn/currentUserSlice';
-import { setSale } from '../sale/saleSlice';
 import { setOrders } from '../orders/ordersSlice';
 import { fetchBasketData } from '../basket/getBasket'
 import { fetchProductsData } from './getProducts'
@@ -101,26 +100,8 @@ export function Home() {
     }, 250);
   };
 
-  const randomSaleItem = Math.floor(Math.random() * 20);
-
-  useEffect(() => {
-    const product = products[randomSaleItem];
   
-    if (product) {
-      const numericPrice = parseInt(product.price.replace(/[^\d.]/g, ''));
-      const finalPrice = numericPrice + 0.99;
-      
-      dispatch(
-        setSale([{
-          id: product.id,
-          name: product.name,
-          price: finalPrice,
-          description: product.description,
-          category: product.category,
-        }])
-      );
-    }
-  }, [dispatch, products, randomSaleItem]);
+
 
   const imageSize = {
     width: '18rem', // Adjust the width as needed

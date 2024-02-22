@@ -1,14 +1,7 @@
 import {  createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  saleItems: [
-    {
-      id: 1,
-      name: 'Running Shoes 1',
-      description: 'High-performance running shoes',
-      price: 79.99,
-    },
-  ],
+  saleItems: [],
 }
 
 export const saleSlice = createSlice({

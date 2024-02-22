@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addProductToBasket } from '../basket/getBasket'
 import { 
@@ -12,6 +12,7 @@ import { fetchBasketData } from '../basket/getBasket'
 import { setBasketList } from '../basket/basketSlice';
 import { setOrders } from '../orders/ordersSlice';
 import { setCurrentUser, setAuthenticated, setWebToken } from '../signIn/currentUserSlice';
+import { setSale } from '../sale/saleSlice';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Button } from '@mui/material';
 import Paper from '@mui/material/Paper';
@@ -34,6 +35,33 @@ export default function Sale() {
   const currentUser = useSelector((state) => state.currentUser.currentUser);
   const authenticated = useSelector((state) => state.currentUser.authenticated);
   const webToken = useSelector((state) => state.currentUser.webToken);
+  const products = useSelector((state) => state.product.products);
+  const randomSaleItem = Math.floor(Math.random() * 20);
+
+
+  useEffect(() => {
+    // Check if saleItem is empty
+    if (saleItem.length === 0) {
+      const product = products[randomSaleItem];
+  
+      if (product) {
+        const numericPrice = parseInt(product.price.replace(/[^\d.]/g, ''));
+        const finalPrice = numericPrice + 0.99;
+  
+        dispatch(
+          setSale([
+            {
+              id: product.id,
+              name: product.name,
+              price: finalPrice,
+              description: product.description,
+              category: product.category,
+            },
+          ])
+        );
+      }
+    }
+  }, [dispatch, products, randomSaleItem, saleItem]);
 
 
   const handleAddToBasket = (product) => {
