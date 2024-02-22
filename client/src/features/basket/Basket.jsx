@@ -60,14 +60,16 @@ export function Basket() {
     let total = 0;
   
     // Include the logic for basketList
-    basketList.forEach((product) => {
-      // Check if saleItem exists and has the same id as the current product
-      if (saleItem.length > 0 && saleItem[0] && product.id === saleItem[0].id) {
-        total += parseFloat((saleItem[0].price / 2).toFixed(2));
-      } else {
-        total += parseFloat(product.price.replace('£', ''));
-      }
-    });
+    if (basketList.length > 0) {
+      basketList.forEach((product) => {
+        // Check if saleItem exists and has the same id as the current product
+        if (saleItem.length > 0 && saleItem[0] && product.id === saleItem[0].id) {
+          total += parseFloat((saleItem[0].price / 2).toFixed(2));
+        } else {
+          total += parseFloat(product.price.replace('£', ''));
+        }
+      });
+    }
   
     // Return the total sum
     return total.toFixed(2);
