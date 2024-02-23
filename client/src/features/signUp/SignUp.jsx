@@ -55,13 +55,11 @@ export default function SignUp() {
       .then((result) => {
                 
         if (result.success === true) {
-          console.log('SignUp.jsx = ', result.message)
           dispatch(setNotificationType('success'))           
           dispatch(setNotificationMessage(result.message))
           navigate('/SignIn');
         }
         if (result.success === false) {
-          console.log('SignUp.jsx = ', result.message)
           dispatch(setNotificationType('warning'))
           dispatch(setNotificationMessage(result.message))
           navigate('/SignIn');
