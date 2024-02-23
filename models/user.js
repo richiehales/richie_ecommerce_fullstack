@@ -67,7 +67,7 @@ async function registerUser(password, email, first_name, last_name) {
     const existingUser = await getUserByEmail(email);
 
     if (existingUser.length > 0) {
-      return { success: false, message: 'User already exists' };
+      return { success: false, message: 'User exists - Sign in' };
     }
 
     // If the email does not exist, proceed with adding the user
@@ -78,7 +78,7 @@ async function registerUser(password, email, first_name, last_name) {
     const inputs = [password, email, first_name, last_name];
     await query(text, inputs);
 
-    return { success: true, message: 'User successfully registered' };
+    return { success: true, message: 'User created' };
   } catch (error) {
     throw error.stack;
   }

@@ -133,7 +133,7 @@ userRouter.post('/registerUser', async (req, res) => {
       res.json({ success: true, message: registrationResult.message });
     } else {
       // Failed registration
-      res.status(400).json({ success: false, message: registrationResult.message });
+      res.json({ success: false, message: registrationResult.message });
     }
   } catch (error) {
     console.error('Error:', error); // Log the error to the console

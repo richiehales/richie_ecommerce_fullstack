@@ -1,4 +1,10 @@
 import * as React from 'react';
+import { setNotificationType, 
+  setNotificationMessage, 
+  setNotificationDisplay, 
+  setNotificationVertical, 
+  setNotificationHorizontal 
+  } from '../notifications/notificationsSlice';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -49,8 +55,22 @@ export default function SignUp() {
       .then((result) => {
                 
         if (result.success === true) {
-           navigate('/SignIn');
-        }          
+          console.log('SignUp.jsx = ', result.message)
+          dispatch(setNotificationType('success'))           
+          dispatch(setNotificationMessage(result.message))
+          navigate('/SignIn');
+        }
+        if (result.success === false) {
+          console.log('SignUp.jsx = ', result.message)
+          dispatch(setNotificationType('warning'))
+          dispatch(setNotificationMessage(result.message))
+          navigate('/SignIn');
+        }
+        dispatch(setNotificationVertical('top'))
+        dispatch(setNotificationHorizontal('center'))
+        setTimeout(() => {
+          dispatch(setNotificationDisplay(true));
+        }, 250);
       })
       .catch((error) => {
         console.error('SignIn.js Error during login:', error);
