@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ShoeSelector from '../sizeSelector/ShoeSelector';
+import ClothesSelector from '../sizeSelector/ClothesSelector';
 import { addProductToBasket } from '../basket/getBasket'
 import { 
   setNotificationType, 
@@ -63,6 +65,7 @@ export default function Sale() {
     }
   }, [dispatch, products, randomSaleItem, saleItem]);
 
+  
 
   const handleAddToBasket = (product) => {
     const userId = currentUser.id;
@@ -164,6 +167,11 @@ export default function Sale() {
                   >
                     Buy
                   </Button>
+                  {saleItem.category === 'running shoes' ? (
+                      <ShoeSelector />
+                    ) : (
+                      <ClothesSelector />
+                    )} 
                 </Paper>
               </Grid>
             ))}

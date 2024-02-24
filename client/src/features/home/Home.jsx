@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBasketList } from '../basket/basketSlice';
+import ShoeSelector from '../sizeSelector/ShoeSelector';
+import ClothesSelector from '../sizeSelector/ClothesSelector';
 import { 
   setNotificationType, 
   setNotificationMessage, 
@@ -134,7 +136,12 @@ export function Home() {
               variant="contained"  
               onClick={() => handleAddToBasket(item)}>
                 Buy
-            </Button>            
+            </Button>
+            {item.category === 'running shoes' ? (
+              <ShoeSelector />
+            ) : (
+              <ClothesSelector />
+            )}            
           </CardContent>
         </Card>
       </Grid>
