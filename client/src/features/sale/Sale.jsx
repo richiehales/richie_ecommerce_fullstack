@@ -169,6 +169,7 @@ export default function Sale() {
                   <Button
                     variant="contained"
                     onClick={() => handleAddToBasket(saleItem)}
+                    sx={{ width: '5rem' }}
                   >
                     Buy
                   </Button>

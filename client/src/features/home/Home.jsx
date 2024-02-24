@@ -139,7 +139,8 @@ export function Home() {
             )}
             <Button 
               variant="contained"  
-              onClick={() => handleAddToBasket(item)}>
+              onClick={() => handleAddToBasket(item)}
+              sx={{ width: '5rem' }} >
                 Buy
             </Button>            
           </CardContent>

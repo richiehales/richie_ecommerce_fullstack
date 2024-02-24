@@ -13,7 +13,7 @@ export default function ClothesSelector() {
 
   return (
     <div>
-      <FormControl sx={{ mb: 1, minWidth: 80 }} size="small">
+      <FormControl sx={{ mt: 1, mb: 1, minWidth: 80 }} size="small">
         <InputLabel id="demo-simple-select-autowidth-label">Size</InputLabel>
         <Select
           labelId="demo-simple-select-autowidth-label"
