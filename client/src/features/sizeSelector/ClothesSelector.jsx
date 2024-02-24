@@ -3,13 +3,23 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { setProductSize } from './sizeSelectorSlice';
+import { useDispatch } from 'react-redux';
 
-export default function ClothesSelector() {
+
+
+export default function ClothesSelector({ productId }) {
   const [clothesSize, setClothesSize] = React.useState('');
+  const dispatch = useDispatch();
+
 
   const handleChange = (event) => {
     setClothesSize(event.target.value);
+    const size = event.target.value;
+    console.log({ productId, size })
+    dispatch(setProductSize({ productId, size }));
   };
+
 
   return (
     <div>

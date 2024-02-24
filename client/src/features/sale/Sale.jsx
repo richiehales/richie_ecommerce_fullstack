@@ -162,9 +162,9 @@ export default function Sale() {
                   </Typography>
                   <Box mb={2} />                  
                   {saleItem.category === 'running shoes' ? (
-                      <ShoeSelector />
+                      <ShoeSelector productId={saleItem.id} />
                     ) : (
-                      <ClothesSelector />
+                      <ClothesSelector productId={saleItem.id} />
                   )}
                   <Button
                     variant="contained"

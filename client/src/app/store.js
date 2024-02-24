@@ -7,6 +7,8 @@ import notificationsReducer from '../features/notifications/notificationsSlice'
 import checkoutReducer from '../features/checkout/checkOutSlice'
 import ordersReducer from '../features/orders/ordersSlice'
 import saleReducer from '../features/sale/saleSlice'
+import productSizeReducer from '../features/sizeSelector/sizeSelectorSlice'
+
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +19,7 @@ export const store = configureStore({
     checkout: checkoutReducer,
     orders: ordersReducer,
     sale: saleReducer,
-    search: searchReducer
+    search: searchReducer,
+    size: productSizeReducer,
   },
 });

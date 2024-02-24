@@ -133,9 +133,9 @@ export function Home() {
               {`Price: £${item.price}`}
             </Typography>            
             {item.category === 'running shoes' ? (
-              <ShoeSelector />
+              <ShoeSelector productId={item.id} />
             ) : (
-              <ClothesSelector />
+              <ClothesSelector productId={item.id}/>
             )}
             <Button 
               variant="contained"  
