@@ -160,18 +160,18 @@ export default function Sale() {
                   <Typography variant="body2" color="textSecondary" component="p" style={{ textDecoration: 'line-through', color: 'red' }}>
                     {`£${saleItem.price}`}
                   </Typography>
-                  <Box mb={2} />
+                  <Box mb={2} />                  
+                  {saleItem.category === 'running shoes' ? (
+                      <ShoeSelector />
+                    ) : (
+                      <ClothesSelector />
+                  )}
                   <Button
                     variant="contained"
                     onClick={() => handleAddToBasket(saleItem)}
                   >
                     Buy
                   </Button>
-                  {saleItem.category === 'running shoes' ? (
-                      <ShoeSelector />
-                    ) : (
-                      <ClothesSelector />
-                    )} 
                 </Paper>
               </Grid>
             ))}

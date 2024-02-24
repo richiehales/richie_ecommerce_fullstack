@@ -13,7 +13,7 @@ export default function ShoeSelector() {
 
   return (
     <div>
-      <FormControl sx={{ mt: 1.5, minWidth: 80 }} size="small">
+      <FormControl sx={{ mb: 1, minWidth: 80 }} size="small">
         <InputLabel id="demo-simple-select-autowidth-label">Size</InputLabel>
         <Select
           labelId="demo-simple-select-autowidth-label"

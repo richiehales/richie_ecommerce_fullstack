@@ -131,17 +131,17 @@ export function Home() {
             </Typography>
             <Typography color="textSecondary">
               {`Price: £${item.price}`}
-            </Typography>
-            <Button 
-              variant="contained"  
-              onClick={() => handleAddToBasket(item)}>
-                Buy
-            </Button>
+            </Typography>            
             {item.category === 'running shoes' ? (
               <ShoeSelector />
             ) : (
               <ClothesSelector />
-            )}            
+            )}
+            <Button 
+              variant="contained"  
+              onClick={() => handleAddToBasket(item)}>
+                Buy
+            </Button>            
           </CardContent>
         </Card>
       </Grid>
