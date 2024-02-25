@@ -38,6 +38,7 @@ export default function Sale() {
   const authenticated = useSelector((state) => state.currentUser.authenticated);
   const webToken = useSelector((state) => state.currentUser.webToken);
   const products = useSelector((state) => state.product.products);
+  const productSizes = useSelector((state) => state.size.productSizes)
   const randomSaleItem = Math.floor(Math.random() * 20);
 
 
@@ -71,7 +72,9 @@ export default function Sale() {
     const userId = currentUser.id;
     const productId = product.id;
     const quantity = 1; 
-    
+    const productExistsInBasket = basketList.find((item) => item.id === product.id);
+    const existingProductIndex = productSizes.findIndex(entry => entry.productId === productId);
+
 
     if (!authenticated) {
       dispatch(setNotificationType('warning'))
@@ -82,7 +85,17 @@ export default function Sale() {
       return;
     }
 
-    const productExistsInBasket = basketList.find((item) => item.id === product.id);
+    
+    if (existingProductIndex === -1) {
+      dispatch(setNotificationType('warning'))
+      dispatch(setNotificationVertical('top'))
+      dispatch(setNotificationHorizontal('center')) 
+      dispatch(setNotificationMessage('Select Size'))
+      dispatch(setNotificationDisplay(true))
+      return;
+    }
+
+
   
     if (!productExistsInBasket) {
       // Dispatch the action to add the product to the basket
