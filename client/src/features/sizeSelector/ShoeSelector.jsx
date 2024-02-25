@@ -4,12 +4,14 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { setProductSize } from './sizeSelectorSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
 export default function ShoeSelector({ productId }) {
-  const [shoeSize, setShoeSize] = React.useState('');
+  const productSizes = useSelector((state) => state.size.productSizes);
+  const selectedSize = productSizes.find((entry) => entry.productId === productId) 
+  const [shoeSize, setShoeSize] = React.useState(selectedSize ? selectedSize.size : '');
   const dispatch = useDispatch();
   
 

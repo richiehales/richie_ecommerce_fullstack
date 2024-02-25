@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import ShoeSelector from '../sizeSelector/ShoeSelector';
+import ClothesSelector from '../sizeSelector/ClothesSelector';
 import { fetchBasketData, deleteProductFromBasket } from './getBasket'
 import { setNotificationType, 
   setNotificationMessage, 
@@ -88,10 +90,23 @@ export function Basket() {
           <List disablePadding>
             {basketList && basketList.map((product, index) => (              
               <ListItem key={index} sx={{ py: 1, px: 0 }}>
-                <ListItemText primary={product.name} secondary={product.description} />               
+                <ListItemText 
+                  primary={product.name}
+                  secondary={
+                    <React.Fragment>
+                      <Typography variant="body2" color="textSecondary">
+                        {product.description}
+                      </Typography>
+                      {product.category === 'running shoes' ? (
+                        <ShoeSelector productId={product.id} />
+                        ) : (
+                          <ClothesSelector productId={product.id} />
+                      )}
+                    </React.Fragment>
+                  } />               
                 <Typography variant="body2">
                   {saleItem[0].id === product.id ? `£${(saleItem[0].price/2).toFixed(2)}` : `£${product.price}`}
-                </Typography>
+                </Typography>                
                 <IconButton
                   edge="end"
                   aria-label="delete"
