@@ -11,13 +11,14 @@ import { useDispatch } from 'react-redux';
 export default function ShoeSelector({ productId }) {
   const [shoeSize, setShoeSize] = React.useState('');
   const dispatch = useDispatch();
+  
 
   const handleChange = (event) => {
     setShoeSize(event.target.value);
     const size = event.target.value;
-    console.log({ productId, size })
     dispatch(setProductSize({ productId, size }));
   };
+
 
   return (
     <div>

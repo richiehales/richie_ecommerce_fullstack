@@ -16,7 +16,6 @@ export default function ClothesSelector({ productId }) {
   const handleChange = (event) => {
     setClothesSize(event.target.value);
     const size = event.target.value;
-    console.log({ productId, size })
     dispatch(setProductSize({ productId, size }));
   };
 
