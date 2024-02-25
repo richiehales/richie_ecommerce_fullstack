@@ -30,6 +30,7 @@ export function Home() {
   const basketList = useSelector((state) => state.basket.basketList);
   const currentUser = useSelector((state) => state.currentUser.currentUser);
   const authenticated = useSelector((state) => state.currentUser.authenticated);
+  const productSizes = useSelector((state) => state.size.productSizes)  
   const webToken = useSelector((state) => state.currentUser.webToken);
   const theme = useTheme();
   const navigate = useNavigate();
@@ -52,7 +53,10 @@ export function Home() {
   const handleAddToBasket = (product) => {
     const userId = currentUser.id;
     const productId = product.id;
-    const quantity = 1; 
+    const quantity = 1;
+    const existingProductIndex = productSizes.findIndex(entry => entry.productId === productId);
+    const productExistsInBasket = basketList.find((item) => item.id === product.id);
+
 
     if (!authenticated) {
       dispatch(setNotificationType('warning'))
@@ -63,7 +67,17 @@ export function Home() {
       return;
     }
 
-    const productExistsInBasket = basketList.find((item) => item.id === product.id);
+
+    if (existingProductIndex === -1) {
+      dispatch(setNotificationType('warning'))
+      dispatch(setNotificationVertical('top'))
+      dispatch(setNotificationHorizontal('center')) 
+      dispatch(setNotificationMessage('Select Size'))
+      dispatch(setNotificationDisplay(true))
+      return;
+    }
+
+    
   
     if (!productExistsInBasket) {
       dispatch(addProductToBasket(userId, productId, quantity, webToken))
