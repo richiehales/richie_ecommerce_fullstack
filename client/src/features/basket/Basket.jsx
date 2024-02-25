@@ -44,6 +44,7 @@ export function Basket() {
   
     dispatch(deleteProductFromBasket(userId, productId))
       .then((deletedProduct) => {
+        dispatch(setNotificationDisplay(false));
         dispatch(setNotificationType('success'))
         dispatch(setNotificationVertical('top'))
         dispatch(setNotificationHorizontal('right')) 

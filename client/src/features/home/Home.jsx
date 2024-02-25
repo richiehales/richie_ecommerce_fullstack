@@ -24,6 +24,7 @@ import imagePaths from '../images/imagePaths';
 import { useTheme } from '@mui/material/styles';
 import Sale from '../sale/Sale';
 
+
 export function Home() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
@@ -41,14 +42,17 @@ export function Home() {
     height: '100%', // Ensures all cards have the same height
   };
 
+
   useEffect(() => {
     dispatch(fetchProductsData());
   }, [dispatch]);
+
 
   useEffect(() => {
     const userId = currentUser.id
     dispatch(fetchBasketData(userId));
   }, [dispatch, currentUser.id]);
+
 
   const handleAddToBasket = (product) => {
     const userId = currentUser.id;
@@ -115,8 +119,6 @@ export function Home() {
       dispatch(setNotificationDisplay(true));
     }, 250);
   };
-
-  
 
 
   const imageSize = {
