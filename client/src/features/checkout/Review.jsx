@@ -1,5 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import ShoeSelector from '../sizeSelector/ShoeSelector';
+import ClothesSelector from '../sizeSelector/ClothesSelector';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -13,7 +15,7 @@ export default function Review() {
   const addresses = [shippingAddress.address1, shippingAddress.city, shippingAddress.zip];
   const saleItem = useSelector((state) => state.sale.saleItems);
 
-  const shippingItem = { name: 'Shipping', description: '3-5 days', price: '£5.99' };
+  const shippingItem = { name: 'Shipping', description: '3-5 days', price: '5.99' };
   const updatedBasketList = [...basketList, shippingItem];
 
   const payments = [
@@ -51,9 +53,26 @@ export default function Review() {
       <List disablePadding>
         {updatedBasketList.map((product) => (
           <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
-            <ListItemText primary={product.name} secondary={product.description} />
+            <ListItemText 
+              primary={product.name}
+              secondary={
+                <React.Fragment>
+                  <Typography variant="body2" color="textSecondary">
+                    {product.description}
+                  </Typography>
+                  {product.name !== 'Shipping' && (
+                    <>
+                      {product.category === 'running shoes' ? (
+                        <ShoeSelector productId={product.id} />
+                      ) : (
+                        <ClothesSelector productId={product.id} />
+                      )}
+                    </>
+                  )}
+                </React.Fragment>
+              } /> 
             <Typography variant="body2">
-            {saleItem[0].id === product.id ? `£${(saleItem[0].price/2).toFixed(2)}` : `£${product.price}`}
+            {saleItem[0].id === product.id ? `£${(saleItem[0].price/2).toFixed(2)}` : `$${product.price}`}
             </Typography>
           </ListItem>
         ))}
