@@ -72,7 +72,7 @@ export default function Review() {
                 </React.Fragment>
               } /> 
             <Typography variant="body2">
-            {saleItem[0].id === product.id ? `£${(saleItem[0].price/2).toFixed(2)}` : `$${product.price}`}
+            {saleItem[0].id === product.id ? `£${(saleItem[0].price/2).toFixed(2)}` : `£${product.price}`}
             </Typography>
           </ListItem>
         ))}
